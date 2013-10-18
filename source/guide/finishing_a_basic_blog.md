@@ -1,4 +1,4 @@
-ck! In the [previous article](http://reinteractive.net/posts/32-ruby-on-rails-3-2-blog-in-15-minutes-step-by-step) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive in.
+In the [previous article](/guide/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive in.
 
 ## Preparation for our coding session
 
@@ -449,4 +449,4 @@ A) *You can use a gem like [Devise](https://github.com/plataformatec/devise) to 
 
 ## Next Steps
 
-Up next is a guide on testing your 15 minute blog. Click [here](http://reinteractive.net/posts/42) to check it out and continue your Rails adventure.
+Up next is a guide on testing your 15 minute blog. Click [here](/guide/testing_the_blog) to check it out and continue your Rails adventure.

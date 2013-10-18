@@ -361,4 +361,4 @@ The `detached` option runs the command in the background. It is there only to en
 
 Finally you should be able to browse to the URL that Heroku has given you and check to see that your blog has been deployed properly!
 
-Welcome to Ruby on Rails. If you're this far along you should definitely [head on over to Part 2](http://reinteractive.net/posts/34) which goes more in depth with Rails and begins to add more features to the blogging engine.
+Welcome to Ruby on Rails. If you're this far along you should definitely [head on over to Part 2](/guide/finishing_a_basic_blog) which goes more in depth with Rails and begins to add more features to the blogging engine.

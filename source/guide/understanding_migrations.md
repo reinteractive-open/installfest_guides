@@ -1,4 +1,4 @@
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](http://reinteractive.net/posts/32). Today we'll be following directly on from [Part 4](http://reinteractive.net/posts/43). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
+Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guide/getting_started). Today we'll be following directly on from [Part 4](/guide/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
 In this installment we'll be learning more about how to manage your database structure through migrations. 
 
@@ -6,7 +6,7 @@ The first feature we're going to work on is the ability for Posts to have a publ
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](http://reinteractive.net/posts/32) and have completed [http://reinteractive.net/posts/42](http://reinteractive.net/posts/43). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
+You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guide/getting_started) and have completed [http://reinteractive.net/posts/42](/guide/admin_and_markdown). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
 
 [https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author) which you can download to your computer [here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/before_published_and_author.zip).
 
@@ -19,7 +19,7 @@ git add .
 git commit -m "Restarting the 15 minute blog"
 ```
 
-You'll need to refer to this post if you want to [get it setup](http://reinteractive.net/posts/32-ruby-on-rails-3-2-blog-in-15-minutes-step-by-step) on Heroku.
+You'll need to refer to this post if you want to [get it setup](/guide/getting_started) on Heroku.
 
 Lets dive into writing these new features.
 
@@ -538,7 +538,7 @@ In this article we implemented two features both of which required a database mi
 
 ## Next Steps
 
-The next post in the series is available [here](http://reinteractive.net/posts/50-assets-and-errors-in-your-rails-15-minute-blog-part-6). You'll be learning about the Asset Pipeline, Static pages and Custom error pages. If you want to learn more about reInteractive's training services you can:
+The next post in the series is available [here](/guide/assets_and_errors). You'll be learning about the Asset Pipeline, Static pages and Custom error pages. If you want to learn more about reInteractive's training services you can:
 
 #### Sign up to our Training mailing list.
 
