@@ -1,3 +1,8 @@
+---
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guide/getting_started.md
+---
+
+# Getting Started
 ## Preparation
 
 #### Prerequisites

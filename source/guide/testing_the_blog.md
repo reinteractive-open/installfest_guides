@@ -1,3 +1,8 @@
+---
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guide/testing_the_blog.md
+---
+
+# Testing the Blog with RSpec
 Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guide/getting_started). Today we'll be following directly on from [Part 2](/guide/finishing_a_basic_blog). If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
 
 ## Introduction to Automated Testing

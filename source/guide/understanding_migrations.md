@@ -1,3 +1,8 @@
+---
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guide/understanding_migrations.md
+---
+
+# Understanding Migrations
 Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guide/getting_started). Today we'll be following directly on from [Part 4](/guide/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
 In this installment we'll be learning more about how to manage your database structure through migrations. 

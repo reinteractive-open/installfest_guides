@@ -1,3 +1,9 @@
+---
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guide/admin_and_markdown.md
+---
+
+# Admin and Markdown
+
 ## Adding ActiveAdmin and Markdown support to Rails
 
 Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guide/getting_started). Today we'll be following directly on from [Part 3](/guide/testing_the_blog). If you feel confident with Rails but want to learn more about ActiveAdmin and/or Markdown you can find some instructions on getting the code set up properly below.

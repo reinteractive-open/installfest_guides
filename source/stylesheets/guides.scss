@@ -22,3 +22,19 @@ article.guide {
   @include span-columns(8);
 }
 
+pre, code {
+  border-radius: 3px;
+  background-color: #f8f8f8;
+  border: 1px solid #ddd
+}
+pre {
+  padding: 6px 10px;
+}
+code {
+  display: inline-block;
+  padding: 3px;
+}
+
+.fixed {
+  position: fixed;
+}
