@@ -10,7 +10,7 @@
 
 @import 'basic_app';
 
-nav {
+aside {
   @include span-columns(2);
   ul {
     margin: 0;

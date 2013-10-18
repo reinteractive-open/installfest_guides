@@ -19,17 +19,17 @@
       <%= image_tag 'install_fest_logo.png', :class => 'logo', :width => '500px' %>
     </header>
     <article class="main">
-      <nav>
+      <aside>
         <h3>Guides</h3>
         <ul>
           <li><%= link_to 'Getting Started',              '/guides/getting_started' %></li>
-          <li><%= link_to 'Finished a Basic Blog',        '/guides/getting_started' %></li>
-          <li><%= link_to 'Testing the Blog',             '/guides/getting_started' %></li>
-          <li><%= link_to 'Admin and Markdown',           '/guides/getting_started' %></li>
-          <li><%= link_to 'Understanding Rails Migrations',  '/guides/getting_started' %></li>
-          <li><%= link_to 'Assets and Errors',            '/guides/getting_started' %></li>
+          <li><%= link_to 'Finishing a Basic Blog',        '/guides/finishing_a_basic_blog' %></li>
+          <li><%= link_to 'Testing the Blog',             '/guides/testing_the_blog' %></li>
+          <li><%= link_to 'Admin and Markdown',           '/guides/admin_and_markdown' %></li>
+          <li><%= link_to 'Understanding Rails Migrations',  '/guides/understanding_migrations' %></li>
+          <li><%= link_to 'Assets and Errors',            '/guides/assets_and_errors' %></li>
         </ul>
-      </nav>
+      </aside>
       <article class="guide">
         <%= yield %>
       </article>
