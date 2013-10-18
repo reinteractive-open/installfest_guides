@@ -1,5 +1,5 @@
 # Page config
-page "/guides/*", :layout => "guides"
+page "/guide/*", :layout => "guides"
 
 # Env Setup
 set :css_dir, 'stylesheets'
