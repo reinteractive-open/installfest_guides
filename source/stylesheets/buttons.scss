@@ -1,0 +1,11 @@
+.button {
+  @include button(simple, lighten(green, 20%));
+}
+.secondary {
+  @include button(simple, lighten(gray, 10%));
+}
+.button {
+  padding: 1.5em;
+  margin-bottom: 2em;
+}
+
