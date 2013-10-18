@@ -43,10 +43,14 @@ header {
   }
 }
 
+li {
+  line-height: 1.4em;
+}
+
 p {
   margin: 0;
   padding: 0;
-
+  line-height: 1.4em;
   margin-bottom: 1em;
 }
 
@@ -81,7 +85,7 @@ div#content {
 }
 
 #reinteractive {
-  background: image-url('bg-circles.png') repeat center top;
+  background: image-url('bg-circles.png') repeat center fixed;
   background-size: 600px 600px;
   background-color: lighten(#9a2704, 10%);
   text-align: center;
