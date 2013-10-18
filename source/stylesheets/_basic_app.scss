@@ -1,5 +1,7 @@
 body {
   font-family: $helvetica;
+  font-weight: 300;
+  color: darken(black, 85%);
 }
 
 header, #subheading {
@@ -11,8 +13,8 @@ header {
 }
 
 #subheading {
-  background-color: lighten(red, 30%);
-  margin-bottom: 1em;
+  background: image-url('install_fest_people.jpg') no-repeat center fixed;
+  background-size: cover;
   h2 {
     color: white;
     font-size: 3.5em;
@@ -22,7 +24,7 @@ header {
     max-width: 980px;
     padding: 50px 0;
     text-align: center;
-    text-shadow: 0px 2px 2px lighten(red, 20%);
+    text-shadow: 0px 2px 2px lighten(black, 20%);
   }
   h3 {
     display: inline-block;
@@ -38,12 +40,77 @@ header {
   }
 }
 
+p {
+  margin: 0;
+  padding: 0;
+
+  margin-bottom: 1em;
+}
+
 section {
   @include outer-container;
-  aside { @include span-columns(3); }
-  article { @include span-columns(9); }
+  aside {
+    @include span-columns(3);
+    text-align: right;
+    font-weight: bold;
+  }
+  article {
+    @include span-columns(9);
+    padding-left: 1.5em;
+    border-left: 1px solid darken(white, 30%);
+  }
+
+  &.info {
+    margin-bottom: 1.5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
 
 article.main {
   @include outer-container;
+}
+
+div#content {
+  background-color: #f4f4f4;
+  padding: 1.5em 0;
+}
+
+#reinteractive {
+  background: image-url('bg-circles.png') repeat center top;
+  background-size: 600px 600px;
+  background-color: lighten(#9a2704, 10%);
+  text-align: center;
+  color: #f4f4f4;
+  text-shadow: 0px 2px 2px lighten(black, 20%);
+  img {
+    vertical-align: middle;
+  }
+}
+
+#footer-links {
+  background-color: lighten(black, 15%);
+  a {
+    display: inline-block;
+    margin-right: 3em;
+    &:last-child {
+      margin-right: 0;
+    }
+    color: #f4f4f4;
+    text-decoration: none;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+footer {
+  section {
+    padding: 2.5em 0;
+    text-align: center;
+  }
+  h2 {
+    margin-top: 0;
+  }
 }
