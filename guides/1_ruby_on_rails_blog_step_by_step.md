@@ -43,9 +43,9 @@ You'll be presented with something that looks like:
 
 ![Scaffolding posts](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/scaffolding_posts.png)
 
-An important file that was generated was the migration file: `db/migrate/20130422001725_create_posts.rb` Note that you will have a different set of numbers for in yours. 
+An important file that was generated was the migration file: `db/migrate/20130422001725_create_posts.rb` Note that you will have a different set of numbers for in yours.
 
-<code lang="ruby">
+```ruby
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
@@ -56,7 +56,7 @@ class CreatePosts < ActiveRecord::Migration
     end
   end
 end
-</code>
+```
 
 This file is some Ruby code that is a database agnostic way to manage your schema. You can see that this code is to create a table called `Posts` and to create two columns in this table, a title column and a body column. Finally we need to instruct Rails to apply this to our database. Type:
 
@@ -72,17 +72,19 @@ From here you can play around with your application. Go ahead and create a new b
 
 You'll notice you can create new posts, edit or delete them. We're going to add in some functionality to our new Rails app which enforces a rule that every post must have a title. Open `app/models/post.rb` and add the line:
 
-<code lang="ruby">validates_presence_of :body, :title</code>
+```ruby
+validates_presence_of :body, :title
+```
 
 To the code. Your `post.rb` file should look like:
 
-<code lang="ruby">
+```ruby
 class Post < ActiveRecord::Base
   attr_accessible :body, :title
 
   validates_presence_of :body, :title
 end
-</code>
+```
 
 We can check that this works by editing our blog post, deleting the title and clicking `Update Post`. You'll get an error informing you that you've just attempted to break the rule you just inserted:
 
@@ -92,7 +94,7 @@ We can check that this works by editing our blog post, deleting the title and cl
 
 Right now our [show post page](http://localhost:3000/posts/1) isn't looking very good. We'll open `app/views/posts/show.html.erb` and make it look like the following:
 
-<code lang="erb">
+```erb
  <p id="notice"><%= notice %></p>
 
  <h2><%= link_to_unless_current @post.title, @post %></h2>
@@ -100,78 +102,78 @@ Right now our [show post page](http://localhost:3000/posts/1) isn't looking very
 
  <%= link_to 'Edit', edit_post_path(@post) %> |
  <%= link_to 'Back', posts_path %>
-</code>
+```
 
 At this point you can refresh the show post page in your browser to see the changes you've made.
 
 We'll also want to make our blog listing prettier too, we'll use a Rails partial (a partial is simply a reusuable block of HTML code. It's part of a web page) to achieve this. We want our listing and the individual blog pages to look the same so first we'll create a file: `app/views/posts/_post.html.erb` The underscore in front of the filename here tells Rails that this is a partial. We'll take
 
-<code lang="erb">
+```erb
  <h2><%= link_to_unless_current @post.title, @post %></h2>
  <%= simple_format @post.body %>
-</code>
+```
 
 Out of `app/views/posts/show.html.erb` and put it in our `_post.html.erb` file. After that change all the `@post` to be `post` instead. This means your `_post.html.erb` file will be:
 
-<code lang="erb">
+```erb
  <h2><%= link_to_unless_current post.title, post %></h2>
  <%= simple_format post.body %>
-</code>
+```
 
 In our `show.html.erb` file we want insert the code to put our partial into our show view. Insert the code: `<%= render :partial => @post %>` to make it look like:
 
 
-<code lang="erb">
+```erb
  <p id="notice"><%= notice %></p>
 
  <%= render :partial => @post %>
 
  <%= link_to 'Edit', edit_post_path(@post) %> |
  <%= link_to 'Back', posts_path %>
-</code>
+```
 
 Save all these files and refresh [the show posts page](http://localhost:3000/posts/1). This is to check that you haven't broken anything with those changes.
 
 Our index page still hasn't changed though so we're going to open the `index.html.erb` file up and remove the table in there and replace it with the partial again so we're re-using that code:
 
-<code lang="erb">
+```erb
  <h1>Listing posts</h1>
 
  <%= render :partial => @posts %>
 
  <%= link_to 'New Post', new_post_path %>
-</code>
+```
 
 
 ## Access control
 
 One huge problem with our blog is that anyone can create, edit and delete blog posts. Lets fix that. We'll use HTTP Basic authenticate to put a password on actions we don't want everyone accessing. Open `app/controllers/posts_controller.rb` and add `before_filter :authenticate, :except => [ :index, :show ]` on line 2 just below the class declaration. At the bottom of your file put the following code:
 
-<code lang="ruby">
+```ruby
   private
   def authenticate
     authenticate_or_request_with_http_basic do |name, password|
       name == "admin" && password == "secret"
     end
   end
-</code>
+```
 
 Overall your `posts_controller.rb` should have the following code at the top and the bottom of the file. Note that all the methods are exlcuded here for brevity.
 
-<code lang="ruby">
+```ruby
 class PostsController < ApplicationController
   before_filter :authenticate, :except => [ :index, :show ]
-  
+
   // … all your actions go in here
-  
+
   private
   def authenticate
     authenticate_or_request_with_http_basic do |name, password|
       name == "admin" && password == "secret"
     end
   end
-end  
-</code>
+end
+```
 
 With that code in place you can try to [add a new post](http://localhost:3000/posts/new) and you'll be prompted to enter a username and password.
 
@@ -190,7 +192,7 @@ Then you'll want to update your database here to reflect the schema change you'v
 
 After this you'll need to inform Rails that your Posts will potentially have many Comments. Open `app/models/post.rb` and add the line: `has_many :comments` somewhere inside the class. This should look like:
 
-<code lang="ruby">
+```ruby
 class Post < ActiveRecord::Base
   attr_accessible :body, :title
 
@@ -198,11 +200,11 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :body, :title
 end
-</code>
+```
 
 The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rake routes` in your command prompt. If you do this now you'll get something like the following:
 
-<code lang="ruby">
+```ruby
     comments GET    /comments(.:format)          comments#index
              POST   /comments(.:format)          comments#create
  new_comment GET    /comments/new(.:format)      comments#new
@@ -217,11 +219,11 @@ edit_comment GET    /comments/:id/edit(.:format) comments#edit
         post GET    /posts/:id(.:format)         posts#show
              PUT    /posts/:id(.:format)         posts#update
              DELETE /posts/:id(.:format)         posts#destroy
-</code>
+```
 
 Your URLs (or routes) are configured in all Rails applications in a file `config/routes.rb`, open it now and remove the line `resources :comments`. Re-run `rake routes` and you'll notice that all the URLs for comments have disappeared. Update your `routes.rb` file to look like the following:
 
-<code lang="ruby">
+```ruby
 QuickBlog::Application.routes.draw do
   resources :posts do
     resources :comments, :only => [:create]
@@ -229,19 +231,19 @@ QuickBlog::Application.routes.draw do
 
   # root :to => 'welcome#index'
 end
-</code>
+```
 
 Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments. When you rerun `rake routes` now you'll see the following line:
 
-<code lang="ruby">
+```ruby
 post_comments POST   /posts/:post_id/comments(.:format) comments#create
-</code>
+```
 
 Before we're finished with the backend for our commenting system we need to write the action that will create our comments. For more information on actions please read the Rails Guide on [ActionController](http://guides.rubyonrails.org/action_controller_overview.html).
 
 Open `app/controllers/comments_controller.rb` and and make your code look like the following:
 
-<code lang="ruby">
+```ruby
 class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
@@ -249,13 +251,13 @@ class CommentsController < ApplicationController
     redirect_to @post
   end
 end
-</code>
+```
 
 #### Putting comments into your HTML view
 
 You've creating the database model for your comments, migrated your database, informed Rails of the relationship between comments and posts, configured a URL that lets you create your comments and created the controller action that will create the comments. Now you need to display any comments that have been submitted for a post, and allow users to submit comments. Open `app/views/posts/show.html.erb` and make it look like:
 
-<code lang="erb">
+```erb
  <p id="notice"><%= notice %></p>
 
  <%= render :partial => @post %>
@@ -267,11 +269,11 @@ You've creating the database model for your comments, migrated your database, in
  <div id="comments">
   <%= render :partial => @post.comments %>
  </div>
-</code>
+```
 
 You'll now need to create a file called `app/views/comments/_comment.html.erb` with the following contents:
 
-<code lang="erb">
+```erb
 <%= div_for comment do %>
   <p>
     <strong>
@@ -281,11 +283,11 @@ You'll now need to create a file called `app/views/comments/_comment.html.erb` w
     <%= comment.body %>
   </p>
 <% end %>
-</code>
+```
 
 Back in `app/views/posts/show.html.erb` you need to add in the form for submitting a comment so add the following code to the bottom of that file.
 
-<code lang="erb">
+```erb
 <%= form_for [@post, Comment.new] do |f| %>
   <p>
     <%= f.label :body, "New comment" %><br/>
@@ -293,7 +295,7 @@ Back in `app/views/posts/show.html.erb` you need to add in the form for submitti
   </p>
   <p><%= f.submit "Add comment" %></p>
 <% end %>
-</code>
+```
 
 Comments are now working (if they aren't make sure you restart your `rails server`) so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
 
@@ -305,7 +307,7 @@ Heroku is a fantastically simple service that can be used to host Ruby on Rails 
 
 Up until this point we've been using SQLite as our database, but unfortunately Heroku doesn't support the use of SQLite. So we're going to be running Postgres instead. Setting this up is easy you'll need to open the `Gemfile` and make your `Gemfile` look like:
 
-<code lang="ruby">
+```ruby
 source 'https://rubygems.org'
 
 gem 'rails', '3.2.12'
@@ -326,7 +328,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
-</code>
+```
 
 After this run the command `bundle install --without=production` on your command line.
 
@@ -334,11 +336,11 @@ After this run the command `bundle install --without=production` on your command
 
 Heroku also requires that every application is placed under version control before it is deployed. Simply run the following commands on the command prompt to make sure your application is properly controlled:
 
-<code lang="ruby">
+```ruby
 git init
 git add .
 git commit -m "initial blog commit"
-</code>
+```
 
 ### Deploying your application
 
@@ -354,7 +356,7 @@ Finally we setup our database:
 
 `heroku run:detached rake db:setup`
 
-This setup should only need to take place the first time you deploy to heroku. Afterwards you may need to run `db:migrate` instead.  
+This setup should only need to take place the first time you deploy to heroku. Afterwards you may need to run `db:migrate` instead.
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
 Finally you should be able to browse to the URL that Heroku has given you and check to see that your blog has been deployed properly!
