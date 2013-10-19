@@ -1,12 +1,12 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guide/admin_and_markdown.md
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/admin_and_markdown.md
 ---
 
 # Admin and Markdown
 
 ## Adding ActiveAdmin and Markdown support to Rails
 
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guide/getting_started). Today we'll be following directly on from [Part 3](/guide/testing_the_blog). If you feel confident with Rails but want to learn more about ActiveAdmin and/or Markdown you can find some instructions on getting the code set up properly below.
+Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest/getting_started). Today we'll be following directly on from [Part 3](/guides/installfest/testing_the_blog). If you feel confident with Rails but want to learn more about ActiveAdmin and/or Markdown you can find some instructions on getting the code set up properly below.
 
 ## Installing an Administration System
 
@@ -14,7 +14,7 @@ One of the big problems with our blog is that we're using HTTP Basic Authenticat
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guide/getting_started) and have completed [http://reinteractive.net/posts/42](/guide/testing_the_blog). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
+You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guides/installfest/getting_started) and have completed [http://reinteractive.net/posts/42](/guides/installfest/testing_the_blog). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
 
 [https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/admin_markdown_complete](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/admin_markdown_complete) which you can download to your computer [here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/admin_markdown_complete.zip).
 
@@ -27,7 +27,7 @@ git add .
 git commit -m "Restarting the 15 minute blog"
 ```
 
-You'll need to refer to this post if you want to [get it setup](/guide/getting_started) on Heroku.
+You'll need to refer to this post if you want to [get it setup](/guides/installfest/getting_started) on Heroku.
 
 Lets dive into installing ActiveAdmin.
 
@@ -458,7 +458,7 @@ git push heroku master
 
 ## Next Steps
 
-Up next we'll add features to your blog and learn more about Rails migrations. Click [here](/guide/understanding_migrations) to check it out and continue your Rails adventure.
+Up next we'll add features to your blog and learn more about Rails migrations. Click [here](/guides/installfest/understanding_migrations) to check it out and continue your Rails adventure.
 
 If you're interested in more training from reInteractive or just want to give us some feedback on this you can leave a comment below or:
 

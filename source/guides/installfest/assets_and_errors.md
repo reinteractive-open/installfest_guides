@@ -1,9 +1,9 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guide/assets_and_errors.md
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/assets_and_errors.md
 ---
 
 # Assets and Errors
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guide/getting_started). Today we'll be following directly on from [Part 5](/guide/understanding_migrations). If you feel confident with Rails and want to learn more about the asset pipeline, static pages and custom error pages then you can find setup instructions below.
+Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest/getting_started). Today we'll be following directly on from [Part 5](/guides/installfest/understanding_migrations). If you feel confident with Rails and want to learn more about the asset pipeline, static pages and custom error pages then you can find setup instructions below.
 
 In this article we'll be going through 3 separate topics that will round out a series of posts we've made on building a blog in Rails 3.2. Today we'll be looking at:
 
@@ -15,7 +15,7 @@ Each of these topics are fairly simple so if you're at this stage of the series 
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guide/getting_started) and have completed [http://reinteractive.net/posts/47](/guide/understanding_migrations). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
+You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guides/installfest/getting_started) and have completed [http://reinteractive.net/posts/47](/guides/installfest/understanding_migrations). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
 
 [https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/posts_author](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/posts_author) which you can download to your computer [here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/posts_author.zip).
 
@@ -28,7 +28,7 @@ git add .
 git commit -m "Restarting the 15 minute blog"
 ```
 
-You'll need to refer to this post if you want to [get it setup](/guide/getting_started) on Heroku.
+You'll need to refer to this post if you want to [get it setup](/guides/installfest/getting_started) on Heroku.
 
 Lets dive into writing these new features.
 
