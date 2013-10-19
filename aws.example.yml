@@ -1,0 +1,4 @@
+fog_directory: YOUR_BUCKET
+fog_region: YOUR_REGION
+aws_access_key_id: YOUR_ID
+aws_secret_access_key: YOUR_KEY

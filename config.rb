@@ -19,6 +19,20 @@ set :markdown, :fenced_code_blocks => true, :smartypants => true
 
 activate :rouge_syntax
 
+aws_creds = File.join(File.dirname(__FILE__), 'aws.yml')
+creds = YAML::load_file(aws_creds)
+
+activate :s3_sync do |s3_sync|
+  s3_sync.bucket                     = creds['fog_directory'] # The name of the S3 bucket you are targetting. This is globally unique.
+  s3_sync.region                     = creds['fog_region'] # The AWS region for your bucket.
+  s3_sync.aws_access_key_id          = creds['aws_access_key_id']
+  s3_sync.aws_secret_access_key      = creds['aws_secret_access_key']
+  s3_sync.delete                     = true # We delete stray files by default.
+  s3_sync.after_build                = false # We chain after the build step by default. This may not be your desired behavior...
+  s3_sync.prefer_gzip                = true
+  s3_sync.reduced_redundancy_storage = false
+end
+
 # Build-specific configuration
 configure :build do
   # For example, change the Compass output style for deployment

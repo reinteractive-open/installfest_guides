@@ -1,2 +1,4 @@
 .DS_Store
 .ruby-gemset
+aws.yml
+build/
