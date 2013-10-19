@@ -23,6 +23,7 @@ aside {
 }
 article.guide {
   @include span-columns(8);
+  height: 100%;
 }
 
 pre, code {
@@ -36,9 +37,4 @@ pre {
 code {
   display: inline-block;
   padding: 3px;
-}
-
-.fixed {
-  position: fixed;
-  @include span-columns(2);
 }
