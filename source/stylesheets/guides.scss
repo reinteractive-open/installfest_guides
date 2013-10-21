@@ -9,6 +9,9 @@
 a {
   color: #c92f27;
 }
+a:hover {
+  color: #e24038;
+}
 aside {
   @include span-columns(3);
   ul {
