@@ -7,12 +7,6 @@ body {
   font-weight: 400;
   color: #333;
 }
-h2 {
-  text-align: center;
-  font-size: 30px;
-  font-size: 1.875rem;
-  margin: 0 0 40px 0;
-}
 header, #subheading {
   text-align: center;
 }
@@ -80,6 +74,12 @@ section {
   article {
     @include span-columns(9);
     padding-left: 1.5em;
+  }
+  h2 {
+    text-align: center;
+    font-size: 30px;
+    font-size: 1.875rem;
+    margin: 0 0 40px 0;
   }
 }
 
