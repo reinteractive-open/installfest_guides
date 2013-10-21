@@ -1,17 +1,19 @@
 @import 'normalize';
-
 @import 'bourbon';
 @import 'grid_settings';
 @import 'neat';
-
 @import 'buttons';
-
 @import 'github';
-
 @import 'basic_app';
 
+a {
+  color: #c92f27;
+}
+a:hover {
+  color: #e24038;
+}
 aside {
-  @include span-columns(2);
+  @include span-columns(3);
   ul {
     margin: 0;
     padding: 0;
@@ -22,8 +24,11 @@ aside {
   }
 }
 article.guide {
-  @include span-columns(8);
+  @include span-columns(7);
   height: 100%;
+  h1:first-child {
+    margin-top: 0;
+  }
 }
 
 pre, code {
@@ -37,4 +42,26 @@ pre {
 code {
   display: inline-block;
   padding: 3px;
+}
+
+@media (max-width:768px) {
+  aside,
+  article.guide {
+    @include span-columns(10);
+  }
+  aside {
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 40px;
+  }
+}
+@media (max-width:1200px) {
+  body {
+    padding: 0 20px;
+  }
+  header, footer {
+    margin: 0 -20px;
+  }
+  article.guide h2 {
+    text-align: left;
+  }
 }

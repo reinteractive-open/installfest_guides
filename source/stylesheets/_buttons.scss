@@ -1,11 +1,18 @@
 .button {
-  @include button(simple, lighten(green, 20%));
+  display: inline-block;
+  padding: 1.3em 2em;
+  margin-bottom: 2em;
+  border-radius: 5px;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  background: #c92f27;
+  color: #ffa9a5;
+  text-decoration: none;
+}
+.button:hover {
+  background: #e24038;
+  color: #fff;
 }
 .secondary {
   @include button(simple, lighten(gray, 10%));
 }
-.button {
-  padding: 1.1em 1.8em;
-  margin-bottom: 2em;
-}
-
