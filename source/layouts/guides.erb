@@ -31,8 +31,10 @@
       </aside>
       <article class="guide">
         <%= yield %>
+        <%= partial 'comments' %>
       </article>
     </article>
+
     <%= partial 'footer' %>
     <%= partial 'tracking' %>
   </body>
