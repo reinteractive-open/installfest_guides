@@ -133,9 +133,9 @@ section.events {
   transition: all 0.3s ease;
   -moz-transition: all 0.3s ease;
   -webkit-transition: all 0.3s ease;
-  -ms-transition: all 0.3s ease; 
+  -ms-transition: all 0.3s ease;
   box-shadow: 0 2px 2px rgba(0,0,0,0.1);
-  -moz-box-shadow: 0 2px 2px rgba(0,0,0,0.1); 
+  -moz-box-shadow: 0 2px 2px rgba(0,0,0,0.1);
   -webkit-box-shadow: 0 2px 2px rgba(0,0,0,0.1);
   .back, .front {
     position: absolute;
@@ -259,7 +259,7 @@ section.testimonials {
       font-size: 16px;
       font-size: 1rem;
       margin-top: 24px;
-    }    
+    }
     i {
       color: #e24038;
       font-size: 40px;
@@ -294,6 +294,12 @@ footer {
     font-size: 1.25rem;
     margin: 0;
     text-align: center;
+  }
+  a {
+    color: #FFF;
+  }
+  a:hover {
+    color: #ffa9a5;
   }
   img {
     vertical-align: middle;
@@ -349,7 +355,7 @@ footer {
   }
   #subheading {
     padding: 20px 0;
-    h2 { 
+    h2 {
       font-size: 28px;
       font-size: 1.750rem;
       line-height: 1.5;
