@@ -7,6 +7,11 @@ This repository contains all the guides used in the InstallFest and also some st
 
 Spot an error? Had some issues following the guide? Raise an issue and we'll look into it. Alternatively submit a pull request and we'll get it merged ASAP.
 
+## Sponsorship
+
+The Ruby on Rails Installfest is a proud initiative from Australian Rails
+development firm [reInteractive](http://reinteractive.net/).
+
 ## License
 
 You're allowed to basically make use of the stuff here provided you give us some attribution. See the link below for a more legal specific description.
