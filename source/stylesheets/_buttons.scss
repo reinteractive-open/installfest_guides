@@ -16,3 +16,10 @@
 .secondary {
   @include button(simple, lighten(gray, 10%));
 }
+
+.button.more-testimonials {
+  display: block;
+  text-align: center;
+  max-width: 230px;
+  margin: 40px auto 0;
+}
