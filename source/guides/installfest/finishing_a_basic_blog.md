@@ -16,9 +16,9 @@ First we want to start our Rails server, so open two terminals and change to the
 
 Currently our site only shows the posts if you navigate to `/posts`.  This is all well and good, but if you go to the "root page" of the website at [http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails" page.
 
-Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immeidately when they come to our site, without having them navigate elsewhere.
+Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immediately when they come to our site, without having them navigate elsewhere.
 
-To set the root page of a Rails application first you need to delete the "Welcome to Rails" page that is located at `public/index.html`. 
+To set the root page of a Rails application, first you need to delete the "Welcome to Rails" page that is located at `public/index.html`.
 
 Once done, open `config/routes.rb` and add `root :to => 'posts#index'` to that file so it looks like:
 
