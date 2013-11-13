@@ -2,3 +2,4 @@
 .ruby-gemset
 aws.yml
 build/
+.powenv
