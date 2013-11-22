@@ -392,3 +392,23 @@ footer {
     text-align: left;
   }
 }
+
+.cheat-sheet {
+  border: 1px solid #eee;
+  margin-bottom: 40px;
+  th {
+    text-align: left;
+    background: #c92f27;
+    color: #ffa9a5;
+    margin-bottom: 20px;
+    border-right: 1px solid #da423a;
+  }
+  td {
+    color: #999;
+    border: 1px solid #eee;
+    border-width: 0 1px 1px 0;
+  }
+  td.command {
+    color: #444;
+  }
+}
