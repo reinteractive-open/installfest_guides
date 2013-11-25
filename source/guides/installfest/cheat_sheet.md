@@ -65,7 +65,7 @@
 	</tr>
 
 	<tr>
-		<td class="command">scaffold</td>
+		<td class="command">rails g scaffold</td>
 		<td>This generates the code for all the things you need for a new resource. This includes models, views and controllers (MVC). It also creates the ability to do these basic actions: create a new resources, edit a resource, show a resource and delete a resource.</td>
 		<td>
 			<p>
@@ -114,7 +114,7 @@
 			This command installs your new gems. When you add a new gem to your Gemfile you’ll need to run bundle install in your command line to install it.
 		</td>
 		<td>
-			<p>bundle install--without=production</p>
+			<p>bundle install --without production</p>
 			<p>This means don’t install production gems such as postgres.</p>
 		</td>
 	</tr>
