@@ -5,7 +5,7 @@ installation of Ruby and of Rails. Here's the basic outline:
 
 1. Setup a compiler
 2. Install [homebrew](http://brew.sh)
-3. Use homebrew to install ruby-install and chruby
+3. Use homebrew to install [ruby-install](https://github.com/postmodern/ruby-install) and [chruby](https://github.com/postmodern/chruby)
 4. Use ruby-install to install a new version of the Ruby programming language
 5. Use Ruby to install Rails
 
