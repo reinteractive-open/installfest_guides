@@ -54,7 +54,7 @@ Run all the the following step by step:
 
 1. First install openssl: `brew install openssl`
 2. Next install ruby-install: `brew install ruby-install`
-3. Now use ruby-install to install Ruby: `ruby-install ruby 2.9.0`
+3. Now use ruby-install to install Ruby: `ruby-install ruby 2.0.0`
 
 Installing Ruby may take a little while. Next we'll install and configure chruby:
 
