@@ -204,7 +204,7 @@ Our next job is to publicise the ATOM feed so that RSS readers (if they still ex
 </html>
 ```
 
-To test this you might like to temporarily install [this plugin to Google Chrome](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd?hl=en) and reload any page on your blog site. This layout file is used to wrap every view in your application so changes made to this file will affect every single page in your application. After you load up any page in your blog you should see an RSS icon in the URL bar. Clicking it will take your to your site's RSS feed.
+To test this you might like to temporarily install [this plugin to Google Chrome](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd?hl=en) and reload any page on your blog site. This layout file is used to wrap every view in your application so changes made to this file will affect every single page in your application. After you load up any page in your blog you should see an RSS icon in the URL bar. Clicking it will take you to your site's RSS feed.
 
 ![rss feed indicator](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/rss_feed_indicator.png)
 
