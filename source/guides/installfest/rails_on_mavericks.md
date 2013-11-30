@@ -17,10 +17,13 @@ In Mavericks this process has been streamlined by Apple fairly significantly.
 in the search window which appears.
 2. In the Terminal type: `xcode-select --install` or alternatively `gcc` and press enter. A popup will appear which will install the command-line compilation tools.
 3. You may receive a warning like: "_You have not agreed to the Xcode license agreements, please run 'xcodebuild -license'_". If so, simply run: `sudo xcodebuild -license` and enter your account password then follow the steps.
-4. Once that has finished try typing `gcc` into your terminal window. You should receive an error like:
+4. Once that has finished try typing `gcc -v` into your terminal window. You should see a message like:
 
 ```sh
-clang: error: no input files
+Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr
+Apple LLVM version 5.0 (clang-500.2.79) (based on LLVM 3.3svn)
+Target: x86_64-apple-darwin13.0.0
+Thread model: posix
 ```
 
 If so, congratulations you've installed the compilation tools. You can move onto the next section!
@@ -51,7 +54,7 @@ Run all the the following step by step:
 
 1. First install openssl: `brew install openssl`
 2. Next install ruby-install: `brew install ruby-install`
-3. Now use ruby-install to install Ruby: `ruby-install ruby 2.9.0`
+3. Now use ruby-install to install Ruby: `ruby-install ruby 2.0.0`
 
 Installing Ruby may take a little while. Next we'll install and configure chruby:
 
