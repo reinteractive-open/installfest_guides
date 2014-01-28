@@ -127,6 +127,6 @@ rails new quick_blog_again
 
 it will automatically use the latest version of Rails you have installed.
 
-Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest/getting_started)
+Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest4/getting_started)
 
 
