@@ -1,9 +1,9 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/finishing_a_basic_blog.md
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest4/finishing_a_basic_blog.md
 ---
 
 # Finishing a Basic Blog
-In the [previous article](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive in.
+In the [previous article](/guides/installfest4/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive in.
 
 ## Preparation for our coding session
 
@@ -18,9 +18,7 @@ Currently our site only shows the posts if you navigate to `/posts`.  This is al
 
 Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immediately when they come to our site, without having them navigate elsewhere.
 
-To set the root page of a Rails application, first you need to delete the "Welcome to Rails" page that is located at `public/index.html`.
-
-Once done, open `config/routes.rb` and add `root :to => 'posts#index'` to that file so it looks like:
+To set the root page of a Rails application, open `config/routes.rb` and add `root :to => 'posts#index'` to that file so it looks like:
 
 ```ruby
 QuickBlog::Application.routes.draw do
@@ -40,7 +38,6 @@ At this point you can commit all your changes using git by typing:
 
 ```ruby
 git add .
-git rm public/index.html
 git commit -m "setting a root page"
 ```
 
@@ -103,7 +100,7 @@ Let's fix that by making our create comment action aware of JavaScript AJAX requ
 ```ruby
   def create
     @post = Post.find(params[:post_id])
-    @comment = @post.comments.create!(params[:comment])
+    @comment = @post.comments.create!(comment_params)
     respond_to do |format|
       format.html { redirect_to @post }
       format.js
@@ -191,8 +188,8 @@ Our next job is to publicise the ATOM feed so that RSS readers (if they still ex
 <html>
 <head>
   <title>QuickBlog</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
 </head>
@@ -221,33 +218,36 @@ And then you can deploy to Heroku with `git push heroku master`. You'll be able 
 
 ## Giving your blog some style
 
-Up until this point we've really neglected the look and feel of your blog. It definitely feels a bit boring! We'll be making it look much nicer by using a UI library called [Foundation](http://foundation.zurb.com/). Foundation is similar to [Twitter Bootstrap](http://twitter.github.io/bootstrap/), but is slightly more compatible with Rails. Foundation is built using [Sass](http://sass-lang.com/) while Bootstrap is built using [Less](http://lesscss.org/). You can run Less in Rails, but it has some compatibility issues with Windows so today we'll be using Foundation.
+Up until this point we've really neglected the look and feel of your blog. It definitely feels a bit boring! We'll be making it look much nicer by using a UI library called [Foundation](http://foundation.zurb.com/). Foundation is similar to [Twitter Bootstrap](http://twitter.github.io/bootstrap/), but is a bit easier to integrate with Rails. Foundation is built using [Sass](http://sass-lang.com/) while Bootstrap is built using [Less](http://lesscss.org/). You can run Less in Rails, but it has some compatibility issues with Windows so today we'll be using Foundation.
 
 We'll be installing Foundation using the zurb-foundation gem by adding it to our Gemfile's asset group. The Gemfile is a file that sits at the top level of your application directory structure and lists all of the dependencies and libraries that your code uses. Update your Gemfile so it looks like:
 
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '4.0.0'
 
- # For gems only used in development
+gem 'sass-rails', '~> 4.0.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jbuilder', '~> 1.2'
+
+gem 'zurb-foundation', '~> 4.3.2'
+
 group :development, :test do
   gem 'sqlite3'
 end
 
 group :production do
   gem 'pg'
+  gem 'rails_12factor'
 end
 
-group :assets do
-  gem 'sass-rails',   '~> 3.2.3'
-  gem 'coffee-rails', '~> 3.2.1'
-  gem 'uglifier', '>= 1.0.3'
-
-  gem 'zurb-foundation', '~> 4.0.0'
+group :doc do
+  gem 'sdoc', require: false
 end
-
-gem 'jquery-rails'
 ```
 
 After you've saved that file, switch to your terminal and run: `bundle install --without=production`. We're going to skip installing the postgres gem in our development environment since it's likely your computer isn't set up to build it properly. Make sure at this point you also restart your Rails server, so switch to the command prompt where Rails is running press `Ctrl-C` and then restart it by typing `rails s`.
@@ -261,7 +261,7 @@ Overwrite /Users/artega/dev/reinteractive/quick_blog/app/views/layouts/applicati
 
 Press n and then enter to skip overwriting our `application.html.erb` layout file. By skipping this we do miss out on some of Foundation's responsive design features, but we've already added our RSS link to our layout file and allowing the install to overwrite our layout file would mean we'd lose that link. If you're comfortable putting the autodiscovery link tag back into the new layout file, rerun the foundation install and allow it to overwrite your layout.
 
-You'll also want to remove the scaffolding css file that Rails provided to you when you scaffolded the Posting functionality. To do that just delete `app/assets/stylesheets/scaffolds.css.scss`. Refreshing your browser or navigating to [http://localhost:3000](http://localhost:3000) at this point will show some changes to the UI of your blog.
+You'll also want to remove the scaffolding css file that Rails provided to you when you scaffolded the Posting functionality. To do that just delete `app/assets/stylesheets/scaffolds.css.scss`. Restarting the local server again and navigating to [http://localhost:3000](http://localhost:3000) at this point will show some changes to the UI of your blog.
 
 We're going to start off with two very quick things with Foundation. We'll give our content some whitespace so it's easier to read, and we'll change all our buttons so that they have a bit more style. First open your layout file `app/views/layouts/application.html.erb` and update it to look like:
 
@@ -270,8 +270,8 @@ We're going to start off with two very quick things with Foundation. We'll give 
   <html>
   <head>
     <title>QuickBlog</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
     <%= csrf_meta_tags %>
     <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
   </head>
@@ -314,7 +314,7 @@ Then we'll open `app/assets/stylesheets/application.css` and delete the line wit
  */
 ```
 
-Finally we'll open `app/assets/stylesheets/foundation_and_overrides.css.scss` and at the bottom of the file it should look like:
+Finally we'll open `app/assets/stylesheets/foundation_and_overrides.css.scss` and at the bottom of the file import the 'common' styles, so that it looks like this:
 
 ```ruby
 @import 'foundation';
@@ -398,18 +398,17 @@ These Header and Footer files contain some example HTML that will give you a sta
 <html>
 <head>
   <title>QuickBlog</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
   <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
 </head>
 <body>
   <%= render :partial => 'layouts/header' %>
 
-  <div id="main">
-    <%= yield %>
-  </div>
-
+<div id="main">
+  <%= yield %>
+</div>
   <%= render :partial => 'layouts/footer' %>
 </body>
 </html>
@@ -454,4 +453,4 @@ A) *You can use a gem like [Devise](https://github.com/plataformatec/devise) to 
 
 ## Next Steps
 
-Up next is a guide on testing your 15 minute blog. Click [here](/guides/installfest/testing_the_blog) to check it out and continue your Rails adventure.
+Up next is a guide on testing your 15 minute blog. Click [here](/guides/installfest4/testing_the_blog) to check it out and continue your Rails adventure.
