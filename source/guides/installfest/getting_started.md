@@ -118,7 +118,7 @@ We'll also want to make our blog listing prettier too, we'll use a Rails partial
  <%= simple_format @post.body %>
 ```
 
-Out of `app/views/posts/show.html.erb` and put it in our `_post.html.erb` file. After that, change all the `@post` to be `post` instead. This means your `_post.html.erb` file will be:
+Out of `app/views/posts/show.html.erb` and put it in our `_post.html.erb` file. After that, change all three mentions of `@post` to be `post` instead. This means your `_post.html.erb` file will be:
 
 ```erb
  <h2><%= link_to_unless_current post.title, post %></h2>
