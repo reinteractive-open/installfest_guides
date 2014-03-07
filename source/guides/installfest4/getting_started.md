@@ -341,6 +341,7 @@ group :assets do
 end
 
 gem 'jquery-rails'
+gem 'turbolinks'
 ```
 
 After this, run the command `bundle install --without=production` on your command line.
