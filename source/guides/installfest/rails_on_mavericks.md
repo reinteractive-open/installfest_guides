@@ -1,4 +1,4 @@
-# Getting starts on Mavericks
+# Getting started on Mavericks
 
 Unfortunately OS X Mavericks isn't supported by Rails Installer. This means we need to do a slightly more "professional"
 installation of Ruby and of Rails. Here's the basic outline:
@@ -128,5 +128,3 @@ rails new quick_blog_again
 it will automatically use the latest version of Rails you have installed.
 
 Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest/getting_started)
-
-

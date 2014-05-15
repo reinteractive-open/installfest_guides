@@ -53,7 +53,7 @@
 	 		</br>
 	 		or rails g (for short)
 	 	</td>
-	 	<td>This will generate templates of code that you need for your app to run. This saves you from having to write the all of the code yourself.</td>
+	 	<td>This will generate templates of code that you need for your app to run. This saves you from having to write all of the code yourself.</td>
 	 	<td>
 	 		<p>
 	 			Rails generate <i>scaffold</i> (or any generator type).
@@ -99,7 +99,7 @@
 			<p>Your database is updated overtime as you apply each migration. Eg. It started off with nothing in it, now it has a table with a title column and a body column. </p>
 			<p><i>rake routes </i></p>
 			<p>
-				The rake routes command will give you a list of all your defined routes. This can be used to find routing problems or give you an overview of the URLs in an your app.
+				The rake routes command will give you a list of all your defined routes. This can be used to find routing problems or give you an overview of the URLs in an app.
 			</p>
 		</td>
 	</tr>
