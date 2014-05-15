@@ -26,7 +26,7 @@ Entering this command into your command prompt will cause Rails to generate a ne
 
 To change into the folder where your application is stored. If you look at the contents of this folder you'll see:
 
-![The default Rails application structure](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/default_rails_structure.png)
+![The default Rails application structure](/images/guides/default_rails_structure.png)
 
 This is the standard structure of a new Rails application. Once you learn this structure it makes working with Rails easier since everything is in a standard place. Next we'll run this fresh application to check that our Rails install is working properly. Type:
 
@@ -46,7 +46,7 @@ Now we're ready to get started building an actual blog. In your command prompt p
 
 You'll be presented with something that looks like:
 
-![Scaffolding posts](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/scaffolding_posts.png)
+![Scaffolding posts](/images/guides/scaffolding_posts.png)
 
 An important file that was generated was the migration file: `db/migrate/20130422001725_create_posts.rb` Note that you will have a different set of numbers in yours.
 
@@ -69,11 +69,11 @@ This file is some Ruby code that is a database agnostic way to manage your schem
 
 Once this command has run you can start up your Rails server again with `rails server` and then navigate to [http://localhost:3000/posts](http://localhost:3000/posts) to see the changes you've made to your application.
 
-![Empty posts list](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/empty_posts_list.png)
+![Empty posts list](/images/guides/empty_posts_list.png)
 
 From here you can play around with your application. Go ahead and create a new blog post.
 
-![Creating a new post](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/filling_out_posts_form.png)
+![Creating a new post](/images/guides/filling_out_posts_form.png)
 
 You'll notice you can create new posts, edit or delete them. We're going to add in some functionality to our new Rails app which enforces a rule that every post must have a title. Open `app/models/post.rb` and add the line:
 
@@ -91,7 +91,7 @@ end
 
 We can check that this works by editing our blog post, deleting the title and clicking `Update Post`. You'll get an error informing you that you've just attempted to break the rule you just inserted:
 
-![Rails validation error](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/validation_errors.png)
+![Rails validation error](/images/guides/validation_errors.png)
 
 ## Making things prettier
 
@@ -183,7 +183,7 @@ end
 
 With that code in place you can try to [add a new post](http://localhost:3000/posts/new) and you'll be prompted to enter a username and password.
 
-![image](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/authentication_required.png)
+![image](/images/guides/authentication_required.png)
 
 ## Adding comments
 #### Creating a database model and routing

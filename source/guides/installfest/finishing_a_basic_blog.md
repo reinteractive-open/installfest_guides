@@ -9,7 +9,7 @@ In the [previous article](/guides/installfest/getting_started) you built a simpl
 
 First we want to start our Rails server, so open two terminals and change to the directory we're developing our app in. In one of our terminals start the Rails server with `rails s` (s is short for server). Next start Sublime Text and open the folder that your app is stored in. By doing this you get to see the directory structure of Rails in the sidebar so you'll be able to navigate around your project a little more easily.
 
-![image](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/sublime_folder.png)
+![image](/images/guides/sublime_folder.png)
 
 
 ## Setting the index/root page in Rails
@@ -156,7 +156,7 @@ Our first job is to get the same behaviour but render the posts in Atom format. 
 
 If you goto [http://localhost:3000/posts.atom](http://localhost:3000/posts.atom) you'll receive an error that the template is missing. 
 
-![template missing error](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/missing_template.png)
+![template missing error](/images/guides/missing_template.png)
 
 #### Building the Atom feed
 
@@ -206,7 +206,7 @@ Our next job is to publicise the ATOM feed so that RSS readers (if they still ex
 
 To test this you might like to temporarily install [this plugin to Google Chrome](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd?hl=en) and reload any page on your blog site. This layout file is used to wrap every view in your application so changes made to this file will affect every single page in your application. After you load up any page in your blog you should see an RSS icon in the URL bar. Clicking it will take you to your site's RSS feed.
 
-![rss feed indicator](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/rss_feed_indicator.png)
+![rss feed indicator](/images/guides/rss_feed_indicator.png)
 
 #### Deploying your changes
 
@@ -419,7 +419,7 @@ Refresh your browser or navigate to [http://localhost:3000](http://localhost:300
 
 If you've been entirely successful (and if you haven't feel free to ask for some help) then your blog should be looking something like this:
 
-![completed blog](http://reinteractive.net/assets/blog_images/rails-3-2-intro-blog/completed_blog.png)
+![completed blog](/images/guides/completed_blog.png)
 
 #### Deploying your changes
 
