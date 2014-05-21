@@ -315,7 +315,7 @@ Up until this point we've been using SQLite as our database, but unfortunately H
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.12'
+gem 'rails', '3.2.13'
 
 group :development, :test do
   gem 'sqlite3'
