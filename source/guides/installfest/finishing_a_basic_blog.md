@@ -228,7 +228,7 @@ We'll be installing Foundation using the zurb-foundation gem by adding it to our
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 3.2.12'
+gem 'rails', '3.2.13'
 
  # For gems only used in development
 group :development, :test do
