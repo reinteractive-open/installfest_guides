@@ -27,15 +27,16 @@ creds = YAML::load_file(aws_creds)
 
 activate :s3_sync do |s3_sync|
   s3_sync.bucket                     = creds['fog_directory'] # The name of the S3 bucket you are targetting. This is globally unique.
-  s3_sync.region    = creds['fog_region']
+  s3_sync.region                     = creds['fog_region']
   s3_sync.aws_access_key_id          = creds['aws_access_key_id']
   s3_sync.aws_secret_access_key      = creds['aws_secret_access_key']
-  # s3_sync.delete                     = true # We delete stray files by default.
+  s3_sync.delete                     = true # We delete stray files by default.
   s3_sync.after_build                = false # We chain after the build step by default. This may not be your desired behavior...
-  s3_sync.path_style = true
-  # s3_sync.verbose = true
-  # s3_sync.prefer_gzip                = true
-  # s3_sync.reduced_redundancy_storage = false
+  s3_sync.path_style                 = true
+  s3_sync.acl                        = 'public-read'
+  s3_sync.verbose                    = false
+  s3_sync.prefer_gzip                = true
+  s3_sync.reduced_redundancy_storage = false
 end
 
 # Build-specific configuration
