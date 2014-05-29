@@ -1,24 +1,42 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest4/testing_the_blog.md
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest41/testing_the_blog.md
 ---
 
-<p class="alert">This guide has not be updated to Rails 4. We're working on it, but would appreciate your help!</p>
-
 # Testing the Blog with RSpec
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest4/getting_started). Today we'll be following directly on from [Part 2](/guides/installfest/finishing_a_basic_blog). If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
+Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
+If you haven't started following through the series and you're new to Rails
+then you might want to start with the [first
+post](/guides/installfest41/getting_started). Today we'll be following directly
+on from [Part 2](/guides/installfest41/finishing_a_basic_blog). If you feel
+confident with Rails but want to learn more about testing you can find some
+instructions on getting the code set up properly below.
 
 ## Introduction to Automated Testing
-One of the biggest advantages of Rails is the community focus on testing. The Ruby and Rails communities have put a great deal of effort into building first-class tools and methods for making sure our apps are as correct as possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in developing easy to use and innovative tools to support widely embraced methods like Test Driven Development (TDD), Behaviour Driven Development (BDD) and Continuous Integration (CI).
+One of the biggest advantages of Rails is the community focus on testing. The
+Ruby and Rails communities have put a great deal of effort into building
+first-class tools and methods for making sure our apps are as correct as
+possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in
+developing easy to use and innovative tools to support widely embraced methods
+like Test Driven Development (TDD), Behaviour Driven Development (BDD) and
+Continuous Integration (CI).
 
 Let's start by setting up our Rails application for testing.
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guides/installfest4/getting_started) and have completed [http://reinteractive.net/posts/34](/guides/installfest/finishing_a_basic_blog). If you've done this but want to start with some fresh code by copying the tag that's available in the public git repository.
+You'll need to have been following our InstallFest blog posts starting with
+[http://reinteractive.net/posts/32](/guides/installfest41/getting_started) and
+have completed
+[http://reinteractive.net/posts/34](/guides/installfest41/finishing_a_basic_blog).
+If you've done this but want to start with some fresh code by copying the tag
+that's available in the public git repository.
 
-[https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/part_2_complete](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/part_2_complete) which you can download to your computer [here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/part_2_complete.zip).
+[https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/part_2_complete](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/part_2_complete)
+which you can download to your computer
+[here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/part_2_complete.zip).
 
-Download the zip file, unpack it to a folder on your computer and commit it to git using the following prompt commands:
+Download the zip file, unpack it to a folder on your computer and commit it to
+git using the following prompt commands:
 
 ```sh
 bundle install
@@ -27,20 +45,21 @@ git add .
 git commit -m "Restarting the 15 minute blog"
 ```
 
-You'll need to refer to this post if you want to [get it setup](/guides/installfest4/getting_started) on Heroku.
+You'll need to refer to this post if you want to [get it setup](/guides/installfest41/getting_started) on Heroku.
 
 Lets dive into testing now.
 
 ### Setup
-Add to `Gemfile`:
+Add to rspec rails to your  `Gemfile`:
 
 ```ruby
 group :test, :development do
+  gem 'sqlite3'
   gem "rspec-rails", "~> 2.0"
 end
 ```
 
-Run `bundle install`
+Run `bundle install --without=production`
 
 This will add Rspec and RSpec Rails to our Rails application. RSpec is a commonly used TDD (and BDD) testing tool which provides a special testing language (powered by Ruby) for testing existing code and for informing developers about the structure and functionality of yet to be written code!
 
@@ -51,6 +70,8 @@ rails generate rspec:install
 rails generate rspec:model post
 rails g rspec:model comment
 ```
+
+Tip: `rails g` is the short version of this command, and can be used anytime you would use `rails generate`
 
 Normally if you generate a Rails entity like a controller or model then this will automatically create a spec for you, but since we've already got a bunch of code that isn't tested we have to manually generate a spec to test our comment model.
 
@@ -153,13 +174,17 @@ Failures:
 
 If you open `app/models/comment.rb` you'll notice that there isn't any validations on our comment model. If you add `validates_presence_of :post, :body` into the class and re-run your spec you'll see the test pass and "go green". Congratulations, you've just TDD'd your first piece of application logic. One of the amazing things about working with Rails there's a very quick feedback loop between writing a failing test, making it pass and then suddenly having a full functional feature in your application. 
 
-At this stage we've completed a small block of work, tests are passing (which you can check by running the `spec` command) so we should commit our work with: `git add .` and `git commit -m "Added spec and first model specs"`
+At this stage we've completed a small block of work, tests are passing (which you can check by running the `spec` command) so we should commit our work with: `git add .` and `git commit -m "Added Rspec and first model specs"`
 
 We're not done with our tests though.
 
 ### Acceptance tests
 
-Rails fully supports the concept of an acceptance test, which is a full-stack automated test that behaves exactly like someone opening a browser and clicking around your site. We'll be using [Capybara](https://github.com/jnicklas/capybara) primarily with [RackTest](https://github.com/jnicklas/capybara#racktest).
+Rails fully supports the concept of an acceptance test, which is a full-stack
+automated test that behaves exactly like someone opening a browser and clicking
+around your site. We'll be using
+[Capybara](https://github.com/jnicklas/capybara) primarily with
+[RackTest](https://github.com/jnicklas/capybara#racktest).
 
 #### Setting up Capybara
 
@@ -171,11 +196,83 @@ group :test do
 end
 ```
 
-Then run `bundle install` to install the new gems. We only need Capybara for our tests, so we're creating a section specifically to ensure that Capybara is only loaded when we run our tests.
+Then run `bundle install --without=production` to install the new gems. We only need Capybara for our tests, so we're creating a section specifically to ensure that Capybara is only loaded when we run our tests.
 
-Next open `spec/spec_helper.rb` (which was created when you installed spec). Set the contents of the file to:
+Next open `spec/spec_helper.rb` (which was created when you installed spec) and add the following lines.
 
 ```ruby
+require 'rspec/autorun'
+require 'capybara/rails'
+require 'capybara/rspec'
+```
+
+Your spec file should now look like this
+
+```ruby
+ENV["RAILS_ENV"] ||= 'test'
+require File.expand_path("../../config/environment", __FILE__)
+require 'rspec/rails'
+
+require 'rspec/autorun'
+require 'capybara/rails'
+require 'capybara/rspec'
+
+# Requires supporting ruby files with custom matchers and macros, etc, in
+# spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
+# run as spec files by default. This means that files in spec/support that end
+# in _spec.rb will both be required and run as specs, causing the specs to be
+# run twice. It is recommended that you do not name files matching this glob to
+# end with _spec.rb. You can configure this pattern with with the --pattern
+# option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
+Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+
+# Checks for pending migrations before tests are run.
+# If you are not using ActiveRecord, you can remove this line.
+ActiveRecord::Migration.maintain_test_schema!
+
+RSpec.configure do |config|
+  # ## Mock Framework
+  #
+  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+  #
+  # config.mock_with :mocha
+  # config.mock_with :flexmock
+  # config.mock_with :rr
+
+  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+
+  # If you're not using ActiveRecord, or you'd prefer not to run each of your
+  # examples within a transaction, remove the following line or assign false
+  # instead of true.
+  config.use_transactional_fixtures = true
+
+  # If true, the base class of anonymous controllers will be inferred
+  # automatically. This will be the default behavior in future versions of
+  # rspec-rails.
+  config.infer_base_class_for_anonymous_controllers = false
+
+  # Run specs in random order to surface order dependencies. If you find an
+  # order dependency and want to debug it, you can fix the order by providing
+  # the seed, which is printed after each run.
+  #     --seed 1234
+  config.order = "random"
+
+  # RSpec Rails can automatically mix in different behaviours to your tests
+  # based on their file location, for example enabling you to call `get` and
+  # `post` in specs under `spec/controllers`.
+  #
+  # You can disable this behaviour by removing the line below, and instead
+  # explictly tag your specs with their type, e.g.:
+  #
+  #     describe UsersController, :type => :controller do
+  #       # ...
+  #     end
+  #
+  # The different available types are documented in the features, such as in
+  # https://relishapp.com/rspec/rspec-rails/v/3-0/docs
+  config.infer_spec_type_from_file_location!
+end
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
@@ -358,7 +455,7 @@ git commit -m "Adding rspec and tests for existing functionality"
 
 ## Next Steps
 
-Up next we'll add in an Administration panel and convert our blog posts to Markdown format. Click [here](/guides/installfest4/admin_and_markdown) to check it out and continue your Rails adventure.
+Up next we'll add in an Administration panel and convert our blog posts to Markdown format. Click [here](/guides/installfest41/admin_and_markdown) to check it out and continue your Rails adventure.
 
 If you're interested in more training from reInteractive or just want to give us some feedback on this you can leave a comment below or:
 
