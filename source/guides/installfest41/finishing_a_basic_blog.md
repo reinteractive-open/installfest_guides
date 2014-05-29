@@ -1,5 +1,5 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest4/finishing_a_basic_blog.md
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest41/finishing_a_basic_blog.md
 ---
 
 # Finishing a Basic Blog
@@ -71,7 +71,7 @@ Open `app/views/posts/show.html.erb` and add a `:remote => true` option to the f
      <%= f.label :body, "New comment" %><br/>
      <%= f.text_area :body %>
    </p>
-   <p><%= f.submit "Add comment" %></p> 
+   <p><%= f.submit "Add comment" %></p>
  <% end %>
 ```
 
@@ -161,7 +161,7 @@ This just means we need to create it. We'll be creating a file called: `app/view
 
 ```ruby
 atom_feed do |feed|
-  feed.title "InstallFest 2013 Quick Blog"
+  feed.title "InstallFest Quick Blog"
   feed.updated @posts.first.updated_at
 
   @posts.each do |post|
@@ -181,7 +181,13 @@ You might want to customise your ATOM feed by changing the name of the blog, or 
 
 #### RSS feed discovery
 
-Our next job is to publicise the ATOM feed so that RSS readers (if they still exist) can easily subscribe. We'll do this by opening `app/views/layouts/application.html.erb` and adding in a link tag that lets some browsers auto-discover our RSS feed. Your `application.html.erb` file should look like:
+Our next job is to publicise the ATOM feed so that RSS readers (if they still exist) can easily subscribe. We'll do this by opening `app/views/layouts/application.html.erb` and adding this link tag that will allow some browsers to auto-discover our RSS feed. 
+
+```erb
+<%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
+```
+
+Your `application.html.erb` file should look like:
 
 ```erb
 <!DOCTYPE html>
@@ -225,16 +231,7 @@ We'll be installing Foundation using the zurb-foundation gem by adding it to our
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '4.0.0'
-
-gem 'sass-rails', '~> 4.0.0'
-gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 1.2'
-
-gem 'zurb-foundation', '~> 4.3.2'
+gem 'rails', '~> 4.1.1'
 
 group :development, :test do
   gem 'sqlite3'
@@ -245,9 +242,16 @@ group :production do
   gem 'rails_12factor'
 end
 
-group :doc do
-  gem 'sdoc', require: false
-end
+gem 'sass-rails', '~> 4.0.3'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.0.0'
+gem 'foundation-rails'
+
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jbuilder', '~> 2.0'
+gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'spring',        group: :development
 ```
 
 After you've saved that file, switch to your terminal and run: `bundle install --without=production`. We're going to skip installing the postgres gem in our development environment since it's likely your computer isn't set up to build it properly. Make sure at this point you also restart your Rails server, so switch to the command prompt where Rails is running press `Ctrl-C` and then restart it by typing `rails s`.
@@ -414,7 +418,7 @@ These Header and Footer files contain some example HTML that will give you a sta
 </html>
 ```
 
-Refresh your browser or navigate to [http://localhost:3000](http://localhost:3000) to see the changes you've just made. Feel free to no go ahead and edit the header and footer html files now to make your blog truly personal.
+Refresh your browser or navigate to [http://localhost:3000](http://localhost:3000) to see the changes you've just made. Feel free to go ahead and edit the header and footer html files now to make your blog truly personal.
 
 If you've been entirely successful (and if you haven't feel free to ask for some help) then your blog should be looking something like this:
 
@@ -429,7 +433,8 @@ git add .
 git commit -m "adding header and footer"
 ```
 
-And then you can deploy to Heroku with `git push heroku master`. You'll be able to navigate to your blog on Heroku now to see the changes you've made.
+And then you can deploy to Heroku with `git push heroku master`. You'll be able
+to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Questions and homework
 
@@ -453,4 +458,4 @@ A) *You can use a gem like [Devise](https://github.com/plataformatec/devise) to 
 
 ## Next Steps
 
-Up next is a guide on testing your 15 minute blog. Click [here](/guides/installfest4/testing_the_blog) to check it out and continue your Rails adventure.
+Up next is a guide on testing your 15 minute blog. Click [here](/guides/installfest41/testing_the_blog) to check it out and continue your Rails adventure.
