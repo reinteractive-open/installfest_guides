@@ -38,7 +38,7 @@ To set the root page of a Rails application, open `config/routes.rb` and add
 `root 'posts#index'` to that file so it looks like:
 
 ```ruby
-QuickBlog::Application.routes.draw do
+Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts do

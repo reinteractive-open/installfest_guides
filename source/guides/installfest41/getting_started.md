@@ -299,7 +299,7 @@ Re-run `rake routes` and you'll notice that all the URLs for comments have
 disappeared. Update your `routes.rb` file to look like the following:
 
 ```ruby
-QuickBlog::Application.routes.draw do
+Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create]
   end
