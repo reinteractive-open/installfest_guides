@@ -88,7 +88,7 @@ to the change.
 ```ruby
 class AddPublishedToPost < ActiveRecord::Migration
   def change
-    add_column :posts, :published, :boolean, :default => false
+    add_column :posts, :published, :boolean, default: false
   end
 end
 ```
@@ -151,7 +151,7 @@ require 'spec_helper'
 feature 'Reading the Blog' do
   context 'for an unpublished post' do
     background do
-      @post = Post.create(:title => 'Unpublished Post', :body => 'Lorem ipsum dolor sit amet')
+      @post = Post.create(title: 'Unpublished Post', body: 'Lorem ipsum dolor sit amet')
     end
 
     scenario 'it does not appear in the index' do
@@ -169,8 +169,8 @@ feature 'Reading the Blog' do
 
   context 'for a published post' do
     background do
-      @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet', :published => true)
-      Post.create(:title => 'Another Awesome Post', :body => 'Lorem ipsum dolor sit amet', :published => true)
+      @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true)
+      Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet', published: true)
     end
 
     scenario 'Reading the blog index' do
@@ -218,7 +218,7 @@ like:
 
 ```ruby
 def index
-  @posts = Post.where(:published => true)
+  @posts = Post.where(published: true)
 
   respond_to do |format|
     format.html # index.html.erb
@@ -240,7 +240,7 @@ Change the show action to look like:
 
 ```ruby
 def show
-  @post = Post.where(:published => true).find(params[:id])
+  @post = Post.where(published: true).find(params[:id])
 
   respond_to do |format|
     format.html # show.html.erb
@@ -253,7 +253,7 @@ end
 
 Success! Our spec now passes, but we've still got a little work to do. There's
 some code duplication there that we can fix. Instead of both the `index` and
-`show` actions both using the code `where(:published => true)` we'd like to
+`show` actions both using the code `where(published: true)` we'd like to
 move that into a method. Since it's database query we can use an [ActiveRecord
 scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to
 limit what is being returned to only the published posts. Open
@@ -424,10 +424,10 @@ post' context to look like:
     background do
       email = 'admin@example.com'
       password = 'password'
-      @admin = AdminUser.create(:email => email, :password => password)
+      @admin = AdminUser.create(email: email, password: password)
 
-      @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet', :published => true, :author => @admin)
-      Post.create(:title => 'Another Awesome Post', :body => 'Lorem ipsum dolor sit amet', :published => true, :author => @admin)
+      @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true, author: @admin)
+      Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet', published: true, author: @admin)
     end
 
     scenario 'Reading the blog index' do
@@ -472,7 +472,7 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :body, :title
 
-  scope :published, where(:published => true)
+  scope :published, where(published: true)
 
   def content
     MarkdownService.new.render(body)
@@ -548,7 +548,7 @@ add a new test to it:
 describe '#author_name' do
   context 'when the author exists' do
     let(:author) { AdminUser.new }
-    subject { Post.new(:author => author).author_name }
+    subject { Post.new(author: author).author_name }
 
     before { author.stub(:name) { "Jane Smith" } }
 
@@ -583,11 +583,11 @@ class Post < ActiveRecord::Base
 
   has_many :comments
 
-  belongs_to :author, :class_name => "AdminUser"
+  belongs_to :author, class_name: "AdminUser"
 
   validates_presence_of :body, :title
 
-  scope :published, where(:published => true)
+  scope :published, where(published: true)
 
   def content
     MarkdownService.new.render(body)

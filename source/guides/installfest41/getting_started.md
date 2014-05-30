@@ -164,14 +164,14 @@ means your `_post.html.erb` file will be:
 ```
 
 In our `show.html.erb` file we want to insert the code to put our partial into
-our show view. Insert the code: `<%= render :partial => @post %>` to make it
+our show view. Insert the code: `<%= render partial: @post %>` to make it
 look like:
 
 
 ```erb
  <p id="notice"><%= notice %></p>
 
- <%= render :partial => @post %>
+ <%= render partial: @post %>
 
  <%= link_to 'Edit', edit_post_path(@post) %> |
  <%= link_to 'Back', posts_path %>
@@ -188,7 +188,7 @@ partial again so we're re-using that code:
 ```erb
  <h1>Listing posts</h1>
 
- <%= render :partial => @posts %>
+ <%= render partial: @posts %>
 
  <%= link_to 'New Post', new_post_path %>
 ```
@@ -200,8 +200,8 @@ One huge problem with our blog is that anyone can create, edit and delete blog
 posts. Let's fix that. We'll use HTTP Basic authenticate to put a password on
 actions we don't want everyone accessing. Open
 `app/controllers/posts_controller.rb` and add `before_filter :authenticate,
-  :except => [ :index, :show ]` on line 2 just below the class declaration. At
-  the bottom of your file put the following code:
+  except: [ :index, :show ]` on line 2 just below the class declaration. At the
+  bottom of your file put the following code:
 
 ```ruby
   private
@@ -218,7 +218,7 @@ brevity.
 
 ```ruby
 class PostsController < ApplicationController
-  before_filter :authenticate, :except => [ :index, :show ]
+  before_filter :authenticate, except: [ :index, :show ]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   ...
@@ -301,10 +301,10 @@ disappeared. Update your `routes.rb` file to look like the following:
 ```ruby
 QuickBlog::Application.routes.draw do
   resources :posts do
-    resources :comments, :only => [:create]
+    resources :comments, only: [:create]
   end
 
-  # root :to => 'welcome#index'
+  # root 'welcome#index'
 end
 ```
 
@@ -358,14 +358,14 @@ You've created the database model for your comments, migrated your database,
 ```erb
  <p id="notice"><%= notice %></p>
 
- <%= render :partial => @post %>
+ <%= render partial: @post %>
 
  <%= link_to 'Edit', edit_post_path(@post) %> |
  <%= link_to 'Back', posts_path %>
 
  <h2>Comments</h2>
  <div id="comments">
-  <%= render :partial => @post.comments %>
+  <%= render partial: @post.comments %>
  </div>
 ```
 

@@ -97,7 +97,7 @@ feature 'Managing blog posts' do
     background do
       email = 'admin@example.com'
       password = 'password'
-      @admin = AdminUser.create(:email => email, :password => password)
+      @admin = AdminUser.create(email: email, password: password)
 
       log_in_admin_user
     end
@@ -105,8 +105,8 @@ feature 'Managing blog posts' do
     def log_in_admin_user(email = 'admin@example.com', password = 'password')
       reset_session!
       visit admin_root_path
-      fill_in 'Email', :with => email
-      fill_in 'Password', :with => password
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
       click_button 'Login'
     end
 
@@ -114,8 +114,8 @@ feature 'Managing blog posts' do
       click_link 'Posts'
       click_link 'New Post'
 
-      fill_in 'post_title', :with => 'New Blog Post'
-      fill_in 'post_body', :with => 'This post was made from the Admin Interface'
+      fill_in 'post_title', with: 'New Blog Post'
+      fill_in 'post_body', with: 'This post was made from the Admin Interface'
       click_button 'Create Post'
 
       expect(page).to have_content 'This post was made from the Admin Interface'
@@ -394,7 +394,7 @@ class MarkdownService
   end
 
   def initialize
-    @markdown = Redcarpet::Markdown.new(HTMLWithRouge, :fenced_code_blocks => true)
+    @markdown = Redcarpet::Markdown.new(HTMLWithRouge, fenced_code_blocks: true)
   end
 
   def render(text)
@@ -420,7 +420,7 @@ feature 'Writing blog posts' do
   background do
     email = 'admin@example.com'
     password = 'password'
-    @admin = AdminUser.create(:email => email, :password => password)
+    @admin = AdminUser.create(email: email, password: password)
 
     log_in_admin_user
   end
@@ -428,8 +428,8 @@ feature 'Writing blog posts' do
   def log_in_admin_user(email = 'admin@example.com', password = 'password')
     reset_session!
     visit admin_root_path
-    fill_in 'Email', :with => email
-    fill_in 'Password', :with => password
+    fill_in 'Email', with: email
+    fill_in 'Password', with: password
     click_button 'Login'
   end
 
@@ -437,8 +437,8 @@ feature 'Writing blog posts' do
     click_link 'Posts'
     click_link 'New Post'
 
-    fill_in 'post_title', :with => 'New Blog Post'
-    fill_in 'post_body', :with => "[Example.com link](http://example.com/)"
+    fill_in 'post_title', with: 'New Blog Post'
+    fill_in 'post_body', with: "[Example.com link](http://example.com/)"
     click_button 'Create Post'
 
     visit post_path(Post.last)
@@ -492,7 +492,7 @@ describe Post do
 
     it 'should convert its body to markdown' do
       markdown_service.should_receive(:render).with('post body')
-      Post.new(:body => 'post body').content
+      Post.new(body: 'post body').content
     end
   end
 end

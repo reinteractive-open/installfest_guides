@@ -313,7 +313,7 @@ RSpec.configure do |config|
   # You can disable this behaviour by removing the line below, and instead
   # explictly tag your specs with their type, e.g.:
   #
-  #     describe UsersController, :type => :controller do
+  #     describe UsersController, type: :controller do
   #       # ...
   #     end
   #
@@ -357,8 +357,8 @@ require 'spec_helper'
 
 feature 'Reading the Blog' do
   background do
-    @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
-    Post.create(:title => 'Another Awesome Post', :body => 'Lorem ipsum dolor sit amet')
+    @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
+    Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet')
   end
 
   scenario 'Reading the blog index' do
@@ -427,7 +427,7 @@ require 'spec_helper'
 
 feature 'Posting Comments' do
   background do
-    @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
+    @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
   end
 
   # Note this scenario doesn't test the AJAX comment posting.
@@ -436,7 +436,7 @@ feature 'Posting Comments' do
 
     comment = 'This post is just filler text. Ripped off!'
 
-    fill_in 'comment_body', :with => comment
+    fill_in 'comment_body', with: comment
     click_button 'Add comment'
 
     expect(page).to have_content comment
@@ -466,8 +466,8 @@ feature 'Managing blog posts' do
 
     expect(page).to have_content 'New post'
 
-    fill_in 'Title', :with => 'I love cheese'
-    fill_in 'Body', :with => "It's pretty amazing, don't you think?"
+    fill_in 'Title', with: 'I love cheese'
+    fill_in 'Body', with: "It's pretty amazing, don't you think?"
 
     click_button 'Create Post'
     expect(page).to have_content 'I love cheese'
@@ -475,7 +475,7 @@ feature 'Managing blog posts' do
 
   context 'with an existing blog post' do
     background do
-      @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
+      @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
     end
 
     scenario 'Editing an existing blog' do
@@ -484,7 +484,7 @@ feature 'Managing blog posts' do
       page.driver.browser.authorize 'admin', 'secret'
       click_link 'Edit'
 
-      fill_in 'Title', :with => 'Not really Awesome Blog Post'
+      fill_in 'Title', with: 'Not really Awesome Blog Post'
       click_button 'Update Post'
 
       expect(page).to have_content 'Not really Awesome Blog Post'

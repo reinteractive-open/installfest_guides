@@ -42,7 +42,7 @@ QuickBlog::Application.routes.draw do
   root 'posts#index'
 
   resources :posts do
-    resources :comments, :only => [:create]
+    resources :comments, only: [:create]
   end
 end
 ```
@@ -81,23 +81,23 @@ post page using JavaScript. First we'll tackle posting the form using AJAX.
 
 #### Making the form submit via AJAX
 
-Open `app/views/posts/show.html.erb` and add a `:remote => true` option to the
+Open `app/views/posts/show.html.erb` and add a `remote: true` option to the
 form_for method call. Your show view should look like:
 
 ```erb
  <p id="notice"><%= notice %></p>
 
- <%= render :partial => @post %>
+ <%= render partial: @post %>
 
  <%= link_to 'Edit', edit_post_path(@post) %> |
  <%= link_to 'Back', posts_path %>
 
  <h2>Comments</h2>
  <div id="comments">
-   <%= render :partial => @post.comments %>
+   <%= render partial: @post.comments %>
  </div>
 
- <%= form_for [@post, Comment.new], :remote => true do |f| %>
+ <%= form_for [@post, Comment.new], remote: true do |f| %>
    <p>
      <%= f.label :body, "New comment" %><br/>
      <%= f.text_area :body %>
@@ -155,7 +155,7 @@ things: Insert the comment html into the document, and clear the comment form.
 Your `create.js.erb` file should look like:
 
 ```js
-$('#comments').append('<%= escape_javascript(render :partial => @comment) %>');
+$('#comments').append('<%= escape_javascript(render partial: @comment) %>');
 $('#comment_body').val('')
 ```
 
@@ -226,7 +226,7 @@ atom_feed do |feed|
   @posts.each do |post|
     feed.entry(post) do |entry|
       entry.title post.title
-      entry.content post.body, :type => 'html'
+      entry.content post.body, type: 'html'
 
       entry.author do |author|
         author.name 'Installfest Attendee'
@@ -239,14 +239,14 @@ end
 You might want to customise your ATOM feed by changing the name of the blog, or
 by changing the author name to your own. Refresh the
 [http://localhost:3000/posts.atom](http://localhost:3000/posts.atom) page and
-you'll see the XML being returned properly. 
+you'll see the XML being returned properly.
 
 #### RSS feed discovery
 
 Our next job is to publicise the ATOM feed so that RSS readers (if they still
     exist) can easily subscribe. We'll do this by opening
 `app/views/layouts/application.html.erb` and adding this link tag that will
-allow some browsers to auto-discover our RSS feed. 
+allow some browsers to auto-discover our RSS feed.
 
 ```erb
 <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
@@ -535,12 +535,12 @@ partials you just created. Your layout file will look like:
   <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
 </head>
 <body>
-  <%= render :partial => 'layouts/header' %>
+  <%= render partial: 'layouts/header' %>
 
 <div id="main">
   <%= yield %>
 </div>
-  <%= render :partial => 'layouts/footer' %>
+  <%= render partial: 'layouts/footer' %>
 </body>
 </html>
 ```
