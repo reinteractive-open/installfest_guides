@@ -37,7 +37,8 @@ tag that's available in the public git repository.
 which you can download to your computer
 [here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/admin_markdown_complete.zip).
 
-Download the zip file, unpack it to a folder on your computer and commit it to git using the following prompt commands:
+Download the zip file, unpack it to a folder on your computer and commit it to
+git using the following prompt commands:
 
 ```sh
 bundle install --without=production
@@ -84,7 +85,8 @@ We're about to start implementing some functionality which means we should
 first write a test. This test will fail until we finish implementing our new
 feature.
 
-Open `spec/features/managing_posts_spec.rb` and change the contents of this file to match:
+Open `spec/features/managing_posts_spec.rb` and change the contents of this
+file to match:
 
 ```ruby
 require 'spec_helper'
@@ -201,7 +203,8 @@ Post" on the post index page. Currently this link exists so we experience our
 test failure.
 
 
-We can fix this scenario by opening: `app/views/posts/index.html.erb` and deleting:
+We can fix this scenario by opening: `app/views/posts/index.html.erb` and
+deleting:
 
 ```erb
 <%= link_to 'New Post', new_post_path %>
@@ -250,13 +253,12 @@ end
 
 Save these changes.
 
-Since we've made a large change to one of our main
-controllers now would be a good time to run our entire test suite. You'll
-actually see that everything passes but there's a curious new spec that we
-didn't create. This was generated automatically for you when you installed
-ActiveAdmin. Since there's no functionality in there that we wrote we're going
-to simply delete the spec. On OSX or Linux run `rm
-spec/models/admin_user_spec.rb` and on windows run `del
+Since we've made a large change to one of our main controllers now would be a
+good time to run our entire test suite. You'll actually see that everything
+passes but there's a curious new spec that we didn't create. This was generated
+automatically for you when you installed ActiveAdmin. Since there's no
+functionality in there that we wrote we're going to simply delete the spec. On
+OSX or Linux run `rm spec/models/admin_user_spec.rb` and on windows run `del
 spec\models\admin_user_spec.rb`.
 
 ### Cleaning up and Committing
@@ -504,7 +506,8 @@ like we stubbed out the markdown engine itself in our MarkdownService test.
 Run that spec (using `rspec spec/models/post_spec.rb`) and notice that it's
 failing. We still need to provide the implementation to make this test pass.
 
-Open: `app/models/post.rb` and provide the implementation for the render method:
+Open: `app/models/post.rb` and provide the implementation for the render
+method:
 
 ```ruby
 class Post < ActiveRecord::Base
@@ -520,7 +523,8 @@ class Post < ActiveRecord::Base
 end
 ```
 
-Save this and re-run our post model spec and observe that everything now passes!
+Save this and re-run our post model spec and observe that everything now
+passes!
 
 At this stage if we run all our specs (simply type `rspec`) we'll see we still
 only have 1 failure. There's only 1 line of code needed to make this feature
@@ -550,8 +554,9 @@ One great thing about the Redcarpet/Rouge combo is that it fully supports
 Github style markdown including code blocks. We just need to install a
 stylesheet which will support it.
 
-Download: [https://raw.github.com/richleland/pygments-css/master/github.css](https://raw.github.com/richleland/pygments-css/master/github.css) into
-`vendor/assets/stylesheets`, then open
+Download:
+[https://raw.github.com/richleland/pygments-css/master/github.css](https://raw.github.com/richleland/pygments-css/master/github.css)
+into `vendor/assets/stylesheets`, then open
 `app/assets/stylesheets/foundation_and_overrides.scss` and add the following
 line to the bottom:
 
@@ -559,7 +564,8 @@ line to the bottom:
 @import 'github';
 ```
 
-This informs the Rails asset pipeline that you'd like to include the code stylesheet you just downloaded into your application.
+This informs the Rails asset pipeline that you'd like to include the code
+stylesheet you just downloaded into your application.
 
 ### Cleaning up
 
@@ -578,13 +584,18 @@ git push heroku master
 
 ## Next Steps
 
-Up next we'll add features to your blog and learn more about Rails migrations. Click [here](/guides/installfest41/understanding_migrations) to check it out and continue your Rails adventure.
+Up next we'll add features to your blog and learn more about Rails migrations.
+Click [here](/guides/installfest41/understanding_migrations) to check it out
+and continue your Rails adventure.
 
-If you're interested in more training from reInteractive or just want to give us some feedback on this you can leave a comment below or:
+If you're interested in more training from reInteractive or just want to give
+us some feedback on this you can leave a comment below or:
 
 #### Sign up to our Training mailing list.
 
-Just put your email below and we'll let you know if we have anything more for you. We hate spam probably more than you do so you'll only be contacted by us and can unsubscribe at any time:
+Just put your email below and we'll let you know if we have anything more for
+you. We hate spam probably more than you do so you'll only be contacted by us
+and can unsubscribe at any time:
 
 <form action="http://reinteractive.us4.list-manage.com/subscribe/post?u=b6281a8c8660a40e246de37d1&amp;id=e8c8222e0b" method="post" class="subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
             <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required="">
@@ -593,8 +604,12 @@ Just put your email below and we'll let you know if we have anything more for yo
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub). We'll guide you through any issues you're having getting off the ground with your Rails app.
+Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
+We'll guide you through any issues you're having getting off the ground with
+your Rails app.
 
 #### Or just
 
-Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me [@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!
+Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me
+[@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this
+series, do you love it? Want us to do more? Let us know!

@@ -7,9 +7,9 @@ Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
 If you haven't started following through the series and you're new to Rails
 then you might want to start with the [first
 post](/guides/installfest41/getting_started). Today we'll be following directly
-on from [Part 4](/guides/installfest41/admin_and_markdown). If you feel confident
-with Rails and want to learn more about building a feature that requires
-migrations then instructions for doing so are provided below.
+on from [Part 4](/guides/installfest41/admin_and_markdown). If you feel
+confident with Rails and want to learn more about building a feature that
+requires migrations then instructions for doing so are provided below.
 
 In this installment we'll be learning more about how to manage your database
 structure through migrations.
@@ -24,9 +24,9 @@ published state. This means we can author our blog posts in the admin panel,
 You'll need to have been following our InstallFest blog posts starting with
 [http://reinteractive.net/posts/32](/guides/installfest41/getting_started) and
 have completed
-[http://reinteractive.net/posts/42](/guides/installfest41/admin_and_markdown). If
-you've done this but want to start with some fresh code, you can by copying the
-tag that's available in the public git repository.
+[http://reinteractive.net/posts/42](/guides/installfest41/admin_and_markdown).
+If you've done this but want to start with some fresh code, you can by copying
+the tag that's available in the public git repository.
 
 [https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author)
 which you can download to your computer
@@ -54,7 +54,7 @@ with a feature spec since it will let you scope the new functionality without
 having to know all the in-depth implementation details ahead of time.
 
 Open `spec/features/managing_posts_spec.rb` and add the following scenario to
-the 'with an existing blog post` context.
+the `with an existing blog post` context.
 
 ```ruby
 scenario 'Publishing an existing blog' do
@@ -100,7 +100,8 @@ running a migration. Enter the following into your terminal:
 rake db:migrate
 ```
 
-Now when we run `rspec spec/features/managing_posts_spec.rb` we get a new error:
+Now when we run `rspec spec/features/managing_posts_spec.rb` we get a new
+error:
 
 ```sh
 Failures:
@@ -113,9 +114,9 @@ Failures:
 ```
 
 What this error means is that ActiveAdmin tried to use mass-assignment to
-update our Post database record and we haven't configured it to
-allow this. This error is helping us to protect our application from a common
-form of security vulnerability which you can read about in the [Rails Security
+update our Post database record and we haven't configured it to allow this.
+This error is helping us to protect our application from a common form of
+security vulnerability which you can read about in the [Rails Security
 Guide](http://guides.rubyonrails.org/security.html#mass-assignment).
 
 To fix the error we need to open: `app/admin/post.rb` and add `:published` to
@@ -212,7 +213,8 @@ The first error here indicates that unpublished blogs appear in our blog post
 index, and the second indicates that the blog is directly accessible even
 though it hasn't been published. Lets go and fix these problems.
 
-Open: `app/controllers/posts_controller.rb` and modify the index action to look like:
+Open: `app/controllers/posts_controller.rb` and modify the index action to look
+like:
 
 ```ruby
 def index
@@ -414,7 +416,8 @@ write a test first:
 
 ### Viewing a post should display the author
 
-Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published post' context to look like:
+Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published
+post' context to look like:
 
 ```ruby
   context 'for a published post' do
@@ -477,7 +480,8 @@ class Post < ActiveRecord::Base
 end
 ```
 
-We'll also open `app/models/admin_user.rb` and do the reverse side of the association by informing Rails that an AdminUser has many posts.
+We'll also open `app/models/admin_user.rb` and do the reverse side of the
+association by informing Rails that an AdminUser has many posts.
 
 ```ruby
 class AdminUser < ActiveRecord::Base
@@ -493,7 +497,8 @@ class AdminUser < ActiveRecord::Base
 end
 ```
 
-We've also created a name method in the AdminUser so that ActiveAdmin can use that in the admin panel.
+We've also created a name method in the AdminUser so that ActiveAdmin can use
+that in the admin panel.
 
 ### Editing the view to include the author
 
@@ -501,7 +506,8 @@ If we run our feature spec now with `rspec spec/features/reading_blog_spec.rb`
 we get an error that lets us know we're close. We don't have the right text on
 our web page.
 
-Open: `app/views/posts/_post.html.erb` and add ` <h3> Posted by: <%= post.author.name %></h3>` under the `<h2>`
+Open: `app/views/posts/_post.html.erb` and add ` <h3> Posted by: <%=
+post.author.name %></h3>` under the `<h2>`
 
 ```erb
  <h2><%= link_to_unless_current post.title, post %></h2>
@@ -557,9 +563,11 @@ describe '#author_name' do
 end
 ```
 
-The whole spec should look like: [https://gist.github.com/5552601](https://gist.github.com/5552601).
+The whole spec should look like:
+[https://gist.github.com/5552601](https://gist.github.com/5552601).
 
-When you run this spec (`rspec spec/models/post_spec.rb`) you get the following error:
+When you run this spec (`rspec spec/models/post_spec.rb`) you get the following
+error:
 
 ```sh
 NoMethodError:
@@ -626,8 +634,8 @@ feature 'Writing blog posts' do
 end
 ```
 
-Then we make them pass by opening `app/admin/post.rb` and adding `:author` and `:author_id` to
-the permitted params as shown:
+Then we make them pass by opening `app/admin/post.rb` and adding `:author` and
+`:author_id` to the permitted params as shown:
 
 ```ruby
 ActiveAdmin.register Post do
@@ -653,7 +661,8 @@ that everything is now okay.
 
 ### Cleaning up
 
-Our tests all pass and we've implemented a new feature. It's time to commit our code again.
+Our tests all pass and we've implemented a new feature. It's time to commit our
+code again.
 
 ```sh
 git add .
@@ -675,7 +684,9 @@ about reInteractive's training services you can:
 
 #### Sign up to our Training mailing list.
 
-Just put your email below and we'll let you know if we have anything more for you. We hate spam probably more than you do so you'll only be contacted by us and can unsubscribe at any time:
+Just put your email below and we'll let you know if we have anything more for
+you. We hate spam probably more than you do so you'll only be contacted by us
+and can unsubscribe at any time:
 
 <form action="http://reinteractive.us4.list-manage.com/subscribe/post?u=b6281a8c8660a40e246de37d1&amp;id=e8c8222e0b" method="post" class="subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
             <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required="">
@@ -684,9 +695,13 @@ Just put your email below and we'll let you know if we have anything more for yo
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub). We'll guide you through any issues you're having getting off the ground with your Rails app.
+Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
+We'll guide you through any issues you're having getting off the ground with
+your Rails app.
 
 #### Or just
 
-Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me [@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!
+Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me
+[@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this
+series, do you love it? Want us to do more? Let us know!
 
