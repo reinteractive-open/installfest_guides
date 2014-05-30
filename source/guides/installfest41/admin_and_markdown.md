@@ -474,7 +474,7 @@ describe Post do
 
     [:title, :body].each do |attribute|
       it "should validate presence of #{attribute}" do
-        expect(post).to have_at_least(1).error_on(attribute)
+        expect(post.error_on(attribute).size).to be >= 1
         expect(post.errors.messages[attribute]).to include "can't be blank"
       end
     end

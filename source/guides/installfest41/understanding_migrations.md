@@ -65,7 +65,7 @@ scenario 'Publishing an existing blog' do
   click_button 'Update Post'
 
   expect(page).to have_content 'Post was successfully updated'
-  expect(Post.last.published?).to be_true
+  expect(Post.last.published?).to be true
 end
 ```
 
@@ -107,7 +107,7 @@ error:
 Failures:
 
   1) Managing blog posts as an admin user with an existing blog post Publishing an existing blog
-     Failure/Error: expect(Post.last.published?).to be_true
+     Failure/Error: expect(Post.last.published?).to be true
        expected: truthy value
             got: false
      # ./spec/features/managing_posts_spec.rb:62:in `block (4 levels) in <top (required)>'
