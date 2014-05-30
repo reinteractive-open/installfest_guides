@@ -69,9 +69,6 @@ scenario 'Publishing an existing blog' do
 end
 ```
 
-The final spec should look like:
-[https://gist.github.com/lengarvey/5551994](https://gist.github.com/lengarvey/5551994)
-
 When you've saved the spec you can run it with `rspec
 spec/features/managing_posts_spec.rb`. Naturally it will fail since we haven't
 implemented any of the functionality to support it yet. Lets get started with
@@ -562,9 +559,6 @@ describe '#author_name' do
   end
 end
 ```
-
-The whole spec should look like:
-[https://gist.github.com/5552601](https://gist.github.com/5552601).
 
 When you run this spec (`rspec spec/models/post_spec.rb`) you get the following
 error:
