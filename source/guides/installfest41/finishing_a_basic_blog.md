@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Finishing a Basic Blog
-In the [previous article](/guides/installfest4/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive in.
+In the [previous article](/guides/installfest41getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive in.
 
 ## Preparation for our coding session
 
