@@ -8,19 +8,19 @@
 	 	<th width ="35%">Action</th>
 	 	<th width ="35%">InstallFest Example</th>
 	</tr>
-	 
+
  	<tr>
 	 	<td class="command">rails new</td>
 	 	<td>This command creates a new rails app.</td>
 	 	<td> rails new <i>quick_blog</i></td>
 	</tr>
- 
+
 	<tr>
 	 	<td class="command">cd</td>
 	 	<td>Change Directory. This will open your application folder in the command line.</td>
 	 	<td>cd <i>quick_blog</i></td>
 	</tr>
- 
+
 	<tr>
 	 	<td class="command">
 	 		<strong>rails server</strong>
@@ -49,7 +49,7 @@
 
 	<tr>
 	 	<td class="command">
-	 		<strong>rails generate</strong> 
+	 		<strong>rails generate</strong>
 	 		</br>
 	 		or rails g (for short)
 	 	</td>
@@ -130,12 +130,12 @@
 	 	<th width ="42.5%">Action</th>
 	 	<th width ="42.5%">InstallFest Example</th>
 	</tr>
- 
+
 	<tr>
 		<td class="command">Active Record</td>
 		<td>Active Record is the Model part of MVC.</td>
 		<td>
-			class CreatePosts < ActiveRecord::Migration 
+			class CreatePosts < ActiveRecord::Migration
 		 	<p>This migration creates your table.</p>
 			class Post < ActiveRecord::Base
 
@@ -152,7 +152,7 @@
 	 		<p>Symbols only keep one copy in memory (unlike strings), so they are generally used to save on memory in your application.</p>
 	 	</td>
 	 	<td>
-	 		:title 
+	 		:title
 	 		:body
 	 </td>
 	</tr>
@@ -182,7 +182,7 @@
 	<tr>
 	 	<td class="command">&&</td>
 	 	<td>It is logical AND evaluates to true or false. If both are true then the condition becomes true.</td>
-	 	<td> 
+	 	<td>
 	 		name == "admin" && password == "secret"
 		</td>
 	</tr>
@@ -194,7 +194,7 @@
 	 		@posts
 		</td>
 	</tr>
- 
+
 	<tr>
 	 	<td class="command">Method</td>
 	 	<td>Methods are capabilities of an object. A method is used to create parameterized, reusable code.</td>
@@ -223,7 +223,7 @@
 			End
 	 		<p>The "<" means one class inherits from another class.</p>
 		</td>
-	</tr> 
+	</tr>
 
 </table>
 <table class="cheat-sheet"  border=1 width=825px cellspacing=2 cellpadding=20>
@@ -233,7 +233,7 @@
 		<th width ="42.5%">Action</th>
 		<th width ="42.5%">InstallFest Example</th>
 	</tr>
- 
+
  	<tr>
  		<td class="command">git init</td>
  		<td>This command create an empty Git repository.</td>
@@ -267,4 +267,4 @@
  		</td>
  	</tr>
 </table>
- 
+
