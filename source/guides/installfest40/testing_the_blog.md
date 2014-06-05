@@ -126,7 +126,7 @@ describe Post do
 
     [:title, :body].each do |attribute|
       it "should validate presence of #{attribute}" do
-        expect(post.error_on(attribute).size).to be >= 1
+        expect(comment.errors[attribute].size).to be >= 1
         expect(post.errors.messages[attribute]).to include "can't be blank"
       end
     end
@@ -183,7 +183,7 @@ describe Comment do
 
     [:post, :body].each do |attribute|
       it "should validate presence of #{attribute}" do
-        expect(comment.error_on(attribute).size).to be >= 1
+        expect(comment.errors[attribute].size).to be >= 1
         expect(comment.errors.messages[attribute]).to include "can't be blank"
       end
     end
@@ -197,12 +197,12 @@ When you run `rspec spec/models/comment_spec.rb` you'll receive:
 Failures:
 
   1) Comment validations should validate presence of post
-     Failure/Error: expect(comment.error_on(attribute).size).to be >= 1
+     Failure/Error: expect(comment.errors[attribute].size).to be >= 1
        expected at least 1 error on :post, got 0
      # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
 
   2) Comment validations should validate presence of body
-     Failure/Error: expect(comment.error_on(attribute).size).to be >= 1
+     Failure/Error: expect(comment.errors[attribute].size).to be >= 1
        expected at least 1 error on :body, got 0
      # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
 ```
