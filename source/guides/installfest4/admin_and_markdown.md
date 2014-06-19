@@ -173,7 +173,7 @@ We can fix this scenario by opening: `app/views/posts/index.html.erb` and deleti
 <%= link_to 'New Post', new_post_path %>
 ```
 
-Save that and rerun our spec which should pass or "go green". Some of you might already be protesting that we still have the backend code for adding a post and all we've done is remove the link in the HTML and you're completely correctly. We need to remove code from our controller and configure our routes so that there is absolutely no way to create or edit a post except in the admin panel.
+Save that and rerun our spec which should pass or "go green". (As of Rails 4.0, with the introduction of strong parameters, the above spec will not pass.  An ActiveModel::ForbiddenAttributesError exception errors will be thrown.  To get the spec to pass, you will need the following two changes to take place.  1: Include this line of code params.require(:post).permit(:title, :body) as a private class method under posts_controller.rb 2: Under 'app/admin/' folder, open post.rb and include this line of code: permit_params :title, :body ). Some of you might already be protesting that we still have the backend code for adding a post and all we've done is remove the link in the HTML and you're completely correctly. We need to remove code from our controller and configure our routes so that there is absolutely no way to create or edit a post except in the admin panel.
 
 Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show! You can also delete the authenticate method and the before_filter line. Your PostsController should look like the following when you've finished:
 
