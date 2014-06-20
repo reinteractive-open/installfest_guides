@@ -259,7 +259,7 @@ After you've done this you'll need to switch back to your other terminal and fin
 Overwrite /Users/artega/dev/reinteractive/quick_blog/app/views/layouts/application.html.erb? (enter "h" for help) [Ynaqdh]
 ```
 
-Press n and then enter to skip overwriting our `application.html.erb` layout file. By skipping this we do miss out on some of Foundation's responsive design features, but we've already added our RSS link to our layout file and allowing the install to overwrite our layout file would mean we'd lose that link. If you're comfortable putting the autodiscovery link tag back into the new layout file, rerun the foundation install and allow it to overwrite your layout.
+Press n and then enter to skip overwriting our `application.html.erb` layout file. This stops Foundation from removing our changes like adding RSS link and setting the title.
 
 You'll also want to remove the scaffolding css file that Rails provided to you when you scaffolded the Posting functionality. To do that just delete `app/assets/stylesheets/scaffolds.css.scss`. Refreshing your browser or navigating to [http://localhost:3000](http://localhost:3000) at this point will show some changes to the UI of your blog.
 
@@ -268,18 +268,22 @@ We're going to start off with two very quick things with Foundation. We'll give 
 ```erb
   <!DOCTYPE html>
   <html>
-  <head>
-    <title>QuickBlog</title>
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= javascript_include_tag "application" %>
-    <%= csrf_meta_tags %>
-    <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
-  </head>
-  <body>
-    <div id="main">
-      <%= yield %>
-    </div>
-  </body>
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+      <title>QuickBlog</title>
+      <%= javascript_include_tag "vendor/modernizr" %>
+      <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+      <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+      <%= csrf_meta_tags %>
+      <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
+    </head>
+    <body>
+      <div id="main">
+        <%= yield %>
+      </div>
+    </body>
   </html>
 ```
 
@@ -321,13 +325,23 @@ Finally we'll open `app/assets/stylesheets/foundation_and_overrides.css.scss` an
 @import 'common';
 ```
 
-These steps definitely need explaining. First in our layout file you wrapped the yield statement inside a div. Then we're creating a new SCSS file that does 3 things:
+These steps definitely need explaining. First in our layout file you'll wrap the `<%= yield %>` statement inside of a div and added Foundations responsive design features. Then we're creating a new SCSS file that does 3 things:
 
 1. Changes all inputs with a type of submit to use Foundation's [button styling](http://foundation.zurb.com/docs/components/buttons.html).
 2. Targets that div#main you inserted into the layout file and gives it Foundation's [grid-row behaviour](http://foundation.zurb.com/docs/components/grid.html).
 3. Sets up some footer styling that we'll be using in a later step.
 
-After this you removed the require_tree directive from the application.css file. This directive causes your application to stop automatically including every CSS file in the stylesheets folder. Immediately after this we import the new common.css.scss file into the foundation_and_overrides file so that our newly created CSS rules will be applied to our blog. We're doing this to inform Rails' asset pipeline that we'd like to use SASS to import the file, rather than relying on the asset pipeline's catch-all method. This gives us slightly more control over what gets included and also causes Foundation's mixins to work correctly. You can [read more about the asset pipeline](http://guides.rubyonrails.org/asset_pipeline.html) on the [Rails guide site](http://guides.rubyonrails.org/index.html).
+After this you removed the require_tree directive from the application.css
+file. This directive causes your application to stop automatically including
+every CSS file in the stylesheets folder. Immediately after this we import the
+new common.css.scss file into the foundation_and_overrides file so that our
+newly created CSS rules will be applied to our blog. We're doing this to inform
+Rails' asset pipeline that we'd like to use SASS to import the file, rather
+than relying on the asset pipeline's catch-all method. This gives us slightly
+more control over what gets included and also causes Foundation's mixins to
+work correctly. You can [read more about the asset
+pipeline](http://guides.rubyonrails.org/asset_pipeline.html) on the [Rails
+guide site](http://guides.rubyonrails.org/index.html).
 
 #### Deploying your changes
 
@@ -349,16 +363,18 @@ First we'll create two files a header and a footer. Create `app/views/layouts/_h
 
 ```erb
 <nav class="top-bar">
+
   <ul class="title-area">
     <!-- Title Area -->
     <li class="name">
       <h1>
-        <%= link_to 'Your Blog Name', root_path %>
+        <%= link_to 'Quick Blog', root_path %>
       </h1>
     </li>
     <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
     <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   </ul>
+
   <section class="top-bar-section">
     <ul class="right">
       <li class="divider hide-for-small"></li>
@@ -377,6 +393,7 @@ First we'll create two files a header and a footer. Create `app/views/layouts/_h
       </li>
     </ul>
   </section>
+
 </nav>
 ```
 
@@ -385,8 +402,8 @@ And then create `app/views/layouts/_footer.html.erb` and put the following code 
 ```erb
 <footer>
   <p>
-    Powered by: <%= link_to 'rails-3-2-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
-    Developed at: <%= link_to 'InstallFest 2013', 'http://reinteractive.net/service/installfest' %>
+    Powered by: <%= link_to 'rails-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
+    Developed at: <%= link_to 'InstallFest', 'http://reinteractive.net/service/installfest' %>
   </p>
 </footer>
 ```
@@ -439,6 +456,10 @@ You might notice a few things you want to change about the application. While so
 **Q) How to remove the "Listing posts" heading? **
 
 A) *Open `app/views/posts/index.html.erb`. You should be able to figure it out from there :)*
+
+**Q) What did I miss out on by skipping Foundation overwriting my `application.html.erb`? **
+
+A) *rerun the foundation install and allow it to overwrite your layout, compare the elements there to what is in you version*
 
 **Q) How do I make the About me link work in the header?**
 
