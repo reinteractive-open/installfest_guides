@@ -177,7 +177,6 @@ class PostsController < ApplicationController
       name == "admin" && password == "secret"
     end
   end
-end
 ```
 
 With that code in place you can try to [add a new post](http://localhost:3000/posts/new) and you'll be prompted to enter a username and password.
