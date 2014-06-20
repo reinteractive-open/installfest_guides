@@ -153,8 +153,6 @@ Since we're writing a fully functional spec for code that is already written,
 
 ```ruby
 class Post < ActiveRecord::Base
-  attr_accessible :body, :title
-
   has_many :comments
 
   # validates_presence_of :body, :title
