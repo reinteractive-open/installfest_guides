@@ -7,7 +7,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Prerequisites
 
-1. A working version of Rails 4.1. To determine if you've got a working version of Rails 4.1, type `rails -v` into your command prompt, or as a mentor.
+1. A working version of Rails 4.1. To determine if you've got a working version of Rails 4.1, type `rails -v` into your command prompt.
 2. Sublime Text 2. If you prefer another text editor like vim, emacs or TextMate that's fine too but these instructions will specifically mention Sublime.
 
 #### Next steps
