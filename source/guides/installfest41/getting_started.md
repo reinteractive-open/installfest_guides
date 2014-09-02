@@ -57,7 +57,7 @@ generated.
 ## Creating basic functionality
 
 Now we're ready to get started building an actual blog. In your command prompt
-press `Ctrl-c` to stop the Rails server, or use your second command prompt and navigate to your Rails application folder. Then you can use a Rails generator
+press `Ctrl-c` (hold down the `Control` key, and press `c`) to stop the Rails server, or use your second command prompt and navigate to your Rails application folder. Then you can use a Rails generator
 to build some code for you:
 
 `rails g scaffold Post title body:text`
