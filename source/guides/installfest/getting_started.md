@@ -8,23 +8,31 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 #### Prerequisites
 
 1. A working version of Rails 3.2 which you can install using [Rails Installer](http://railsinstaller.org/) for Windows or Mac. Note: For Mac Mavericks users, please use [this alternative guide on getting started](/guides/installfest/rails_on_mavericks).
-2. Sublime Text 2. If you prefer another text editor like vim, emacs or TextMate that's fine too but these instructions will specifically mention Sublime.
+2. Sublime Text 2. If you prefer another text editor like vim, emacs or TextMate that's fine too, but these instructions will specifically mention Sublime.
 
 #### Next steps
 
-Open two command prompts. One of these you'll use to run your local Rails server and the other you'll use for entering all other commands.
-Whenever you need to start or restart the rails server use one of these prompts, for all other command line work you can use the other.
+Open two command prompts. 
+
+To do this on Windows: Open the Command Prompt window by clicking the Start button, clicking All Programs, clicking Accessories, and then clicking Command Prompt.
+
+To do this on Mac: Open Finder in the Dock. Select applications. Then choose utilities. Double click on Terminal.
+
+You'll use one of the command prompts to run your local Rails server and the other for entering all other commands.
+
+Whenever you need to start or restart the rails server use the first command prompt and for all other command line work you can use the second command prompt.
 
 
 ## Setting up our Rails app
 
 `rails new quick_blog -T`
 
-Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue. Once it has finished type:
+Entering this command into your command prompt will cause Rails to generate a new application called quick_blog and begin to install dependencies for your application. This
+process may take a few minutes, so you should let it continue. Once it has finished type:
 
 `cd quick_blog`
 
-To change into the folder where your application is stored. If you look at the contents of this folder you'll see:
+Entering this command will change you into the folder where your application is stored. If you look at the contents of this folder you'll see:
 
 ![The default Rails application structure](/images/guides/default_rails_structure.png)
 
@@ -40,7 +48,7 @@ Now that you've created the Rails application you should open this folder using 
 
 ## Creating basic functionality
 
-Now we're ready to get started building an actual blog. In your command prompt press `Ctrl-c` to stop the Rails server, or open a new command prompt and navigate to your Rails application folder. Then you can use a Rails generator to build some code for you:
+Now we're ready to get started building an actual blog. In your command prompt press `Ctrl-c` to stop the Rails server, or use your second command prompt and navigate to your Rails application folder. Then you can use a Rails generator to build some code for you:
 
 `rails g scaffold Post title body:text`
 
@@ -75,7 +83,7 @@ From here you can play around with your application. Go ahead and create a new b
 
 ![Creating a new post](/images/guides/filling_out_posts_form.png)
 
-You'll notice you can create new posts, edit or delete them. We're going to add in some functionality to our new Rails app which enforces a rule that every post must have a title. Open `app/models/post.rb` and add the line:
+You'll notice you can create new posts, edit or delete them. We're going to add in some functionality to our new Rails app which enforces a rule that every post must have a title. Open `app/models/post.rb` in Sublime and add the line:
 
 ```ruby
 validates_presence_of :body, :title
@@ -97,7 +105,7 @@ We can check that this works by editing our blog post, deleting the title and cl
 
 ## Making things prettier
 
-Right now our [show post page](http://localhost:3000/posts/1) isn't looking very good. We'll open `app/views/posts/show.html.erb` and make it look like the following:
+Right now our [show post page](http://localhost:3000/posts/1) isn't looking very good. We'll open `app/views/posts/show.html.erb` in Sublime and make it look like the following:
 
 ```erb
  <p id="notice"><%= notice %></p>
@@ -139,7 +147,7 @@ In our `show.html.erb` file we want to insert the code to put our partial into o
 
 Save all these files and refresh [the show posts page](http://localhost:3000/posts/1). This is to check that you haven't broken anything with those changes.
 
-Our index page still hasn't changed though so we're going to open the `index.html.erb` file up and remove the table in there and replace it with the partial again so we're re-using that code:
+Our index page still hasn't changed, so we're going to open the `index.html.erb` file up and remove the table in there and replace it with the partial again so we're re-using that code:
 
 ```erb
  <h1>Listing posts</h1>
@@ -207,7 +215,7 @@ class Post < ActiveRecord::Base
 end
 ```
 
-The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rake routes` in your command prompt. If you do this now you'll get something like the following:
+The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post, we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rake routes` in your command prompt. If you do this now you'll get something like the following:
 
 ```ruby
     comments GET    /comments(.:format)          comments#index
@@ -238,7 +246,7 @@ QuickBlog::Application.routes.draw do
 end
 ```
 
-Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments. When you rerun `rake routes` now you'll see the following line:
+Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments. When you rerun `rake routes` you'll now see the following line:
 
 ```ruby
 post_comments POST   /posts/:post_id/comments(.:format) comments#create
@@ -302,11 +310,11 @@ Back in `app/views/posts/show.html.erb` you need to add in the form for submitti
 <% end %>
 ```
 
-Comments are now working (if they aren't make sure you restart your `rails server`) so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
+Comments are now working (if they aren't make sure you restart your `rails server`), so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
 
 ## Publishing your Blog on the internet
 
-Heroku is a fantastically simple service that can be used to host Ruby on Rails applications. You'll be able to host your blog on Heroku on their free-tier but first you'll need a Heroku account. Head to [https://www.heroku.com/](https://www.heroku.com/), click Sign Up and create an account. The starter documentation for Heroku is available at: [https://devcenter.heroku.com/articles/quickstart](https://devcenter.heroku.com/articles/quickstart). Once you've got an account you'll need to download the toolbelt from [https://toolbelt.heroku.com/](https://toolbelt.heroku.com/) and set it up on your computer.
+Heroku is a fantastically simple service that can be used to host Ruby on Rails applications. You'll be able to host your blog on Heroku on their free-tier, but first you'll need a Heroku account. Head to [https://www.heroku.com/](https://www.heroku.com/), click Sign Up and create an account. The starter documentation for Heroku is available at: [https://devcenter.heroku.com/articles/quickstart](https://devcenter.heroku.com/articles/quickstart). Once you've got an account you'll need to download the toolbelt from [https://toolbelt.heroku.com/](https://toolbelt.heroku.com/) and set it up on your computer.
 
 ### About databases
 
