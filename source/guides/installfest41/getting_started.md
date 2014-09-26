@@ -413,11 +413,17 @@ Once you've got an account you'll need to download the toolbelt from
 [https://toolbelt.heroku.com/](https://toolbelt.heroku.com/) and set it up on
 your computer.
 
-### About databases
+### Make the application work on Heroku
 
 Up until this point we've been using SQLite as our database, but unfortunately
 Heroku doesn't support the use of SQLite. So we're going to be running Postgres
-instead. Setting this up is easy. You'll need to open the `Gemfile` and make
+instead.
+
+We need to do some other things to make our application work on Heroku (it has
+to follow the ["Twelve-Factor" rules](http://12factor.net/) – don't worry about
+the details).
+
+These changes are easy to make. You'll need to open the `Gemfile` and make
 your `Gemfile` look like:
 
 ```ruby
@@ -437,6 +443,7 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0',          group: :doc
 gem 'spring',        group: :development
+gem 'rails_12factor', group: :production
 ```
 
 After this, run the command `bundle install --without=production` on your
