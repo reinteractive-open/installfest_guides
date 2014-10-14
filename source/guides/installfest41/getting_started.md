@@ -62,9 +62,19 @@ press `Ctrl-c` to stop the Rails server, or open a new command prompt and
 navigate to your Rails application folder. Then you can use a Rails generator
 to build some code for you:
 
+`rails generate scaffold Post title:string body:text`
+
+This command can also be written as:
+
 `rails g scaffold Post title body:text`
 
-You'll be presented with something that looks like:
+This is because:
+
+1. `g` is an alias for `generate`
+2. if you do not specify a data type for your attribute (like `string` or `text`),
+Rails just assumes you want it to be a `string`.
+
+After running your command, you'll be presented with something that looks like:
 
 ![Scaffolding posts](/images/guides/scaffolding_posts.png)
 
