@@ -24,8 +24,12 @@ other command line work you can use the other.
 
 Entering this command into your command prompt will cause Rails to generate a
 new application and begin to install dependencies for your application. This
-process may take a few minutes, so you should let it continue. Once it has
-finished type:
+process may take a few minutes, so you should let it continue.
+The `-T` is short for `--skip-test-unit`.  We won't be specifically covering
+testing during the InstallFest, so we won't need the `test` directory that Rails
+normally provides you when generating a new project.
+
+Once it has finished type:
 
 `cd quick_blog`
 
