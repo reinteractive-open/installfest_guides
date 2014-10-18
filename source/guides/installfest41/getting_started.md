@@ -70,7 +70,7 @@ This command can also be written as:
 
 This is because:
 
-1. `g` is an alias for `generate`
+1. `g` is short for `generate` when using the `rails` command
 2. if you do not specify a data type for your attribute (like `string` or `text`),
 Rails just assumes you want it to be a `string`.
 
