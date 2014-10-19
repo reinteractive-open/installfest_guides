@@ -64,15 +64,17 @@ to build some code for you:
 
 `rails generate scaffold Post title:string body:text`
 
-This command can also be written as:
+Let's break this command down:  we're asking `rails` to `generate` a `scaffold`
+ (basic building blocks; think construction scaffolding) for a thing,
+ or in Rails parlance a "resource", we want to call a `Post` in our system.
+ We want to give our `Post` two attributes: a `title`, which we want to be a
+ `string`, and a `body`, which we want to be `text`.
 
-`rails g scaffold Post title body:text`
-
-This is because:
-
-1. `g` is short for `generate` when using the `rails` command
-2. if you do not specify a data type for your attribute (like `string` or `text`),
-Rails just assumes you want it to be a `string`.
+A `string` is computer-speak for a short sequence of characters like `"hello"` or
+`"Are you having fun, yet?"`, and can usually be as long as your average tweet.
+Blog titles tend to be short, so we'll use a `string` for ours. `text` is like a
+`string`, but longer, so we'll use it to have enough room to write as many
+paragraphs as we want in the `body` of our blog post.
 
 After running your command, you'll be presented with something that looks like:
 
