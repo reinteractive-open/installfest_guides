@@ -27,8 +27,14 @@ Whenever you need to start or restart the rails server use the first command pro
 
 `rails new quick_blog -T`
 
-Entering this command into your command prompt will cause Rails to generate a new application called quick_blog and begin to install dependencies for your application. This
-process may take a few minutes, so you should let it continue. Once it has finished type:
+Entering this command into your command prompt will cause Rails to generate a
+new application and begin to install dependencies for your application. This
+process may take a few minutes, so you should let it continue.
+The `-T` is short for `--skip-test-unit`.  We won't be specifically covering
+testing just now, so we won't need the `test` directory that Rails
+normally provides you when generating a new project.
+
+Once it has finished type:
 
 `cd quick_blog`
 
@@ -60,9 +66,21 @@ Now we're ready to get started building an actual blog. In your command prompt
 press `Ctrl-c` (hold down the `Control` key, and press `c`) to stop the Rails server, or use your second command prompt and navigate to your Rails application folder. Then you can use a Rails generator
 to build some code for you:
 
-`rails g scaffold Post title body:text`
+`rails generate scaffold Post title:string body:text`
 
-You'll be presented with something that looks like:
+Let's break this command down:  we're asking `rails` to `generate` a `scaffold`
+ (basic building blocks; think construction scaffolding) for a thing,
+ or in Rails parlance a "resource", we want to call a `Post` in our system.
+ We want to give our `Post` two attributes: a `title`, which we want to be a
+ `string`, and a `body`, which we want to be `text`.
+
+A `string` is computer-speak for a short sequence of characters like `"hello"` or
+`"Are you having fun, yet?"`, and can usually be as long as your average tweet.
+Blog titles tend to be short, so we'll use a `string` for ours. `text` is like a
+`string`, but longer, so we'll use it to have enough room to write as many
+paragraphs as we want in the `body` of our blog post.
+
+After running your command, you'll be presented with something that looks like:
 
 ![Scaffolding posts](/images/guides/scaffolding_posts.png)
 
