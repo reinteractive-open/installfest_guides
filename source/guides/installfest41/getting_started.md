@@ -501,7 +501,8 @@ ensure the process will go through, even on faulty Internet connection. You can
 use `heroku logs` to view the output of the command.
 
 Finally you should be able to browse to the URL that Heroku has given you and
-check to see that your blog has been deployed properly!
+check to see that your blog has been deployed properly (you can also use the
+`heroku open` command)!
 
 Welcome to Ruby on Rails. If you're this far along you should definitely [head
 on over to Part 2](/guides/installfest41/finishing_a_basic_blog) which goes
