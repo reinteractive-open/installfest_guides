@@ -1,6 +1,6 @@
-# Getting starts on Mavericks
+# Getting started on Mavericks or Yosemite
 
-Unfortunately OS X Mavericks isn't supported by Rails Installer. This means we
+Unfortunately OS X Mavericks and Yosemite aren't supported by Rails Installer. This means we
 need to do a slightly more "professional" installation of Ruby and of Rails.
 Here's the basic outline:
 
