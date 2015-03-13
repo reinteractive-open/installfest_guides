@@ -103,6 +103,7 @@ section.info {
 section.events {
   aside {
     @include span-columns(6);
+    @include shift(3);
   }
 }
 .event {
