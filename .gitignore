@@ -4,3 +4,4 @@ aws.yml
 build/
 .powenv
 .envrc
+.idea/
