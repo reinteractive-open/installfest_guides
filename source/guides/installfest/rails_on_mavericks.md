@@ -36,7 +36,7 @@ install things like the Postgres database tool, or even tools which lets us inst
 Installing homebrew is easy. In your terminal window run:
 
 ```
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Once that is complete you can run `brew -v` on the terminal to check that it has installed properly.

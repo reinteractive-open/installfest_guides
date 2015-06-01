@@ -12,7 +12,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Next steps
 
-Open two command prompts. 
+Open two command prompts.
 
 To do this on Windows: Open the Command Prompt window by clicking the Start button, clicking All Programs, clicking Accessories, and then clicking Command Prompt.
 
@@ -85,7 +85,7 @@ After running your command, you'll be presented with something that looks like:
 
 An important file that was generated was the migration file:
 `db/migrate/20140528075017_create_posts.rb` Note that as this file name starts
-with a unique id includeding the date and time yours will have a different set
+with a unique id including the date and time yours will have a different set
 of numbers.
 
 ```ruby
