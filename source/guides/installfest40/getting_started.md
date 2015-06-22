@@ -26,12 +26,7 @@ Whenever you need to start or restart the rails server use the first command pro
 
 `rails new quick_blog -T`
 
-Entering this command into your command prompt will cause Rails to generate a
-new application and begin to install dependencies for your application. This
-process may take a few minutes, so you should let it continue.
-The `-T` is short for `--skip-test-unit`.  We won't be specifically covering
-testing just now, so we won't need the `test` directory that Rails
-normally provides you when generating a new project.
+Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue. The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
 
 Once it has finished type:
 

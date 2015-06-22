@@ -12,7 +12,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Next steps
 
-Open two command prompts. 
+Open two command prompts.
 
 To do this on Windows: Open the Command Prompt window by clicking the Start button, clicking All Programs, clicking Accessories, and then clicking Command Prompt.
 
@@ -28,9 +28,7 @@ Whenever you need to start or restart the rails server use the first command pro
 `rails new quick_blog -T`
 
 Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue.
-The `-T` is short for `--skip-test-unit`.  We won't be specifically covering
-testing just now, so we won't need the `test` directory that Rails
-normally provides you when generating a new project.
+The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
 
 Once it has finished type:
 
