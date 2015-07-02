@@ -40,7 +40,17 @@ contents of this folder you'll see:
 
 This is the standard structure of a new Rails application. Once you learn this
 structure it makes working with Rails easier since everything is in a standard
-place. Next we'll run this fresh application to check that our Rails install is
+place.
+
+Now run the following command:
+
+`bundle install`
+
+This checks the gems in your gemfile and will fetch all remote sources, resolve dependencies and install all required gems. (a gem is just a small program that you add to your application to provide out-of-the-box funtionality).
+
+It may take a while to run so sit back and relax...
+
+Next we'll run this fresh application to check that our Rails install is
 working properly. Type:
 
 `rails server`
