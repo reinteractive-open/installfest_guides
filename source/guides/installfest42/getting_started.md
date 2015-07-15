@@ -488,14 +488,15 @@ Finally we set up our database:
 `heroku run:detached rake db:setup`
 
 This setup of the database should only need to take place the first time you
-deploy to heroku. Afterwards you may need to run `db:migrate` instead.  The
+deploy to heroku. Afterwards you may need to run `db:migrate` instead. The
 `detached` option runs the command in the background. It is there only to
 ensure the process will go through, even on faulty Internet connection. You can
 use `heroku logs` to view the output of the command.
 
-Finally you should be able to browse to the URL that Heroku has given you and
-check to see that your blog has been deployed properly (you can also use the
-`heroku open` command)!
+To check that your blog has been deployed properly, browse to the URL that Heroku has gien you, remembering to append "/posts" to the end of the URL.
+e.g. `https://peaceful-hamlet-7389.herokuapp.com/posts`
+
+Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL)
 
 Welcome to Ruby on Rails. If you're this far along you should definitely [head
 on over to Part 2](/guides/installfest42/finishing_a_basic_blog) which goes
