@@ -14,8 +14,12 @@ Once you've successfully installed Rails (either using the [Rails Installer](htt
 rails -v
 ```
 
-Depending on which version of Rails you've installed you should continue using the the correct guide:
+Ideally, this should be Rails 4.2.
 
-* **For Rails version 3.2 continue on our [version 3.2 guide](/guides/installfest/getting_started)**
-* **For Rails version 4.0 continue on our [version 4.0 guide](/guides/installfest40/getting_started)**
+* **For Rails version 4.2 use our [version 4.2 guide](/guides/installfest42/getting_started)**
+
+However, if you have an earlier version of Rails you can find the correct guide here:
+
 * **For Rails version 4.1 continue on our [version 4.1 guide](/guides/installfest41/getting_started)**
+* **For Rails version 4.0 continue on our [version 4.0 guide](/guides/installfest40/getting_started)**
+* **For Rails version 3.2 continue on our [version 3.2 guide](/guides/installfest/getting_started)**
