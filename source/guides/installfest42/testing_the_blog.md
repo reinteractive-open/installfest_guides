@@ -25,27 +25,9 @@ Let's start by setting up our Rails application for testing.
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest41/getting_started) and
+[http://reinteractive.net/posts/32](/guides/installfest42/getting_started) and
 have completed
-[http://reinteractive.net/posts/34](/guides/installfest41/finishing_a_basic_blog).
-If you've done this but want to start with some fresh code by copying the tag
-that's available in the public git repository.
-
-[https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/part_2_complete](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/part_2_complete)
-which you can download to your computer
-[here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/part_2_complete.zip).
-
-Download the zip file, unpack it to a folder on your computer and commit it to
-git using the following prompt commands:
-
-```sh
-bundle install
-rake db:create db:setup
-git add .
-git commit -m "Restarting the 15 minute blog"
-```
-
-You'll need to refer to this post if you want to [get it setup](/guides/installfest41/getting_started) on Heroku.
+[http://reinteractive.net/posts/34](/guides/installfest42/finishing_a_basic_blog).
 
 Lets dive into testing now.
 
@@ -65,6 +47,16 @@ This will add Rspec and RSpec Rails to our Rails application. RSpec is a
 commonly used TDD (and BDD) testing tool which provides a special testing
 language (powered by Ruby) for testing existing code and for informing
 developers about the structure and functionality of yet to be written code!
+
+In Rails 5.0, test cases will be executed in random order by default. In anticipation of this change, Rails 4.2 introduced a new configuration option `active_support.test_order` for explicitly specifying the test ordering. This allows you to either lock down the current behavior by setting the option to `:sorted`, or opt into the future behaviour by setting the option to `:random`.
+
+If you do not specify a value for this option, a deprecation warning will be emitted. To avoid this, open the file `config/environments/test.rb` add the following lines to it:
+
+```ruby
+Rails.application.configure do
+  config.active_support.test_order = :sorted # or `:random` if you prefer
+end
+```
 
 To complete the installation run:
 
