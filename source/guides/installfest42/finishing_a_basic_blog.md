@@ -131,8 +131,32 @@ as the response. We don't want that behaviour for an AJAX call.
 
 #### Setting up the server to process AJAX requests
 
-Let's fix that by making our create comment action aware of JavaScript AJAX
-requests. Open `app/controllers/comments_controller.rb` and change the create
+Let's fix that by making our create comment action aware of JavaScript AJAX requests. First we need to add the responders gem to our Gemfile. This is a new requirement of Rails 4.2.
+
+Open the `Gemfile` and make your `Gemfile` look like:
+
+```ruby
+source 'https://rubygems.org'
+
+gem 'rails', '~> 4.2.0'
+
+gem 'sqlite3', group: [:development, :test]
+gem 'pg', group: :production
+
+gem 'sass-rails', '~> 5.0'
+gem 'uglifier', '>= 1.3.0'
+gem 'coffee-rails', '~> 4.1.0'
+gem 'responders', '~> 2.0'
+
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jbuilder', '~> 2.0'
+gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'spring',        group: :development
+gem 'rails_12factor', group: :production
+```
+
+Open `app/controllers/comments_controller.rb` and change the create
 method to respond to AJAX requests as follows:
 
 ```ruby
