@@ -510,7 +510,7 @@ method:
 
 ```ruby
 class Post < ActiveRecord::Base
-  attr_accessible :body, :title
+  attr_accessor :body, :title
 
   has_many :comments
 
