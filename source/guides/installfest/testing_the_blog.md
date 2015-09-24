@@ -149,7 +149,7 @@ Failures:
      # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
 ```
 
-If you open `app/models/comment.rb` you'll notice that there isn't any validations on our comment model. If you add `validates_presence_of :post, :body` into the class and re-run your spec you'll see the test pass and "go green". Congratulations, you've just TDD'd your first piece of application logic. One of the amazing things about working with Rails there's a very quick feedback loop between writing a failing test, making it pass and then suddenly having a full functional feature in your application. 
+If you open `app/models/comment.rb` you'll notice that there isn't any validations on our comment model. If you add `validates_presence_of :post, :body` into the class and re-run your spec you'll see the test pass and "go green". Congratulations, you've just TDD'd your first piece of application logic. One of the amazing things about working with Rails there's a very quick feedback loop between writing a failing test, making it pass and then suddenly having a full functional feature in your application.
 
 At this stage we've completed a small block of work, tests are passing (which you can check by running the `spec` command) so we should commit our work with: `git add .` and `git commit -m "Added spec and first model specs"`
 
@@ -241,7 +241,7 @@ Now when you rerun the spec (`rspec spec/features`) you'll receive two errors:
 ```sh
 Failure/Error: expect(page).to have_content 'Awesome Blog Post'
   expected to find text "Awesome Blog Post"
-  
+
 Failure/Error: click_link 'Awesome Blog Post'
      Capybara::ElementNotFound:
        Unable to find link "Awesome Blog Post"
@@ -305,7 +305,7 @@ feature 'Managing blog posts' do
     page.driver.browser.authorize 'admin', 'secret'
     click_link 'New Post'
 
-    expect(page).to have_content 'New post'
+    expect(page).to have_content 'New Post'
 
     fill_in 'Title', :with => 'I love cheese'
     fill_in 'Body', :with => "It's pretty amazing, don't you think?"
