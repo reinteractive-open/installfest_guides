@@ -73,7 +73,7 @@ to build some code for you:
 
 `rails generate scaffold Post title:string body:text`
 
-Let's break this command down:  we're asking `rails` to `generate` a `scaffold`
+Let's break this command down: we're asking `rails` to `generate` a `scaffold`
  (basic building blocks; think construction scaffolding) for a thing,
  or in Rails parlance a "resource", we want to call a `Post` in our system.
  We want to give our `Post` two attributes: a `title`, which we want to be a
@@ -168,7 +168,7 @@ changes you've made.
 
 We'll also want to make our blog listing prettier too, we'll use a Rails
 partial (a partial is simply a reusuable block of HTML code. It's part of a web
-    page) to achieve this. We want our listing and the individual blog pages to
+page) to achieve this. We want our listing and the individual blog pages to
 look the same so first we'll create a file: `app/views/posts/_post.html.erb`
 The underscore in front of the filename here tells Rails that this is a
 partial. We'll take
