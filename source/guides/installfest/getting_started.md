@@ -383,7 +383,7 @@ Finally we set up our database:
 
 `heroku run:detached rake db:setup`
 
-This setup of the database should only need to take place the first time you deploy to heroku. Afterwards you may need to run `db:migrate` instead.
+This setup of the database should only need to take place the first time you deploy to heroku. Afterwards you may need to run `heroku run rake db:migrate` instead.
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
 Finally you should be able to browse to the URL that Heroku has given you and check to see that your blog has been deployed properly!
