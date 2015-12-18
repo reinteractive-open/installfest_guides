@@ -53,9 +53,7 @@ In Rails 5.0, test cases will be executed in random order by default. In anticip
 If you do not specify a value for this option, a deprecation warning will be emitted. To avoid this, open the file `config/environments/test.rb` add the following lines to it:
 
 ```ruby
-Rails.application.configure do
   config.active_support.test_order = :sorted # or `:random` if you prefer
-end
 ```
 
 To complete the installation run:
