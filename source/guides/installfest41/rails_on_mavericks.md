@@ -38,7 +38,7 @@ database tool, or even tools which lets us install other tools.
 Installing homebrew is easy. In your terminal window run:
 
 ```
-ruby -e "$(curl -fsSL https://raw.github.com/mxcl/homebrew/go/install)"
+ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
 Once that is complete you can run `brew -v` on the terminal to check that it
@@ -104,17 +104,16 @@ If your Ruby is installed properly you can move onto the next section.
 
 ## Installing Rails
 
-Installing Rails is easy just run:
-
-```sh
-gem install rails -v 4.1.1
-```
-
-If you want to install the latest version of Rails (4.1.1 at time of writing)
-  just type
+Installing Rails is easy. To get the latest version just run:
 
 ```sh
 gem install rails
+```
+
+If you want to install a different version of Rails (for example, 3.2.13) just type
+
+```sh
+gem install rails -v 3.2.13
 ```
 
 If you install multiple versions of Rails onto your computer you can choose

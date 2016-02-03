@@ -462,7 +462,7 @@ feature 'Managing blog posts' do
     page.driver.browser.authorize 'admin', 'secret'
     click_link 'New Post'
 
-    expect(page).to have_content 'New post'
+    expect(page).to have_content 'New Post'
 
     fill_in 'Title', with: 'I love cheese'
     fill_in 'Body', with: "It's pretty amazing, don't you think?"

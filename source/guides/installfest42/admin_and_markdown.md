@@ -62,12 +62,13 @@ gem 'devise'
 ```
 
 Then in your terminal run `bundle install --without=production` to install
-ActiveAdmin. Once bundle has finished installing you will need to cofigure
+ActiveAdmin. Once bundle has finished installing you will need to configure
 ActiveAdmin by running:
 
 ```sh
 rails generate active_admin:install
 rake db:migrate
+rake db:seed
 ```
 
 Finally we need to restart our rails server as we have made some changes to the

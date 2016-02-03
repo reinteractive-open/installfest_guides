@@ -12,7 +12,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Next steps
 
-Open two command prompts. 
+Open two command prompts.
 
 To do this on Windows: Open the Command Prompt window by clicking the Start button, clicking All Programs, clicking Accessories, and then clicking Command Prompt.
 
@@ -27,12 +27,7 @@ Whenever you need to start or restart the rails server use the first command pro
 
 `rails new quick_blog -T`
 
-Entering this command into your command prompt will cause Rails to generate a
-new application and begin to install dependencies for your application. This
-process may take a few minutes, so you should let it continue.
-The `-T` is short for `--skip-test-unit`.  We won't be specifically covering
-testing just now, so we won't need the `test` directory that Rails
-normally provides you when generating a new project.
+Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue. The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
 
 Once it has finished type:
 
@@ -45,7 +40,17 @@ contents of this folder you'll see:
 
 This is the standard structure of a new Rails application. Once you learn this
 structure it makes working with Rails easier since everything is in a standard
-place. Next we'll run this fresh application to check that our Rails install is
+place.
+
+Now run the following command:
+
+`bundle install`
+
+This checks the gems in your gemfile and will fetch all remote sources, resolve dependencies and install all required gems. (a gem is just a small program that you add to your application to provide out-of-the-box funtionality).
+
+It may take a while to run so sit back and relax...
+
+Next we'll run this fresh application to check that our Rails install is
 working properly. Type:
 
 `rails server`
@@ -86,7 +91,7 @@ After running your command, you'll be presented with something that looks like:
 
 An important file that was generated was the migration file:
 `db/migrate/20140528075017_create_posts.rb` Note that as this file name starts
-with a unique id includeding the date and time yours will have a different set
+with a unique id including the date and time yours will have a different set
 of numbers.
 
 ```ruby
@@ -495,14 +500,15 @@ Finally we set up our database:
 `heroku run:detached rake db:setup`
 
 This setup of the database should only need to take place the first time you
-deploy to heroku. Afterwards you may need to run `db:migrate` instead.  The
+deploy to heroku. Afterwards you may need to run `heroku run rake db:migrate` instead.  The
 `detached` option runs the command in the background. It is there only to
 ensure the process will go through, even on faulty Internet connection. You can
 use `heroku logs` to view the output of the command.
 
-Finally you should be able to browse to the URL that Heroku has given you and
-check to see that your blog has been deployed properly (you can also use the
-`heroku open` command)!
+To check that your blog has been deployed properly, browse to the URL that Heroku has gien you, remembering to append "/posts" to the end of the URL.
+e.g. `https://peaceful-hamlet-7389.herokuapp.com/posts`
+
+Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL)
 
 Welcome to Ruby on Rails. If you're this far along you should definitely [head
 on over to Part 2](/guides/installfest41/finishing_a_basic_blog) which goes
