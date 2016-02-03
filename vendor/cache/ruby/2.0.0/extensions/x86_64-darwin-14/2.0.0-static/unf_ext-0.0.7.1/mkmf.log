@@ -1,0 +1,61 @@
+have_library: checking for main() in -lstdc++... -------------------- yes
+
+"/usr/bin/clang -o conftest -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0/x86_64-darwin14.1.0 -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0/ruby/backward -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/lib -L.  -L/Users/haven/.sm/pkg/active/lib -L/usr/lib -fPIC -Bstatic -lz -fstack-protector   -arch x86_64   -lruby-static  -lpthread -ldl -lobjc "
+ld: warning: directory not found for option '-L/Users/haven/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+1: #include "ruby.h"
+2: 
+3: int main(int argc, char **argv)
+4: {
+5:   return 0;
+6: }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0/x86_64-darwin14.1.0 -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0/ruby/backward -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/lib -L.  -L/Users/haven/.sm/pkg/active/lib -L/usr/lib -fPIC -Bstatic -lz -fstack-protector   -arch x86_64   -lruby-static -lstdc++  -lpthread -ldl -lobjc "
+conftest.c:5:57: error: use of undeclared identifier 'main'
+int t(void) { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+                                                        ^
+1 error generated.
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int t(void) { void ((*volatile p)()); p = (void ((*)()))main; return 0; }
+ 6: int main(int argc, char **argv)
+ 7: {
+ 8:   if (argc > 1000000) {
+ 9:     printf("%p", &t);
+10:   }
+11: 
+12:   return 0;
+13: }
+/* end */
+
+"/usr/bin/clang -o conftest -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0/x86_64-darwin14.1.0 -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0/ruby/backward -I/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/include/ruby-2.0.0 -I. -D_XOPEN_SOURCE -D_DARWIN_C_SOURCE -D_DARWIN_UNLIMITED_SELECT -D_REENTRANT   -O3 -I/Users/haven/.sm/pkg/active/include -fPIC -mmacosx-version-min=10.7 -pipe conftest.c  -L. -L/Users/RachelleOnRails/.rvm/rubies/ruby-2.0.0-p643/lib -L.  -L/Users/haven/.sm/pkg/active/lib -L/usr/lib -fPIC -Bstatic -lz -fstack-protector   -arch x86_64   -lruby-static -lstdc++  -lpthread -ldl -lobjc "
+conftest.c:5:15: warning: implicit declaration of function 'main' is invalid in C99 [-Wimplicit-function-declaration]
+int t(void) { main(); return 0; }
+              ^
+1 warning generated.
+ld: warning: directory not found for option '-L/Users/haven/.sm/pkg/active/lib'
+checked program was:
+/* begin */
+ 1: #include "ruby.h"
+ 2: 
+ 3: /*top*/
+ 4: extern int t(void);
+ 5: int t(void) { main(); return 0; }
+ 6: int main(int argc, char **argv)
+ 7: {
+ 8:   if (argc > 1000000) {
+ 9:     printf("%p", &t);
+10:   }
+11: 
+12:   return 0;
+13: }
+/* end */
+
+--------------------
+

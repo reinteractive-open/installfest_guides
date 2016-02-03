@@ -1,0 +1,23 @@
+Metrics/LineLength:
+  Enabled: false
+
+Style/EachWithObject:
+  Enabled: false
+
+Style/Encoding:
+  EnforcedStyle: when_needed
+
+Style/FormatString:
+  Enabled: false
+
+Style/HashSyntax:
+  Enabled: false
+
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Metrics/LineLength
+  Enabled: false

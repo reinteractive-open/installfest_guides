@@ -1,0 +1,12 @@
+language: ruby
+sudo: false
+script: bundle exec rake test
+rvm:
+  - 1.9.3
+  - 2.0.0
+  - 2.1.5
+  - 2.2.0
+  - jruby-19mode
+env:
+  - FOG_MOCK=true
+  - FOG_MOCK=false
