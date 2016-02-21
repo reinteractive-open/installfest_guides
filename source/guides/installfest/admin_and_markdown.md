@@ -253,7 +253,7 @@ end
 
 And rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to write another test. Open `spec/services/markdown_service_spec.rb` and we'll write the test for a render method.
 
-If you have decided to use the pure-ruby Maruku gem for Markdown then 
+If you have decided to use the pure-ruby Maruku gem for Markdown then
 
 
 
@@ -287,7 +287,7 @@ describe MarkdownService do
 end
 ```
 
-This is a pretty big jump. But effectively this test is saying that the `markdown_engine` will receive the render command with the content argument. Then we call `MarkdownService#render`. There's definitely some advanced Ruby magic going on here and it's totally fine if for the moment you don't understand it fully. Also don't expect to be able to always TDD new code. Often you need to prototype the implementation before you write the test. 
+This is a pretty big jump. But effectively this test is saying that the `markdown_engine` will receive the render command with the content argument. Then we call `MarkdownService#render`. There's definitely some advanced Ruby magic going on here and it's totally fine if for the moment you don't understand it fully. Also don't expect to be able to always TDD new code. Often you need to prototype the implementation before you write the test.
 
 Save the spec file and run your spec again. This time you'll receive another failure so it's time to open the class we're testing again (`app/services/markdown_service.rb`) and update the contents to:
 
@@ -477,4 +477,4 @@ Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub). 
 
 #### Or just
 
-Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me [@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!
+Tweet us [@reinteractive](http://www.twitter.com/reinteractive). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!

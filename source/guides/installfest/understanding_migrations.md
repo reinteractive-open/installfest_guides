@@ -5,7 +5,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 # Understanding Migrations
 Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
-In this installment we'll be learning more about how to manage your database structure through migrations. 
+In this installment we'll be learning more about how to manage your database structure through migrations.
 
 The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
 
@@ -65,7 +65,7 @@ class AddPublishedToPost < ActiveRecord::Migration
 end
 ```
 
-After saving this we need to migrate our development database and prepare our test database. Run the following: 
+After saving this we need to migrate our development database and prepare our test database. Run the following:
 
 ```sh
 rake db:migrate db:test:prepare
@@ -198,7 +198,7 @@ def show
     format.json { render json: @post }
   end
 end
-``` 
+```
 
 ### Red, Green, Refactor!
 
@@ -560,5 +560,5 @@ Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub). 
 
 #### Or just
 
-Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me [@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!
+Tweet us [@reinteractive](http://www.twitter.com/reinteractive). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!
 
