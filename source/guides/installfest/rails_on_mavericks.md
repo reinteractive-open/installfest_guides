@@ -1,6 +1,6 @@
-# Getting started on Mavericks
+# Getting started on Newer Versions of OS X
 
-Unfortunately OS X Mavericks isn't supported by Rails Installer. This means we need to do a slightly more "professional"
+Unfortunately later versions of OS X isn't supported by Rails Installer. This means we need to do a slightly more "professional"
 installation of Ruby and of Rails. Here's the basic outline:
 
 1. Setup a compiler
@@ -11,7 +11,7 @@ installation of Ruby and of Rails. Here's the basic outline:
 
 ## Setting up a compiler
 
-In Mavericks this process has been streamlined by Apple fairly significantly.
+This process has been streamlined by Apple fairly significantly.
 
 1. Open the Terminal application. You can do this by pressing Command+Space (to open Spotlight) then typing "terminal" in
 in the search window which appears.
@@ -30,8 +30,8 @@ If so, congratulations you've installed the compilation tools. You can move onto
 
 ## Installing homebrew
 
-[Homebrew](http://brew.sh) is a tool which developers use to install other bits of software. Using homebrew we can easily
-install things like the Postgres database tool, or even tools which lets us install other tools.
+[Homebrew](http://brew.sh) is a tool that developers use to install other bits of software. Using homebrew we can easily
+install things like the Postgres database tool, or even tools that will allow us to install other tools.
 
 Installing homebrew is easy. In your terminal window run:
 
@@ -39,22 +39,22 @@ Installing homebrew is easy. In your terminal window run:
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 ```
 
-Once that is complete you can run `brew -v` on the terminal to check that it has installed properly.
+Once that is complete you can run `brew -v` in the terminal to check that it has installed properly.
 
 ## Installing ruby-install and chruby
 
-ruby-install is a tool which can install multiple versions of the Ruby programming language.
+ruby-install is a tool that can install multiple versions of the Ruby programming language.
 Professional Ruby developers will use ruby-install (or similar tools) so they can test their
 applications with many different versions of Ruby.
 
-chruby is a tool which can be used to manage and switch between different installed versions
+chruby is a tool that can be used to manage and switch between different installed versions
 of Ruby.
 
 Run all the the following step by step:
 
 1. First install openssl: `brew install openssl`
 2. Next install ruby-install: `brew install ruby-install`
-3. Now use ruby-install to install Ruby: `ruby-install ruby 2.0.0`
+3. Now use ruby-install to install Ruby: `ruby-install ruby 2.3.0`
 
 Installing Ruby may take a little while. Next we'll install and configure chruby:
 
@@ -62,8 +62,8 @@ Installing Ruby may take a little while. Next we'll install and configure chruby
 brew install chruby
 echo "source '/usr/local/share/chruby/chruby.sh'" >> ~/.bash_profile
 source '/usr/local/share/chruby/chruby.sh'
-echo "chruby `chruby | grep 2.0.0 | sed 's/\* //'`" >> ~/.bash_profile
-chruby `chruby | grep 2.0.0 | sed 's/\* //'`
+echo "chruby `chruby | grep 2.3.0 | sed 's/\* //'`" >> ~/.bash_profile
+chruby `chruby | grep 2.3.0 | sed 's/\* //'`
 ```
 
 This set of commands may seem overwhelming, but all we're doing is:
@@ -83,13 +83,13 @@ ruby -v
 and you should see something like:
 
 ```sh
-ruby 2.0.0p247 (2013-06-27 revision 41674) [x86_64-darwin13.0.0]
+ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin13]
 ```
 
 Importantly you should NOT see:
 
 ```sh
-ruby 2.0.0p247 (2013-06-27 revision 41674) [universal.x86_64-darwin13]
+ruby 2.3.0p0 (2015-12-25 revision 53290) [universal.x86_64-darwin13]
 ```
 
 The word __universal__ means that it's the version of Ruby which comes with OS X.
@@ -116,7 +116,7 @@ to create an app with as follows:
 
 ```sh
 rails _3.2.13_ new quick_blog
-rails _4.0.1_ new quick_blog_4
+rails _4.2.5_ new quick_blog_4
 ```
 
 If you just type
