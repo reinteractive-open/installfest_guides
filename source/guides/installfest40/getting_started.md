@@ -8,7 +8,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 #### Prerequisites
 
 1. A working version of Rails 4.0. To determine if you've got a working version of Rails 4.0, type `rails -v` into your command prompt, or ask a mentor.
-2. Sublime Text 2. If you prefer another text editor like vim, emacs or TextMate that's fine too, but these instructions will specifically mention Sublime.
+2. [Sublime Text](https://www.sublimetext.com). If you prefer another text editor like [Vim](http://www.vim.org/download.php), [emacs](https://www.gnu.org/software/emacs/), [TextMate](https://macromates.com/) or Github's [Atom](https://atom.io/) that's fine too but these instructions will specifically mention Sublime.
 
 #### Next steps
 
@@ -27,6 +27,10 @@ Whenever you need to start or restart the rails server use the first command pro
 `rails new quick_blog -T`
 
 Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue. The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
+
+If you have installed multiple versions of Rails onto your computer, you can choose which one to create an app with as follows:
+
+`rails 3.2.13 new quick_blog -T`
 
 Once it has finished type:
 
