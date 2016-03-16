@@ -7,7 +7,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Prerequisites
 
-1. A working version of Rails 3.2 which you can install using [Rails Installer](http://railsinstaller.org/) for Windows or Mac. Note: For Mac Mavericks users, please use [this alternative guide on getting started](/guides/installfest/rails_on_mavericks).
+1. A working version of Rails 3.2 which you can install using [Rails Installer](http://railsinstaller.org/) for Windows or Mac. Note: For Mac users with newer versions of OS X, please use [this alternative guide on getting started](/guides/installfest/rails_on_mavericks).
 2. Sublime Text 2. If you prefer another text editor like vim, emacs or TextMate that's fine too, but these instructions will specifically mention Sublime.
 
 #### Next steps
@@ -383,7 +383,7 @@ Finally we set up our database:
 
 `heroku run:detached rake db:setup`
 
-This setup of the database should only need to take place the first time you deploy to heroku. Afterwards you may need to run `db:migrate` instead.
+This setup of the database should only need to take place the first time you deploy to heroku. Afterwards you may need to run `heroku run rake db:migrate` instead.
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
 Finally you should be able to browse to the URL that Heroku has given you and check to see that your blog has been deployed properly!

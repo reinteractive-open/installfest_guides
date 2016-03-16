@@ -695,7 +695,6 @@ your Rails app.
 
 #### Or just
 
-Tweet us [@reinteractive](http://www.twitter.com/reinteractive) (or me
-[@lgarvey](http://www.twitter.com/lgarvey)). We'd love to hear feedback on this
+Tweet us [@reinteractive](http://www.twitter.com/reinteractive). We'd love to hear feedback on this
 series, do you love it? Want us to do more? Let us know!
 
