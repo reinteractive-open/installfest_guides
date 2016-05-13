@@ -3,6 +3,17 @@
 The Ruby on Rails Installfest is a fast paced, hands on journey through getting your first Ruby on Rails application up and running live on the Internet. Includes full setup of your development environment and step by step instructions on how to build your first app.
 This repository contains all the guides used in the InstallFest and also some stretch follow-on guides that interested "students" can use to keep their Rails learning journey on track.
 
+# Setup
+
+4. The site is a static site built with [Middleman](https://middlemanapp.com/) (not Ruby on Rails!), so it's a super simple setup:
+
+1. Clone the repository.
+2. `cd installfest_guides`
+3. `bundle install`
+4. `cp aws.example.yml aws.yml`
+5. `middleman server` to start the preview web server at [http://localhost:4567/](http://localhost:4567/).
+6. Edit the files in the `source` directory and reload in your browser to see your changes.
+
 # Deploying the Website
 
 Note you need to have proper aws credentials to do this.
@@ -18,8 +29,7 @@ Spot an error? Had some issues following the guide? Raise an issue and we'll loo
 
 ## Sponsorship
 
-The Ruby on Rails Installfest is a proud initiative from Australian Rails
-development firm [reInteractive](http://reinteractive.net/).
+The Ruby on Rails Installfest is a proud initiative from Australian Rails development and operations firm [reinteractive](http://reinteractive.net/).
 
 ## License
 
