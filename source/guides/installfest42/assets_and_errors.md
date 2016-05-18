@@ -11,8 +11,8 @@ on from [Part 5](/guides/installfest42/understanding_migrations). If you feel
 confident with Rails and want to learn more about the asset pipeline, static
 pages and custom error pages then you can find setup instructions below.
 
-In this article we'll be going through 3 separate topics that will round out a
-series of posts we've made on building a blog in Rails 3.2. Today we'll be
+In this article we'll be going through three separate topics that will round out a
+series of posts we've made on building a blog in Rails 4.2. Today we'll be
 looking at:
 
 1. An introduction to the assets folder
@@ -25,38 +25,17 @@ you should have no problems keeping up.
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest42/getting_started) and
-have completed
-[http://reinteractive.net/posts/47](/guides/installfest42/understanding_migrations).
-If you've done this but want to start with some fresh code, you can by copying
-the tag that's available in the public git repository.
+[Getting Started](/guides/installfest42/getting_started) and have completed
+[Understanding Migrations](/guides/installfest42/understanding_migrations).
 
-[https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/posts_author](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/posts_author)
-which you can download to your computer
-[here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/posts_author.zip).
-
-Download the zip file, unpack it to a folder on your computer and commit it to
-git using the following prompt commands:
-
-```sh
-bundle install
-rake db:create db:setup
-git add .
-git commit -m "Restarting the 15 minute blog"
-```
-
-You'll need to refer to this post if you want to [get it
-setup](/guides/installfest42/getting_started) on Heroku.
-
-Lets dive into writing these new features.
-
+Let's dive into writing these new features.
 
 ## Assets in Rails
 
 We've got the foundations of a fully capable and customised blogging engine,
-  but right now we don't really know how to add in pictures or more style into
-  our application. We've touched on some of this with some basic styles and
-  Zurb Foundation, and now it's time to learn more.
+but right now we don't really know how to add in pictures or more style into
+our application. We've touched on some of this with some basic styles and
+Zurb Foundation, and now it's time to learn more.
 
 Assets in Rails are items that are considered static such as your images, CSS
 files or Javascript code. Rails provides some powerful tools for managing
@@ -67,7 +46,6 @@ One of the best features of Rails is the [Asset
 pipeline](http://guides.rubyonrails.org/asset_pipeline.html). The Asset
 pipeline moves static assets from the `public` folder into the `app` folder and
 introduces the concept of precompilation.
-
 
 ### Precompilation of Static Assets in Rails
 

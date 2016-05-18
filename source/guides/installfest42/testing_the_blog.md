@@ -1,5 +1,5 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest41/testing_the_blog.md
+github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest42/testing_the_blog.md
 ---
 
 # Testing the Blog with RSpec
@@ -29,7 +29,7 @@ You'll need to have been following our InstallFest blog posts starting with
 have completed
 [http://reinteractive.net/posts/34](/guides/installfest42/finishing_a_basic_blog).
 
-Lets dive into testing now.
+Let's dive into testing now.
 
 ### Setup
 Add to rspec rails to your  `Gemfile`:
@@ -48,9 +48,14 @@ commonly used TDD (and BDD) testing tool which provides a special testing
 language (powered by Ruby) for testing existing code and for informing
 developers about the structure and functionality of yet to be written code!
 
-In Rails 5.0, test cases will be executed in random order by default. In anticipation of this change, Rails 4.2 introduced a new configuration option `active_support.test_order` for explicitly specifying the test ordering. This allows you to either lock down the current behavior by setting the option to `:sorted`, or opt into the future behaviour by setting the option to `:random`.
+In Rails 5.0, test cases will be executed in random order by default. In
+anticipation of this change, Rails 4.2 introduced a new configuration option
+`active_support.test_order` for explicitly specifying the test ordering.
+This allows you to either lock down the current behaviour by setting the
+option to `:sorted`, or opt into the future behaviour by setting the option to `:random`.
 
-If you do not specify a value for this option, a deprecation warning will be emitted. To avoid this, open the file `config/environments/test.rb` add the following lines to it:
+If you do not specify a value for this option, a deprecation warning will
+be emitted. To avoid this, open the file `config/environments/test.rb` add the following lines to it:
 
 ```ruby
   config.active_support.test_order = :sorted # or `:random` if you prefer
@@ -124,7 +129,6 @@ describe Post do
 end
 ```
 
-
 What we're doing here is splitting up the test into a "validations" section and
 then declaring the subject of the test. The before block will invoke some
 common code to be run for each test and then each test just checks that there
@@ -196,17 +200,17 @@ Failures:
 ```
 
 If you open `app/models/comment.rb` you'll notice that there isn't any
-validations on our comment model. If you add `validates_presence_of :post,
-            :body` into the class and re-run your spec you'll see the test pass
-            and "go green". Congratulations, you've just TDD'd your first piece
-            of application logic. One of the amazing things about working with
-            Rails there's a very quick feedback loop between writing a failing
-            test, making it pass and then suddenly having a full functional
-            feature in your application.
+validations on our comment model. If you add `validates_presence_of :post, :body`
+into the class and re-run your spec you'll see the test pass and "go green".
 
-At this stage we've completed a small block of work, tests are passing (which
-    you can check by running the `spec` command) so we should commit our work
-with: `git add .` and `git commit -m "Added Rspec and first model specs"`
+Congratulations, you've just TDD'd your first piece of application logic! One of
+the amazing things about working with Rails there's a very quick feedback loop
+between writing a failing test, making it pass and then suddenly having a
+complete functional feature in your application.
+
+At this stage we've completed a small block of work, tests are passing (which you
+can check by running the `spec` command) so we should commit our work with:
+`git add .` and `git commit -m "Added Rspec and first model specs"`
 
 We're not done with our tests though.
 
@@ -489,7 +493,7 @@ git commit -m "Adding rspec and tests for existing functionality"
 
 ## Next Steps
 
-Up next we'll add in an Administration panel and convert our blog posts to
+Up next we'll add an Administration panel and convert our blog posts to
 Markdown format. Click [here](/guides/installfest42/admin_and_markdown) to
 check it out and continue your Rails adventure.
 
