@@ -21,7 +21,7 @@ Authentication to prevent anyone from creating and editing blog posts and that
 the links to perform these actions are right there in the blog. Instead we'd
 prefer to have an admin panel where we could manage our blog posts. We could
 build one from scratch but there's a fantastic gem called
-[ActiveAdmin](https://github.com/gregbell/active_admin) which we can use to
+[ActiveAdmin](https://github.com/activeadmin/activeadmin) which we can use to
 easily give us what we want.
 
 ### Application Setup
@@ -29,35 +29,16 @@ easily give us what we want.
 You'll need to have been following our InstallFest blog posts starting with
 [http://reinteractive.net/posts/32](/guides/installfest42/getting_started) and
 have completed
-[http://reinteractive.net/posts/42](/guides/installfest42/testing_the_blog). If
-you've done this but want to start with some fresh code, you can by copying the
-tag that's available in the public git repository.
+[http://reinteractive.net/posts/42](/guides/installfest42/testing_the_blog).
 
-[https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/admin_markdown_complete](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/admin_markdown_complete)
-which you can download to your computer
-[here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/admin_markdown_complete.zip).
-
-Download the zip file, unpack it to a folder on your computer and commit it to
-git using the following prompt commands:
-
-```sh
-bundle install --without=production
-rake db:create db:setup
-git add .
-git commit -m "Restarting the 15 minute blog"
-```
-
-You'll need to refer to this post if you want to [get it
-set up](/guides/installfest42/getting_started) on Heroku.
-
-Lets dive into installing ActiveAdmin.
+Let's dive into installing ActiveAdmin.
 
 ### Installing ActiveAdmin
 
 Open your `Gemfile` and add the following lines to the bottom of the file:
 
 ```ruby
-gem 'activeadmin', github: 'gregbell/active_admin'
+gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 ```
 
@@ -176,7 +157,6 @@ feature 'Managing blog posts' do
     expect(page).to_not have_link 'New Post'
   end
 
-
   context 'as an admin user' do
     ...
   end
@@ -202,7 +182,6 @@ a post. Specifically we want to ensure that there isn't a link called "New
 Post" on the post index page. Currently this link exists so we experience our
 test failure.
 
-
 We can fix this scenario by opening: `app/views/posts/index.html.erb` and
 deleting:
 
@@ -219,7 +198,7 @@ configure our routes so that the only way to create or edit a post is in the
 admin panel.
 
 Open: `app/controllers/posts_controller.rb` and delete all the methods except
-for index and show! You can also delete the authenticate method and the
+for index and show. You can also delete the authenticate method and the
 before_filter line. Your PostsController should look like the following when
 you've finished:
 
@@ -254,12 +233,11 @@ end
 Save these changes.
 
 Since we've made a large change to one of our main controllers now would be a
-good time to run our entire test suite. You'll actually see that everything
-passes but there's a curious new spec that we didn't create. This was generated
-automatically for you when you installed ActiveAdmin. Since there's no
-functionality in there that we wrote we're going to simply delete the spec. On
-OSX or Linux run `rm spec/models/admin_user_spec.rb` and on Windows run `del
-spec\models\admin_user_spec.rb`.
+good time to run our entire test suite. You'll see that everything passes but
+there's a curious new spec that we didn't create. This was generated automatically
+for you when you installed ActiveAdmin. Since there's no functionality in there
+that we wrote we're going to simply delete the spec. On OSX or Linux run
+`rm spec/models/admin_user_spec.rb` and on Windows run `del spec\models\admin_user_spec.rb`.
 
 ### Cleaning up and Committing
 
@@ -282,11 +260,11 @@ git commit -m "added ActiveAdmin and a Posting admin interface"
 
 One feature we'd love to have on our blog is the ability to author our blog
 posts using Github-style
-[Markdown](https://help.github.com/articles/github-flavored-markdown). Luckily
-doing this in Ruby is really easy and integrating it in Rails should only take
-a few lines of code. We'll be using the excellent
+[Markdown](https://help.github.com/enterprise/11.10.340/user/articles/github-flavored-markdown/).
+Luckily doing this in Ruby is really easy and integrating it in Rails should
+only take a few lines of code. We'll be using the excellent
 [redcarpet](https://github.com/vmg/redcarpet) markdown engine, and the
-[rouge](https://github.com/jayferd/rouge) code highlighting utility.
+[rouge](https://github.com/jneen/rouge) code highlighting utility.
 
 Note to people who are following along and can't compile gems with native
 extensions. You can skip following section and use the pure Ruby
@@ -408,10 +386,9 @@ Re-running our spec everything should now pass.
 ### As a user I want to write Posts in Markdown
 
 We've implemented a utility class for converting a markdown string into HTML,
-  but we still need to properly integrate that into our Rails application. We
-  should write a feature spec to make sure that this feature works properly.
-  Create a file: `spec/features/writing_posts_spec.rb` with the following
-  content.
+but we still need to properly integrate that into our Rails application. We
+should write a feature spec to make sure that this feature works properly.
+Create a file: `spec/features/writing_posts_spec.rb` with the following content.
 
 ```ruby
 require 'spec_helper'
@@ -527,7 +504,7 @@ Save this and re-run our post model spec and observe that everything now
 passes!
 
 At this stage if we run all our specs (simply type `rspec`) we'll see we still
-only have 1 failure. There's only 1 line of code needed to make this feature
+only have one failure. There's only one line of code needed to make this feature
 spec pass so lets open: `app/views/posts/_post.html.erb` and update it to use
 the `Post#content` method we wrote earlier.
 
@@ -537,7 +514,7 @@ the `Post#content` method we wrote earlier.
 ```
 
 One thing to note is that since we want to render the HTML generated by our
-markdown engine as HTML and not have it be automatically escapped by the Rails
+markdown engine as HTML and not have it be automatically escaped by the Rails
 view we need to convert it to a SafeBuffer using the html_safe method call.
 
 Save that and rerun all our specs again (using `rspec`). Success! All our specs

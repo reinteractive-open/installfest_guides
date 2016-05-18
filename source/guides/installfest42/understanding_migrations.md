@@ -22,28 +22,8 @@ published state. This means we can author our blog posts in the admin panel,
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest42/getting_started) and
-have completed
-[http://reinteractive.net/posts/42](/guides/installfest42/admin_and_markdown).
-If you've done this but want to start with some fresh code, you can by copying
-the tag that's available in the public git repository.
-
-[https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author)
-which you can download to your computer
-[here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/before_published_and_author.zip).
-
-Download the zip file, unpack it to a folder on your computer and commit it to
-git using the following prompt commands:
-
-```sh
-bundle install
-rake db:create db:setup
-git add .
-git commit -m "Restarting the 15 minute blog"
-```
-
-You'll need to refer to this post if you want to [get it
-setup](/guides/installfest41/getting_started) on Heroku.
+the [first post](/guides/installfest42/getting_started), and have completed
+[Admin and Markdown](/guides/installfest42/admin_and_markdown).
 
 Lets dive into writing these new features.
 
@@ -136,7 +116,7 @@ spec (`rspec spec/features/managing_posts_spec.rb`) and everything passes!
 
 But… there's a problem. Unpublished blogs are still visible to the public.
 We'll need to go ahead and write another feature scenario to ensure that this
-rule is enforced for the public section of our application too!
+rule is enforced for the public section of our application too.
 
 ### Unpublished posts aren't visible!
 
@@ -224,13 +204,13 @@ def index
 end
 ```
 
-If you're confused as to what an "action" is. It's just a method in a
+If you're confused as to what an "action" is, it's just a method in a
 controller that processes a particular request. Each request is "wired" from a
 URL to a controller by the routes file in your config folder.
 
 If you then run our spec again (`rspec spec/features/reading_blog_spec.rb`)
-  you'll notice that the first error has gone and we're left with only the
-  second. We can fix this by editing the show action.
+you'll notice that the first error has gone and we're left with only the second.
+We can fix this by editing the show action.
 
 Change the show action to look like:
 
@@ -271,7 +251,7 @@ end
 ```
 
 What we've done here is moved the common code from both actions into a scope on
-the Post model itself. If at a future time we need to make the published logic
+the Post model itself. If, at a future time, we need to make the published logic
 more complicated (ie publishing at a specific time) we only have to change one
 place.
 

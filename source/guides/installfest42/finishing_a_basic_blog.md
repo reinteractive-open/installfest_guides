@@ -110,7 +110,7 @@ Adding that the remote flag to that method call means that Rails will
 automatically set up that form to be submitted via AJAX.
 
 If you refresh the [post view page](http://localhost:3000/posts/1) and try to
-submit a comment you'll notice that nothing happens, however if you switch to
+submit a comment you'll notice that nothing happens. However if you switch to
 the terminal running your Rails server you'll be able to see that the request
 was received by the server, it's just doing the wrong thing with that request.
 
@@ -462,10 +462,10 @@ the yield statement inside a div. Then we're creating a new SCSS file that does
 2. Targets that div#main you inserted into the layout file and gives it Foundation's [grid-row behaviour](http://foundation.zurb.com/docs/components/grid.html).
 3. Sets up some footer styling that we'll be using in a later step.
 
-After this you removed the require_tree directive from the application.css
+After this you removed the `require_tree` directive from the application.css
 file. This directive causes your application to stop automatically including
 every CSS file in the stylesheets folder. Immediately after this we import the
-new common.css.scss file into the foundation_and_overrides file so that our
+new common.css.scss file into the `foundation_and_overrides` file so that our
 newly created CSS rules will be applied to our blog. We're doing this to inform
 Rails' asset pipeline that we'd like to use SASS to import the file, rather
 than relying on the asset pipeline's catch-all method. This gives us slightly
@@ -598,7 +598,7 @@ some things are easy, others will require more effort or possible some
 [assistance from a
 mentor](http://www.reinteractive.net/service/development_hub).
 
-**Q) How to remove the "Listing posts" heading? **
+**Q) How to remove the "Listing posts" heading?**
 
 A) *Open `app/views/posts/index.html.erb`. You should be able to figure it out from there :)*
 
