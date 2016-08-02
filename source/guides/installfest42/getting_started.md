@@ -29,12 +29,6 @@ Whenever you need to start or restart the rails server use the first command pro
 
 Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue. The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
 
-If you have installed multiple versions of Rails onto your computer, you can choose which one to create an app with as follows:
-
-`rails 3.2.13 new quick_blog -T`
-
-`rails 4.0.1 new quick_blog -T`
-
 Once it has finished type:
 
 `cd quick_blog`
