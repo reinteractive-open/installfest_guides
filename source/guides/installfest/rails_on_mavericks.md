@@ -105,26 +105,12 @@ Installing Rails is easy. To get the latest version just run:
 gem install rails
 ```
 
-If you want to install a different version of Rails (for example, 3.2.13) just type
-
-```sh
-gem install rails -v 3.2.13
-```
-
-If you install multiple versions of Rails onto your computer you can choose which one
-to create an app with as follows:
-
-```sh
-rails _3.2.13_ new quick_blog
-rails _4.2.5_ new quick_blog_4
-```
-
 If you just type
 
 ```sh
-rails new quick_blog_again
+rails new quick_blog
 ```
 
 it will automatically use the latest version of Rails you have installed.
 
-Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest/getting_started)
+Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest42/getting_started)
