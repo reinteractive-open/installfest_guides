@@ -27,9 +27,9 @@ easily give us what we want.
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest/getting_started) and
+[Getting Started](/guides/installfest/getting_started) and
 have completed
-[http://reinteractive.net/posts/42](/guides/installfest/testing_the_blog).
+[Testing the Blog](/guides/installfest/testing_the_blog).
 
 Let's dive into installing ActiveAdmin.
 
