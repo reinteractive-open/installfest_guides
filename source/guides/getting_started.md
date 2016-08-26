@@ -4,7 +4,7 @@
 #### Prerequisites
 
 1. A working version of Rails. Depending on your operating system, there is a different guide to follow:<br>
-  * **Mac** users please use [this guide on installing Rails](/guides/installfest/rails_on_mavericks)
+  * **Mac** users please use [this guide on installing Rails](/guides/installfest/rails_on_mac)
   * **Windows** users please use [this guide on installing Rails](/guides/installfest/rails_on_windows)
   * **Linux** users, you may refer to [gorails guide](https://gorails.com/setup/ubuntu/15.10)
 2. [Sublime Text](https://www.sublimetext.com). If you prefer another text editor like [Vim](http://www.vim.org/download.php), [emacs](https://www.gnu.org/software/emacs/), [TextMate](https://macromates.com/) or Github's [Atom](https://atom.io/) that's fine too but these instructions will specifically mention Sublime.

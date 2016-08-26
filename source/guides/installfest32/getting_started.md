@@ -7,7 +7,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Prerequisites
 
-1. A working version of Rails 3.2 which you can install using [Rails Installer](http://railsinstaller.org/) for Windows or Mac. Note: For Mac users with newer versions of OS X, please use [this alternative guide on getting started](/guides/installfest/rails_on_mavericks).
+1. A working version of Rails 3.2 which you can install using [Rails Installer](http://railsinstaller.org/) for Windows or Mac. Note: For Mac users with newer versions of OS X, please use [this alternative guide on getting started](/guides/installfest/rails_on_mac).
 2. [Sublime Text](https://www.sublimetext.com). If you prefer another text editor like [Vim](http://www.vim.org/download.php), [emacs](https://www.gnu.org/software/emacs/), [TextMate](https://macromates.com/) or Github's [Atom](https://atom.io/) that's fine too but these instructions will specifically mention Sublime.
 
 #### Next steps
