@@ -7,7 +7,7 @@ Ruby is a dynamic, general-purpose programming language.
 Ruby was created by Yukihiro Matsumoto in Japan ~ 20 years ago. He designed the programming language not for its performance or speed, but for programmer happiness.
 
 ##What is Rails?
-Rails is a web framework built using the Ruby language. 
+Rails is a web framework built using the Ruby language.
 
 It emphasizes the use of well-known software engineering patterns including convention over configuration (CoC), don't repeat yourself (DRY), the active record pattern, and model–view–controller (MVC).
 
@@ -26,7 +26,6 @@ Our request is accepted by the Rails router (located in config/routes.rb) and th
 
 When programming at any time you can type rake routes on your command line and see a list of routes your application will respond to. If your application can't respond to a request it will return a HTTP 404 not found response instead.
 
-
 Rails handles the request, using the router to send the request to the correct controller and action. The router is in config/routes.rb
 
 ![Web request](/images/ruby_rails/web_request_2.png)
@@ -38,7 +37,7 @@ This is still fairly standard with how things work in any MVC-based web framewor
 The controller has access to the the request at all times but it's more common to see the controller be only concerned with the params of the request. The params of a request are the query parameters (they are in the URL after the ?) or the post params (sent as part of the request itself).
 
 
-To learn more about Rails routing check out the [Routing guide](http://guides.rubyonrails.org/routing.html). 
+To learn more about Rails routing check out the [Routing guide](http://guides.rubyonrails.org/routing.html).
 
 The controller action receives the request, gathers together information from the database and renders the response which is sent back to the client.
 
@@ -56,7 +55,6 @@ end
 When you create a new Rails application it creates an ApplicationController which is used for common behaviour between your separate controllers.
 
 Actions in a controller are the methods that deal with specific web-requests for that controllers resource. By convention there are seven resourceful actions: #index, #new, #create, #show, #edit, #update and #destroy
-
 
 ```
 class PostsController < ApplicationController
@@ -100,10 +98,9 @@ These default actions (or methods) represent CRUD - create, read, update and del
 
 **destroy:** destroys a thing. This uses the HTTP DELETE verb and the thing deleted is provided in the URL.
 
-An important skill to learn is to try and stick to just using these default resourceful actions. This way your application will be able to grow naturally without your controllers becoming difficult to maintain. 
+An important skill to learn is to try and stick to just using these default resourceful actions. This way your application will be able to grow naturally without your controllers becoming difficult to maintain.
 
-You can find [more info on controllers here](http://guides.rubyonrails.org/action_controller_overview.html). 
-
+You can find [more info on controllers here](http://guides.rubyonrails.org/action_controller_overview.html).
 
 ##Models and ActiveRecord
 ActiveRecord is an object to relational mapper or ORM. It converts the tables in our database to Ruby objects which can be easily used in our Rails applications. It also provides us a simply query-interface which can be used instead of SQL.
@@ -124,7 +121,6 @@ p.title          #=> "Test title"
 ```
 
 The code in your model can be focused on validations, or model specific business logic.
-
 
 ###Programming Models
 Models are used to contain business logic which is related to that particular model. Validations are a good example. If you have a requirement that each Post must have a body field filled out then you would write this:
@@ -155,7 +151,6 @@ By convention views are located in app/views and by convention the default view 
 Rails also has an application layout which holds all the common stuff surrounding each page in your application. These global files are located in app/views/layouts and the default layout file will be in app/views/layouts/application.html.erb
 
 By default Rails uses ERB to embed Ruby code inside our HTML templates.
-
 
 ##ERB
 ERB is the templating "language" used for Rails. It stands for "Embedded Ruby".
@@ -188,5 +183,3 @@ In Rails static assets (images, Javascript and CSS) are stored in app/assets. Th
 Rails has a technology called the Asset Pipeline which compiles SASS and CoffeeScript, concatenates and minifies CSS and JavaScript so only 1 request is required from your HTML to load your CSS and JavaScript. The Asset Pipeline also adds a "fingerprint" to your static assets which makes them very cache friendly. Integrating Rails with a content delivery network (CDN) is very easy.
 
 You can [read more about the assets here](http://guides.rubyonrails.org/asset_pipeline.html).
-
-
