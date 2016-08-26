@@ -156,6 +156,12 @@ gem 'spring',        group: :development
 gem 'rails_12factor', group: :production
 ```
 
+Return to your command prompt and run the following command to update our gems:
+
+```
+bundle install
+```
+
 Open `app/controllers/comments_controller.rb` and change the create
 method to respond to AJAX requests as follows:
 
