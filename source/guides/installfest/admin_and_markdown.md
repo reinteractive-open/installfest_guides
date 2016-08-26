@@ -48,8 +48,8 @@ ActiveAdmin by running:
 
 ```sh
 rails generate active_admin:install
-rake db:migrate
-rake db:seed
+rails db:migrate
+rails db:seed
 ```
 
 Finally we need to restart our rails server as we have made some changes to the

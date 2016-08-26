@@ -74,7 +74,7 @@ After saving this we need to add these changes to our development database by
 running a migration. Enter the following into your terminal:
 
 ```sh
-rake db:migrate
+rails db:migrate
 ```
 
 Now when we run `rspec spec/features/managing_posts_spec.rb` we get a new
@@ -433,7 +433,7 @@ command (which can be shortened to `rails g`) like so:
 
 ```sh
 rails g migration AddAuthorToPost author_id:integer
-rake db:migrate
+rails db:migrate
 ```
 
 Now open `app/models/post.rb` and update it to inform Rails that a Post belongs

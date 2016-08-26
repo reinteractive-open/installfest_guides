@@ -51,7 +51,7 @@ Open your web-browser and head to:
 [http://localhost:3000](http://localhost:3000) you should see something that
 looks like:
 
-![Rails default homepage](/images/guides/rails_welcome.jpg)
+![Rails default homepage](/images/guides/onrails5.png)
 
 Now that you've created the Rails application you should open this folder using
 Sublime. Open up Sublime, then open the quick_blog folder that was just
@@ -104,7 +104,7 @@ database. You can see that this code is to create a table called `Posts` and to
 create two columns in this table, a title column and a body column.  Finally we
 need to instruct Rails to apply this to our database. Type:
 
-`rake db:migrate`
+`rails db:migrate`
 
 Once this command has run you can start up your Rails server again with `rails
 server` and then navigate to
@@ -270,7 +270,7 @@ No blog is complete without comments. Let's add them in. On our command prompt,
 Then you'll want to update your database here to reflect the schema change
 you've just made:
 
-`rake db:migrate`
+`rails db:migrate`
 
 After this you'll need to inform Rails that your Posts will potentially have
 many Comments. Open `app/models/post.rb` and add the line: `has_many :comments`
@@ -284,7 +284,7 @@ class Post < ActiveRecord::Base
 end
 ```
 
-The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post, we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rake routes` in your command prompt. If you do this now you'll get something like the following:
+The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post, we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rails routes` in your command prompt. If you do this now you'll get something like the following:
 
 ```ruby
     comments GET    /comments(.:format)          comments#index
@@ -305,7 +305,7 @@ edit_comment GET    /comments/:id/edit(.:format) comments#edit
 
 Your URLs (or routes) are configured in all Rails applications in the file
 `config/routes.rb`, open it now and remove the line `resources :comments`.
-Re-run `rake routes` and you'll notice that all the URLs for comments have
+Re-run `rails routes` and you'll notice that all the URLs for comments have
 disappeared. Update your `routes.rb` file to look like the following:
 
 ```ruby
@@ -318,7 +318,7 @@ Rails.application.routes.draw do
 end
 ```
 
-Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments. When you rerun `rake routes` you'll now see the following line:
+Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments. When you rerun `rails routes` you'll now see the following line:
 
 ```ruby
 post_comments POST   /posts/:post_id/comments(.:format) comments#create
@@ -475,10 +475,10 @@ Now we push our application to Heroku:
 
 Finally we set up our database:
 
-`heroku run:detached rake db:setup`
+`heroku run:detached rails db:setup`
 
 This setup of the database should only need to take place the first time you
-deploy to heroku. Afterwards you may need to run `heroku run rake db:migrate` instead. The
+deploy to heroku. Afterwards you may need to run `heroku run rails db:migrate` instead. The
 `detached` option runs the command in the background. It is there only to
 ensure the process will go through, even on faulty Internet connection. You can
 use `heroku logs` to view the output of the command.
