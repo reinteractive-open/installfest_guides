@@ -58,7 +58,7 @@ choco install curl -y
 choco install wget -y
 choco install git -y
 choco install nodejs -y
-choco install atom -y
+choco install sublime -y
 choco install ruby2.devkit -y
 ```
 
