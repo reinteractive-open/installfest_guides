@@ -24,4 +24,3 @@ If you have come to Ruby from another language, this might help you get your hea
 [http://ruby.railstutorial.org/ruby-on-rails-tutorial-book](http://ruby.railstutorial.org/ruby-on-rails-tutorial-book)
 
 This is a free, online book that provides you with a step by step guide to learning Ruby on Rails. You can also buy the book if you so desire.
-

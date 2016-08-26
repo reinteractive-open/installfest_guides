@@ -1,7 +1,6 @@
-# Getting started on Newer Versions of OS X
+# Getting started on OS X
 
-Unfortunately later versions of OS X isn't supported by Rails Installer. This means we need to do a slightly more "professional"
-installation of Ruby and of Rails. Here's the basic outline:
+Here is the basic outline of what we will do:
 
 1. Setup a compiler
 2. Install [homebrew](http://brew.sh)
@@ -113,4 +112,4 @@ rails new quick_blog
 
 it will automatically use the latest version of Rails you have installed.
 
-Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest42/getting_started)
+Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest/getting_started)

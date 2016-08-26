@@ -3,6 +3,13 @@
 The Ruby on Rails Installfest is a fast paced, hands on journey through getting your first Ruby on Rails application up and running live on the Internet. Includes full setup of your development environment and step by step instructions on how to build your first app.
 This repository contains all the guides used in the InstallFest and also some stretch follow-on guides that interested "students" can use to keep their Rails learning journey on track.
 
+# Running a Local Server
+
+Run the server with the following command:
+`bundle exec middleman server`
+
+This will start a local web server running at `http://localhost:4567/`
+
 # Deploying the Website
 
 Note you need to have proper aws credentials to do this.
