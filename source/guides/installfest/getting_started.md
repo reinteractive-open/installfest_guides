@@ -348,27 +348,22 @@ class CommentsController < ApplicationController
 end
 ```
 
-The big difference here from Rails 3 to Rails 4 is that we use a method called
-`comment_params` to only choose the parameters from the form that we want to
-save to the model. You can read more about this at:
-[https://github.com/rails/strong_parameters](https://github.com/rails/strong_parameters)
-
 #### Putting comments into your HTML view
 
 You've created the database model for your comments, migrated your database, informed Rails of the relationship between comments and posts, configured a URL that lets you create your comments and created the controller action that will create the comments. Now you need to display any comments that have been submitted for a post, and allow users to submit comments. Open `app/views/posts/show.html.erb` and make it look like:
 
 ```erb
- <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
- <%= render partial: @post %>
+<%= render partial: @post %>
 
- <%= link_to 'Edit', edit_post_path(@post) %> |
- <%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
 
- <h2>Comments</h2>
- <div id="comments">
+<h2>Comments</h2>
+<div id="comments">
   <%= render partial: @post.comments %>
- </div>
+</div>
 ```
 
 You'll now need to create a file called `app/views/comments/_comment.html.erb`
@@ -399,8 +394,14 @@ submitting a comment so add the following code to the bottom of that file.
 <% end %>
 ```
 
-Comments are now working (if they aren't make sure you restart your `rails server`), so
-go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
+To access the `div_for` helper method used above, we need to add the `record_tag_helper` gem to our Gemfile.
+Open `Gemfile` and add the following in line 18:
+`gem 'record_tag_helper', '~> 1.0'`
+
+Whenever you make changes to your Gemfile, you need to run a `bundle install` so go back to your terminal and stop the server.
+Then run `bundle install`. Restart your server.
+
+Comments are now working, so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
 
 ## Publishing your Blog on the internet
 
@@ -430,21 +431,47 @@ your `Gemfile` look like:
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.0'
-
+gem 'rails', '~> 5.0.0'
+# Use sqlite3 as the database for Active Record in development and test, and postgres in production
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
-
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
+# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'record_tag_helper', '~> 1.0'
 
+# Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
+end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
 gem 'rails_12factor', group: :production
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
 After this, run the command `bundle install --without=production` on your
@@ -475,11 +502,9 @@ Now we push our application to Heroku:
 
 Finally we set up our database:
 
-`heroku run:detached rails db:setup`
+`heroku run:detached rails db:migrate`
 
-This setup of the database should only need to take place the first time you
-deploy to heroku. Afterwards you may need to run `heroku run rails db:migrate` instead. The
-`detached` option runs the command in the background. It is there only to
+The `detached` option runs the command in the background. It is there only to
 ensure the process will go through, even on faulty Internet connection. You can
 use `heroku logs` to view the output of the command.
 
