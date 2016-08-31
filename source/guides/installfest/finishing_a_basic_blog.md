@@ -85,25 +85,25 @@ Open `app/views/posts/show.html.erb` and add a `remote: true` option to the
 form_for method call. Your show view should look like:
 
 ```erb
- <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
- <%= render partial: @post %>
+<%= render partial: @post %>
 
- <%= link_to 'Edit', edit_post_path(@post) %> |
- <%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
 
- <h2>Comments</h2>
- <div id="comments">
-   <%= render partial: @post.comments %>
- </div>
+<h2>Comments</h2>
+<div id="comments">
+  <%= render partial: @post.comments %>
+</div>
 
- <%= form_for [@post, Comment.new], remote: true do |f| %>
-   <p>
-     <%= f.label :body, "New comment" %><br/>
-     <%= f.text_area :body %>
-   </p>
-   <p><%= f.submit "Add comment" %></p>
- <% end %>
+<%= form_for [@post, Comment.new], remote: true do |f| %>
+  <p>
+    <%= f.label :body, "New comment" %><br/>
+    <%= f.text_area :body %>
+  </p>
+  <p><%= f.submit "Add comment" %></p>
+<% end %>
 ```
 
 Adding that the remote flag to that method call means that Rails will

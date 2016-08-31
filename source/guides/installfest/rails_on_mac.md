@@ -13,12 +13,11 @@ Here is the basic outline of what we will do:
 
 ## Install a Text Editor
 
-Go to [the Sublime website](https://www.sublimetext.com/2) and click on the link for OS X.
-It will download a disk image for Sublime 2 to your downloads folder. Locate the file and click on it to install.
+Go to [the Sublime website](https://www.sublimetext.com/2) and click on the link for OS X.<br />
+It will download a disk image for Sublime 2 to your downloads folder.<br />
+Locate the file and click on it to install. Follow the instructions.
 
 ## Setting up a compiler
-
-This process has been streamlined by Apple fairly significantly.
 
 1. Open the Terminal application. You can do this by pressing Command+Space (to open Spotlight) then typing "terminal" in
 in the search window which appears.
@@ -120,4 +119,4 @@ rails new quick_blog
 
 it will automatically use the latest version of Rails you have installed.
 
-Congratulations on installing Rails. You should probably [get cracking with the rest of the guide now!](/guides/installfest/getting_started)
+Congratulations on installing Rails! You should probably [get started with the rest of the guide now.](/guides/installfest/getting_started)

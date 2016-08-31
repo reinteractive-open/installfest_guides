@@ -81,4 +81,4 @@ Installing Rails is easy. To get the latest version just run:
 gem install rails
 ```
 
-Congratulations on installing Rails. You should probably [get started with the rest of the guide now!](/guides/installfest/getting_started)
+Congratulations on installing Rails! You should probably [get started with the rest of the guide now.](/guides/installfest/getting_started)
