@@ -24,7 +24,7 @@ A http client issues a request to the server:
 
 Our request is accepted by the Rails router (located in config/routes.rb) and then forwarded onto the correct controller and action according to the rules the application programmer has put in there.
 
-When programming at any time you can type rake routes on your command line and see a list of routes your application will respond to. If your application can't respond to a request it will return a HTTP 404 not found response instead.
+At any time you can type rake routes on your command line and see a list of routes your application will respond to. If your application can't respond to a request it will return a HTTP 404 not found response instead.
 
 Rails handles the request, using the router to send the request to the correct controller and action. The router is in config/routes.rb
 
@@ -35,7 +35,6 @@ Here we see the controller has received the request and gathers data from the mo
 This is still fairly standard with how things work in any MVC-based web framework.
 
 The controller has access to the the request at all times but it's more common to see the controller be only concerned with the params of the request. The params of a request are the query parameters (they are in the URL after the ?) or the post params (sent as part of the request itself).
-
 
 To learn more about Rails routing check out the [Routing guide](http://guides.rubyonrails.org/routing.html).
 
@@ -49,7 +48,6 @@ Controllers are the "C" in MVC and live in app/controllers. By convention they a
 ```
 class PostsController < ApplicationController
 end
-
 ```
 
 When you create a new Rails application it creates an ApplicationController which is used for common behaviour between your separate controllers.
@@ -79,7 +77,6 @@ class PostsController < ApplicationController
   def destroy
   end
 end
-
 ```
 
 These default actions (or methods) represent CRUD - create, read, update and delete. By convention here is what each of those default resourceful actions do:
