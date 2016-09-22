@@ -74,15 +74,16 @@ JavaScript! Just like all the other helpers that Rails provides if this isn't
 powerful enough for your needs you can always add as much custom JavaScript
 into `app/assets/javascripts/` as you like.
 
-What you'll be doing is adding in some functionality to the commenting system
-so that it posting a comment doesn't require a page reload. This means we'll be
-submitting our comments using AJAX and then rendering the comments onto the
-post page using JavaScript. First we'll tackle posting the form using AJAX.
+What you'll be doing is adding in some functionality to the commenting system so
+that posting a comment doesn't require a page reload. This means that we'll be
+submitting our comments using [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming))
+and then rendering the comments onto the post page using JavaScript. First we'll
+tackle posting the form using AJAX.
 
 #### Making the form submit via AJAX
 
 Open `app/views/posts/show.html.erb` and add a `remote: true` option to the
-form_for method call. Your show view should look like:
+`form_for` method call. Your show view should look like:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -106,8 +107,8 @@ form_for method call. Your show view should look like:
 <% end %>
 ```
 
-Adding that the remote flag to that method call means that Rails will
-automatically set up that form to be submitted via AJAX.
+Adding that remote flag to the method call means that Rails will
+automatically set up the form to be submitted via AJAX.
 
 If you refresh the [post view page](http://localhost:3000/posts/1) and try to
 submit a comment you'll notice that nothing happens. However if you switch to
@@ -126,34 +127,59 @@ VALUES (?, ?, ?, ?)  [["body", "Test comment"], ["created_at", Tue, 23 Apr 2013 
 Redirected to http://localhost:3000/posts/1
 ```
 
-The last line of the log here indicated that the server redirected to /posts/1
+The last line of the log here indicated that the server redirected to `/posts/1`
 as the response. We don't want that behaviour for an AJAX call.
 
 #### Setting up the server to process AJAX requests
 
-Let's fix that by making our create comment action aware of JavaScript AJAX requests. First we need to add the responders gem to our Gemfile. This is a new requirement of Rails 4.2.
+Let's fix that by making our 'create comment' action aware of JavaScript AJAX requests.
+First we need to add the responders gem to our Gemfile.
 
 Open the `Gemfile` and make your `Gemfile` look like:
 
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.0'
-
+gem 'rails', '~> 5.0.0'
+# Use sqlite3 as the database for Active Record in development and test, and postgres in production
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
-
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
+# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
-gem 'responders', '~> 2.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'record_tag_helper', '~> 1.0'
+gem 'responders'
 
+# Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',          group: :doc
-gem 'spring',        group: :development
-gem 'rails_12factor', group: :production
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
+end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
 Return to your command prompt and run the following command to update our gems:
