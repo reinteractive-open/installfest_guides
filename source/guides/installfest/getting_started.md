@@ -395,7 +395,7 @@ submitting a comment so add the following code to the bottom of that file.
 ```
 
 To access the `div_for` helper method used above, we need to add the `record_tag_helper` gem to our Gemfile.
-Open `Gemfile` and add the following in line 18:
+Open `Gemfile` and add the following line anywhere in the file:
 `gem 'record_tag_helper', '~> 1.0'`
 
 Whenever you make changes to your Gemfile, you need to run a `bundle install` so go back to your terminal and stop the server.
@@ -421,11 +421,8 @@ Up until this point we've been using SQLite as our database, but unfortunately
 Heroku doesn't support the use of SQLite. So we're going to be running Postgres
 instead.
 
-We need to do some other things to make our application work on Heroku (it has
-to follow the ["Twelve-Factor" rules](http://12factor.net/) – don't worry about
-the details).
-
-These changes are easy to make. You'll need to open the `Gemfile` and make
+We need to do some other things to make our application work on Heroku. These
+changes are easy to make. You'll need to open the `Gemfile` and make
 your `Gemfile` look like:
 
 ```ruby
@@ -467,8 +464,6 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
 end
-
-gem 'rails_12factor', group: :production
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
