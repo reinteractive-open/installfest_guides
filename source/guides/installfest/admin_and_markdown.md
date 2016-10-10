@@ -487,7 +487,7 @@ Open: `app/models/post.rb` and provide the implementation for the render
 method:
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   attr_accessor :body, :title
 
   has_many :comments

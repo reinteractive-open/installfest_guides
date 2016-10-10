@@ -37,7 +37,7 @@ Add to rspec rails to your  `Gemfile`:
 ```ruby
 group :test, :development do
   gem 'sqlite3'
-  gem "rspec-rails", "~> 2.0"
+  gem "rspec-rails"
 end
 ```
 
@@ -146,7 +146,7 @@ Since we're writing a fully functional spec for code that is already written,
       Line 6 so your Post model looks like:
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   has_many :comments
 
   # validates_presence_of :body, :title
