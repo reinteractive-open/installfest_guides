@@ -129,7 +129,7 @@ validates_presence_of :body, :title
 To the code. Your `post.rb` file should look like:
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   validates_presence_of :body, :title
 end
 ```
@@ -277,7 +277,7 @@ many Comments. Open `app/models/post.rb` and add the line: `has_many :comments`
 somewhere inside the class. This should look like:
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   has_many :comments
 
   validates_presence_of :body, :title

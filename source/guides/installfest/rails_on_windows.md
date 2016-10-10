@@ -81,4 +81,6 @@ Installing Rails is easy. To get the latest version just run:
 gem install rails
 ```
 
+Now close your administrator command prompt and re-open it as a normal user.
+
 Congratulations on installing Rails! You should probably [get started with the rest of the guide now.](/guides/installfest/getting_started)

@@ -50,7 +50,7 @@ And then you can deploy to Heroku with `git push heroku master`. You'll be able 
 
 The blogging engine we've got works great, but it definitely doesn't feel like a smooth, modern web-app. Luckily with Rails it's easy to add in simple JavaScript! Just like all the other helpers that Rails provides if this isn't powerful enough for your needs you can always add as much custom JavaScript into `app/assets/javascripts/` as you like.
 
-What you'll be doing is adding in some functionality to the commenting system so that it posting a comment doesn't require a page reload. This means we'll be submitting our comments using AJAX and then rendering the comments onto the post page using JavaScript. First we'll tackle posting the form using AJAX.
+What you'll be doing is adding in some functionality to the commenting system so that posting a comment doesn't require a page reload. This means we'll be submitting our comments using AJAX and then rendering the comments onto the post page using JavaScript. First we'll tackle posting the form using AJAX.
 
 #### Making the form submit via AJAX
 
@@ -78,7 +78,7 @@ Open `app/views/posts/show.html.erb` and add a `:remote => true` option to the f
  <% end %>
 ```
 
-Adding that the remote flag to that method call means that Rails will automatically set up that form to be submitted via AJAX.
+Adding that remote flag to the method call means that Rails will automatically set up the form to be submitted via AJAX.
 
 If you refresh the [post view page](http://localhost:3000/posts/1) and try to submit a comment you'll notice that nothing happens, however if you switch to the terminal running your Rails server you'll be able to see that the request was received by the server, it's just doing the wrong thing with that request.
 

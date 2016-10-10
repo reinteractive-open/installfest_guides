@@ -74,15 +74,16 @@ JavaScript! Just like all the other helpers that Rails provides if this isn't
 powerful enough for your needs you can always add as much custom JavaScript
 into `app/assets/javascripts/` as you like.
 
-What you'll be doing is adding in some functionality to the commenting system
-so that it posting a comment doesn't require a page reload. This means we'll be
-submitting our comments using AJAX and then rendering the comments onto the
-post page using JavaScript. First we'll tackle posting the form using AJAX.
+What you'll be doing is adding in some functionality to the commenting system so
+that posting a comment doesn't require a page reload. This means that we'll be
+submitting our comments using [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming))
+and then rendering the comments onto the post page using JavaScript. First we'll
+tackle posting the form using AJAX.
 
 #### Making the form submit via AJAX
 
 Open `app/views/posts/show.html.erb` and add a `remote: true` option to the
-form_for method call. Your show view should look like:
+`form_for` method call. Your show view should look like:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -106,8 +107,8 @@ form_for method call. Your show view should look like:
 <% end %>
 ```
 
-Adding that the remote flag to that method call means that Rails will
-automatically set up that form to be submitted via AJAX.
+Adding that remote flag to the method call means that Rails will
+automatically set up the form to be submitted via AJAX.
 
 If you refresh the [post view page](http://localhost:3000/posts/1) and try to
 submit a comment you'll notice that nothing happens. However if you switch to
@@ -126,12 +127,13 @@ VALUES (?, ?, ?, ?)  [["body", "Test comment"], ["created_at", Tue, 23 Apr 2013 
 Redirected to http://localhost:3000/posts/1
 ```
 
-The last line of the log here indicated that the server redirected to /posts/1
+The last line of the log here indicated that the server redirected to `/posts/1`
 as the response. We don't want that behaviour for an AJAX call.
 
 #### Setting up the server to process AJAX requests
 
-Let's fix that by making our create comment action aware of JavaScript AJAX requests. First we need to add the responders gem to our Gemfile. This is a new requirement of Rails 4.2.
+Let's fix that by making our 'create comment' action aware of JavaScript AJAX requests.
+First we need to add the responders gem to our Gemfile.
 
 Open the `Gemfile` and make your `Gemfile` look like:
 
@@ -139,7 +141,6 @@ Open the `Gemfile` and make your `Gemfile` look like:
 source 'https://rubygems.org'
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
-
 # Use sqlite3 as the database for Active Record in development and test, and postgres in production
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
@@ -367,11 +368,8 @@ libraries that your code uses.
 
 Add the line `gem 'foundation-rails'` to your Gemfile so it looks like this:
 
-*************************
-
 ```ruby
 source 'https://rubygems.org'
-
 
 gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 

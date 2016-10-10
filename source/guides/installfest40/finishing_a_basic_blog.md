@@ -75,7 +75,7 @@ powerful enough for your needs you can always add as much custom JavaScript
 into `app/assets/javascripts/` as you like.
 
 What you'll be doing is adding in some functionality to the commenting system
-so that it posting a comment doesn't require a page reload. This means we'll be
+so that posting a comment doesn't require a page reload. This means we'll be
 submitting our comments using AJAX and then rendering the comments onto the
 post page using JavaScript. First we'll tackle posting the form using AJAX.
 
@@ -106,8 +106,8 @@ form_for method call. Your show view should look like:
  <% end %>
 ```
 
-Adding that the remote flag to that method call means that Rails will
-automatically set up that form to be submitted via AJAX.
+Adding that remote flag to the method call means that Rails will
+automatically set up the form to be submitted via AJAX.
 
 If you refresh the [post view page](http://localhost:3000/posts/1) and try to
 submit a comment you'll notice that nothing happens, however if you switch to
@@ -184,7 +184,7 @@ format rather than a HTML format. If you open
 `app/controllers/posts_controller.rb` you might notice that already the index
 method will respond to the JSON format. We can see this in action by going to:
 [http://localhost:3000/posts.json](http://localhost:3000/posts.json). You'll
-see all your posts rendered in JSON format. 
+see all your posts rendered in JSON format.
 
 #### Making the server Atom aware
 
