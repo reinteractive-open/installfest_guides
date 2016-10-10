@@ -146,13 +146,13 @@ Right now our [show post page](http://localhost:3000/posts/1) isn't looking
 very good. We'll open `app/views/posts/show.html.erb` in Sublime and make it look like the following:
 
 ```erb
- <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
- <h2><%= link_to_unless_current @post.title, @post %></h2>
- <%= simple_format @post.body %>
+<h2><%= link_to_unless_current @post.title, @post %></h2>
+<%= simple_format @post.body %>
 
- <%= link_to 'Edit', edit_post_path(@post) %> |
- <%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
 ```
 
 At this point you can refresh the show post page in your browser to see the
@@ -166,8 +166,8 @@ The underscore in front of the filename here tells Rails that this is a
 partial. We'll take
 
 ```erb
- <h2><%= link_to_unless_current @post.title, @post %></h2>
- <%= simple_format @post.body %>
+<h2><%= link_to_unless_current @post.title, @post %></h2>
+<%= simple_format @post.body %>
 ```
 
 Out of `app/views/posts/show.html.erb` and put it in our `_post.html.erb` file.
@@ -175,8 +175,8 @@ After that, change all three mentions of `@post` to be `post` instead. This
 means your `_post.html.erb` file will be:
 
 ```erb
- <h2><%= link_to_unless_current post.title, post %></h2>
- <%= simple_format post.body %>
+<h2><%= link_to_unless_current post.title, post %></h2>
+<%= simple_format post.body %>
 ```
 
 In our `show.html.erb` file we want to insert the code to put our partial into
@@ -184,12 +184,12 @@ our show view. Insert the code: `<%= render partial: @post %>` to make it
 look like:
 
 ```erb
- <p id="notice"><%= notice %></p>
+<p id="notice"><%= notice %></p>
 
- <%= render partial: @post %>
+<%= render partial: @post %>
 
- <%= link_to 'Edit', edit_post_path(@post) %> |
- <%= link_to 'Back', posts_path %>
+<%= link_to 'Edit', edit_post_path(@post) %> |
+<%= link_to 'Back', posts_path %>
 ```
 
 Save all these files and refresh [the show posts
@@ -287,11 +287,13 @@ end
 The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post, we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rails routes` in your command prompt. If you do this now you'll get something like the following:
 
 ```ruby
+      Prefix Verb   URI Pattern                  Controller#Action
     comments GET    /comments(.:format)          comments#index
              POST   /comments(.:format)          comments#create
  new_comment GET    /comments/new(.:format)      comments#new
 edit_comment GET    /comments/:id/edit(.:format) comments#edit
      comment GET    /comments/:id(.:format)      comments#show
+             PATCH  /comments/:id(.:format)      comments#update
              PUT    /comments/:id(.:format)      comments#update
              DELETE /comments/:id(.:format)      comments#destroy
        posts GET    /posts(.:format)             posts#index
@@ -299,6 +301,7 @@ edit_comment GET    /comments/:id/edit(.:format) comments#edit
     new_post GET    /posts/new(.:format)         posts#new
    edit_post GET    /posts/:id/edit(.:format)    posts#edit
         post GET    /posts/:id(.:format)         posts#show
+             PATCH  /posts/:id(.:format)         posts#update
              PUT    /posts/:id(.:format)         posts#update
              DELETE /posts/:id(.:format)         posts#destroy
 ```
@@ -428,7 +431,7 @@ your `Gemfile` look like:
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record in development and test, and postgres in production
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production

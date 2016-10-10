@@ -236,7 +236,7 @@ limit what is being returned to only the published posts. Open
 `app/models/post.rb` and update it to look like:
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
 
   has_many :comments
 
@@ -440,7 +440,7 @@ Now open `app/models/post.rb` and update it to inform Rails that a Post belongs
 to an author but that the Author's model is named "AdminUser".
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
 
   has_many :comments
 
@@ -460,7 +460,7 @@ We'll also open `app/models/admin_user.rb` and do the reverse side of the
 association by informing Rails that an AdminUser has many posts.
 
 ```ruby
-class AdminUser < ActiveRecord::Base
+class AdminUser < ApplicationRecord
   devise :database_authenticatable,
     :recoverable, :rememberable, :trackable, :validatable
 
@@ -551,7 +551,7 @@ Which is expected since you haven't made the author_name method yet in your
 Post model. Open `app/models/post.rb` and update the Post model to look like:
 
 ```ruby
-class Post < ActiveRecord::Base
+class Post < ApplicationRecord
   attr_accessible :body, :title, :published, :author, :author_id
 
   has_many :comments

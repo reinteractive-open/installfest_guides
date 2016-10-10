@@ -140,7 +140,7 @@ Open the `Gemfile` and make your `Gemfile` look like:
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 5.0.0'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use sqlite3 as the database for Active Record in development and test, and postgres in production
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
@@ -206,8 +206,8 @@ What this means is that your app will respond to regular HTML requests in the
 same way as before (by redirecting to the url of the post) but will render a
 view when receiving a JS request. This view doesn't exist yet so you'll need to
 create it now. Create a new file `app/views/comments/create.js.erb`. This is a
-JS file that will be returned to the browser and executed. We want it to do 2
-things: Insert the comment html into the document, and clear the comment form.
+Javascript file that will be returned to the browser and executed. We want it to
+do two things: Insert the comment html into the document, and clear the comment form.
 Your `create.js.erb` file should look like:
 
 ```js
@@ -313,28 +313,28 @@ Your `application.html.erb` file should look like:
 ```erb
 <!DOCTYPE html>
 <html>
-<head>
-  <title>QuickBlog</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-  <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
-</head>
-<body>
+  <head>
+    <title>QuickBlog</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
+  </head>
+  <body>
 
-<%= yield %>
+  <%= yield %>
 
-</body>
+  </body>
 </html>
 ```
 
 To test this you might like to temporarily install [this plugin to Google
 Chrome](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd?hl=en)
-and reload any page on your blog site. This layout file is used to wrap every
-view in your application so changes made to this file will affect every single
-page in your application. After you load up any page in your blog you should
-see an RSS icon in the URL bar. Clicking it will take you to your site's RSS
-feed.
+and reload any page on your blog site. The `application.html.erb` layout file
+is used to wrap every view in your application. This means that changes made to
+this file will affect every single page in your application. After you load up
+any page in your blog you should see an RSS icon in the URL bar. Clicking it
+will take you to your site's RSS feed.
 
 ![rss feed indicator](/images/guides/rss_feed_indicator.png)
 
@@ -352,7 +352,7 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Giving your blog some style
 
-Up until this point we've really neglected the look and feel of your blog. It
+Up until this point we've really neglected the look and feel of our blog. It
 definitely feels a bit boring! We'll be making it look much nicer by using a UI
 library called [Foundation](http://foundation.zurb.com/). Foundation is similar
 to [Twitter Bootstrap](http://twitter.github.io/bootstrap/), but is a bit
@@ -364,32 +364,55 @@ compatibility issues with Windows so today we'll be using Foundation.
 We'll be installing Foundation using the zurb-foundation gem by adding it to
 our Gemfile's asset group. The Gemfile is a file that sits at the top level of
 your application directory structure and lists all of the dependencies and
-libraries that your code uses. Update your Gemfile so it looks like:
+libraries that your code uses.
+
+Add the line `gem 'foundation-rails'` to your Gemfile so it looks like this:
 
 ```ruby
 source 'https://rubygems.org'
 
-gem 'rails', '~> 4.2.0'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
-group :development, :test do
-  gem 'sqlite3'
-end
-
-group :production do
-  gem 'pg'
-  gem 'rails_12factor'
-end
-
+# Use sqlite3 as the database for Active Record in development and test, and postgres in production
+gem 'sqlite3', group: [:development, :test]
+gem 'pg', group: :production
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
+# Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.1.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'record_tag_helper', '~> 1.0'
+gem 'responders'
 gem 'foundation-rails'
 
+# Use jquery as the JavaScript library
 gem 'jquery-rails'
-gem 'turbolinks'
-gem 'jbuilder', '~> 2.0'
-gem 'sdoc', '~> 0.4.0',    group: :doc
-gem 'spring',              group: :development
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
+end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
 After you've saved that file, switch to your terminal and run: `bundle install
