@@ -201,11 +201,11 @@ Our index page still hasn't changed, so we're going to open the
 partial again so we're re-using that code:
 
 ```erb
- <h1>Listing posts</h1>
+<h1>Listing posts</h1>
 
- <%= render partial: @posts %>
+<%= render partial: @posts %>
 
- <%= link_to 'New Post', new_post_path %>
+<%= link_to 'New Post', new_post_path %>
 ```
 
 ## Access control
