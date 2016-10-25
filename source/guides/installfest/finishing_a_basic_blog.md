@@ -440,7 +440,7 @@ file, rerun the foundation install and allow it to overwrite your layout.
 
 You'll also want to remove the scaffolding css file that Rails provided to you
 when you scaffolded the Posting functionality. To do that just delete
-`app/assets/stylesheets/scaffolds.css.scss`. Restarting the local server again
+`app/assets/stylesheets/scaffolds.scss`. Restarting the local server again
 and navigating to [http://localhost:3000](http://localhost:3000) at this point
 will show some changes to the UI of your blog.
 
@@ -450,8 +450,8 @@ buttons so that they have a bit more style. First open your layout file
 `app/views/layouts/application.html.erb` and update it to look like:
 
 ```erb
-  <!DOCTYPE html>
-  <html>
+<!DOCTYPE html>
+<html>
   <head>
     <title>QuickBlog</title>
     <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
@@ -464,7 +464,7 @@ buttons so that they have a bit more style. First open your layout file
       <%= yield %>
     </div>
   </body>
-  </html>
+</html>
 ```
 
 Then we'll create a file called `app/assets/stylesheets/common.css.scss` and
@@ -500,18 +500,21 @@ with `*= require_tree .` so that file will be:
  */
 ```
 
-Finally we'll open `app/assets/stylesheets/foundation_and_overrides.css.scss`
-and at the bottom of the file import the 'common' styles, so that it looks like
-this:
+Finally we'll open `app/assets/stylesheets/foundation_and_overrides.scss`
+and, at the bottom of the import statements, import the 'common' styles, so 
+that the first five lines look like this:
 
 ```ruby
+@charset 'utf-8';
+
+@import 'settings';
 @import 'foundation';
 @import 'common';
 ```
 
 These steps definitely need explaining. First in our layout file you wrapped
 the yield statement inside a div. Then we're creating a new SCSS file that does
-3 things:
+three things:
 
 1. Changes all inputs with a type of submit to use Foundation's [button styling](http://foundation.zurb.com/docs/components/buttons.html).
 2. Targets that div#main you inserted into the layout file and gives it Foundation's [grid-row behaviour](http://foundation.zurb.com/docs/components/grid.html).
@@ -520,7 +523,7 @@ the yield statement inside a div. Then we're creating a new SCSS file that does
 After this you removed the `require_tree` directive from the application.css
 file. This directive causes your application to stop automatically including
 every CSS file in the stylesheets folder. Immediately after this we import the
-new common.css.scss file into the `foundation_and_overrides` file so that our
+new `common.css.scss` file into the `foundation_and_overrides` file so that our
 newly created CSS rules will be applied to our blog. We're doing this to inform
 Rails' asset pipeline that we'd like to use SASS to import the file, rather
 than relying on the asset pipeline's catch-all method. This gives us slightly
@@ -547,7 +550,7 @@ to navigate to your blog on Heroku now to see the changes you've made.
 Your blog works, it has posts and comments but it doesn't feel like your own.
 We're going to add in a header and footer which will allow users to navigate a
 little more easily and will give you the chance to personalise your blog a bit
-more. In all web-pages the header and footer are generally common across all
+more. In all web pages the header and footer are generally common across all
 pages, Rails gives us a layout file that lets us make these sorts of changes to
 every page at once.
 
@@ -556,18 +559,16 @@ First we'll create two files a header and a footer. Create
 
 ```erb
 <nav class="top-bar">
-  <ul class="title-area">
+  <ul class="title-area left menu simple">
     <!-- Title Area -->
     <li class="name">
       <h1>
         <%= link_to 'Your Blog Name', root_path %>
       </h1>
     </li>
-    <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
-    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
   </ul>
-  <section class="top-bar-section">
-    <ul class="right">
+  <section class="top-bar-right">
+    <ul class="right menu simple">
       <li class="divider hide-for-small"></li>
       <li>
         <%= link_to 'Github', 'https://github.com/reInteractive-open' %>
@@ -593,7 +594,7 @@ And then create `app/views/layouts/_footer.html.erb` and put the following code 
 <footer>
   <p>
     Powered by: <%= link_to 'rails-3-2-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
-    Developed at: <%= link_to 'InstallFest 2013', 'http://reinteractive.net/service/installfest' %>
+    Developed at: <%= link_to 'InstallFest 2016', 'http://reinteractive.net/service/installfest' %>
   </p>
 </footer>
 ```
@@ -606,21 +607,21 @@ partials you just created. Your layout file will look like:
 ```erb
 <!DOCTYPE html>
 <html>
-<head>
-  <title>QuickBlog</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-  <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
-</head>
-<body>
-  <%= render partial: 'layouts/header' %>
+  <head>
+    <title>QuickBlog</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+    <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
+  </head>
+  <body>
+    <%= render partial: 'layouts/header' %>
 
-<div id="main">
-  <%= yield %>
-</div>
-  <%= render partial: 'layouts/footer' %>
-</body>
+  <div id="main">
+    <%= yield %>
+  </div>
+    <%= render partial: 'layouts/footer' %>
+  </body>
 </html>
 ```
 
