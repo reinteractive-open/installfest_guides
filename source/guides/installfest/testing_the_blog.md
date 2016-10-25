@@ -439,7 +439,7 @@ Save that, then create a file: `spec/features/managing_posts_spec.rb` with the
 contents:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Managing blog posts' do
   scenario 'Guests cannot create posts' do
