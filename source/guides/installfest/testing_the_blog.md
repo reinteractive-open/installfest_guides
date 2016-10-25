@@ -32,13 +32,53 @@ have completed
 Let's dive into testing now.
 
 ### Setup
-Add to rspec rails to your  `Gemfile`:
+Add to rspec rails to your `Gemfile` so it looks like this:
 
 ```ruby
-group :test, :development do
+source 'https://rubygems.org'
+
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+
+gem 'pg', group: :production
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'record_tag_helper', '~> 1.0'
+gem 'responders'
+gem 'foundation-rails'
+
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
   gem 'sqlite3'
   gem "rspec-rails"
 end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
 Run `bundle install --without=production`
@@ -47,19 +87,6 @@ This will add Rspec and RSpec Rails to our Rails application. RSpec is a
 commonly used TDD (and BDD) testing tool which provides a special testing
 language (powered by Ruby) for testing existing code and for informing
 developers about the structure and functionality of yet to be written code!
-
-In Rails 5.0, test cases will be executed in random order by default. In
-anticipation of this change, Rails 4.2 introduced a new configuration option
-`active_support.test_order` for explicitly specifying the test ordering.
-This allows you to either lock down the current behaviour by setting the
-option to `:sorted`, or opt into the future behaviour by setting the option to `:random`.
-
-If you do not specify a value for this option, a deprecation warning will
-be emitted. To avoid this, open the file `config/environments/test.rb` add the following lines to it:
-
-```ruby
-  config.active_support.test_order = :sorted # or `:random` if you prefer
-```
 
 To complete the installation run:
 
@@ -77,7 +104,7 @@ will automatically create a spec for you, but since we've already got a bunch
 of code that isn't tested we have to manually generate a spec to test our
 comment model.
 
-We can now run the specs we've generated. Run `rake spec`. Alternatively use
+We can now run the specs we've generated. Run `rails spec`. Alternatively use
 the `rspec` command. You can run individual specs as follows:
 
 `rspec spec/models/post_spec.rb`
@@ -94,7 +121,7 @@ easy to test. Open `spec/models/post_spec.rb` and update it so that it looks
 like:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 describe Post do
   it 'should validate presence of title' do
@@ -112,7 +139,7 @@ spec is very flat. We should organise it a litte better and structure it in
 such a way which also lets us reuse code:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 describe Post do
   describe 'validations' do
@@ -166,7 +193,7 @@ always belong to a post, and the comment will always have a body. The code to
 do this looks like:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 describe Comment do
   describe 'validations' do
@@ -237,11 +264,10 @@ Then run `bundle install --without=production` to install the new gems. We only
 need Capybara for our tests, so we're creating a section specifically to ensure
 that Capybara is only loaded when we run our tests.
 
-Next open `spec/spec_helper.rb` (which was created when you installed spec) and
+Next open `spec/rails_helper.rb` (which was created when you installed spec) and
 add the following lines.
 
 ```ruby
-require 'rspec/autorun'
 require 'capybara/rails'
 require 'capybara/rspec'
 ```
@@ -249,11 +275,14 @@ require 'capybara/rspec'
 Your spec file should now look like this
 
 ```ruby
-ENV["RAILS_ENV"] ||= 'test'
-require File.expand_path("../../config/environment", __FILE__)
+# This file is copied to spec/ when you run 'rails generate rspec:install'
+ENV['RAILS_ENV'] ||= 'test'
+require File.expand_path('../../config/environment', __FILE__)
+# Prevent database truncation if the environment is production
+abort("The Rails environment is running in production mode!") if Rails.env.production?
+require 'spec_helper'
 require 'rspec/rails'
-
-require 'rspec/autorun'
+# Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rails'
 require 'capybara/rspec'
 
@@ -262,23 +291,21 @@ require 'capybara/rspec'
 # run as spec files by default. This means that files in spec/support that end
 # in _spec.rb will both be required and run as specs, causing the specs to be
 # run twice. It is recommended that you do not name files matching this glob to
-# end with _spec.rb. You can configure this pattern with with the --pattern
+# end with _spec.rb. You can configure this pattern with the --pattern
 # option on the command line or in ~/.rspec, .rspec or `.rspec-local`.
-Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
+#
+# The following line is provided for convenience purposes. It has the downside
+# of increasing the boot-up time by auto-requiring all files in the support
+# directory. Alternatively, in the individual `*_spec.rb` files, manually
+# require only the support files necessary.
+#
+# Dir[Rails.root.join('spec/support/**/*.rb')].each { |f| require f }
 
-# Checks for pending migrations before tests are run.
+# Checks for pending migration and applies them before tests are run.
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
-
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_path = "#{::Rails.root}/spec/fixtures"
 
@@ -287,31 +314,25 @@ RSpec.configure do |config|
   # instead of true.
   config.use_transactional_fixtures = true
 
-  # If true, the base class of anonymous controllers will be inferred
-  # automatically. This will be the default behavior in future versions of
-  # rspec-rails.
-  config.infer_base_class_for_anonymous_controllers = false
-
-  # Run specs in random order to surface order dependencies. If you find an
-  # order dependency and want to debug it, you can fix the order by providing
-  # the seed, which is printed after each run.
-  #     --seed 1234
-  config.order = "random"
-
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
   # `post` in specs under `spec/controllers`.
   #
   # You can disable this behaviour by removing the line below, and instead
-  # explictly tag your specs with their type, e.g.:
+  # explicitly tag your specs with their type, e.g.:
   #
-  #     describe UsersController, type: :controller do
+  #     RSpec.describe UsersController, :type => :controller do
   #       # ...
   #     end
   #
   # The different available types are documented in the features, such as in
-  # https://relishapp.com/rspec/rspec-rails/v/3-0/docs
+  # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
+
+  # Filter lines from Rails gems in backtraces.
+  config.filter_rails_from_backtrace!
+  # arbitrary gems may also be filtered via:
+  # config.filter_gems_from_backtrace("gem name")
 end
 ```
 
@@ -323,7 +344,7 @@ Create a folder: `spec/features` then create a file
 `spec/features/reading_blog_spec.rb` with the following contents:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Reading the Blog' do
   background do
@@ -393,7 +414,7 @@ We're going to make more acceptance tests now.
 Create a file: `spec/features/post_comments_spec.rb` with the contents:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Posting Comments' do
   background do

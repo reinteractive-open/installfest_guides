@@ -214,7 +214,7 @@ One huge problem with our blog is that anyone can create, edit and delete blog
 posts. Let's fix that. We'll use HTTP Basic authenticate to put a password on
 actions we don't want everyone accessing. Open
 `app/controllers/posts_controller.rb` and add
-`before_filter :authenticate, except: [ :index, :show ]` on line 2 just below
+`before_action :authenticate, except: [ :index, :show ]` on line 2 just below
 the class declaration. At the bottom of your file put the following code:
 
 ```ruby
@@ -232,7 +232,7 @@ brevity.
 
 ```ruby
 class PostsController < ApplicationController
-  before_filter :authenticate, except: [ :index, :show ]
+  before_action :authenticate, except: [ :index, :show ]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
 
   ...
