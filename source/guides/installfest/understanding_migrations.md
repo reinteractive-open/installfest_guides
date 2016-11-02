@@ -34,19 +34,23 @@ with a feature spec since it will let you scope the new functionality without
 having to know all the in-depth implementation details ahead of time.
 
 Open `spec/features/managing_posts_spec.rb` and add the following scenario to
-the `with an existing blog post` context.
+the `as an admin user` context.
 
 ```ruby
-scenario 'Publishing an existing blog' do
-  visit admin_post_path(@post)
-  click_link 'Edit Post'
+  scenario 'Publishing an existing blog' do
+    @post = Post.create(title: 'New Post', body: "Hello world!")
+    @post.save!
 
-  check 'Published'
-  click_button 'Update Post'
+    visit admin_post_path(@post)
+    click_link 'Edit Post'
 
-  expect(page).to have_content 'Post was successfully updated'
-  expect(Post.last.published?).to be true
-end
+    check 'Published'
+    click_button 'Update Post'
+
+    expect(page).to have_content 'Post was successfully updated'
+    expect(Post.last.published?).to be true
+  end
+
 ```
 
 When you've saved the spec you can run it with `rspec
@@ -123,7 +127,7 @@ rule is enforced for the public section of our application too.
 Open `spec/features/reading_blog_spec.rb` and change the contents to be:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Reading the Blog' do
   context 'for an unpublished post' do
@@ -230,14 +234,13 @@ end
 Success! Our spec now passes, but we've still got a little work to do. There's
 some code duplication there that we can fix. Instead of both the `index` and
 `show` actions both using the code `where(published: true)` we'd like to
-move that into a method. Since it's database query we can use an [ActiveRecord
+move that into a method. Since it's a database query we can use an [ActiveRecord
 scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to
 limit what is being returned to only the published posts. Open
 `app/models/post.rb` and update it to look like:
 
 ```ruby
 class Post < ApplicationRecord
-
   has_many :comments
 
   validates_presence_of :body, :title
@@ -341,7 +344,7 @@ would just click the "Published" checkbox in order to make sure their new blog
 post is published. Lets update the spec to reflect that:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Writing blog posts' do
   background do
@@ -583,7 +586,7 @@ posts. First we update the 'writing blog posts' scenario in our tests in
 `spec/features/writing_posts_spec.rb` to look like this:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Writing blog posts' do
 
