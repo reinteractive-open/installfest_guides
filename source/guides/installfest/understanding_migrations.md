@@ -316,7 +316,7 @@ open `spec/features/post_comments_spec.rb` and notice that we're attempting to
 visit a blog post that isn't published. Update the spec to look like:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Posting Comments' do
   background do
@@ -444,14 +444,13 @@ to an author but that the Author's model is named "AdminUser".
 
 ```ruby
 class Post < ApplicationRecord
-
   has_many :comments
 
   belongs_to :author, class_name: "AdminUser"
 
   validates_presence_of :body, :title
 
-  scope :published, where(published: true)
+  scope :published, -> { where(published: true) }
 
   def content
     MarkdownService.new.render(body)
@@ -489,9 +488,9 @@ Open: `app/views/posts/_post.html.erb` and add ` <h3> Posted by: <%=
 post.author.name %></h3>` under the `<h2>`
 
 ```erb
- <h2><%= link_to_unless_current post.title, post %></h2>
- <h3> Posted by: <%= post.author.name %></h3>
- <%= post.content.html_safe %>
+<h2><%= link_to_unless_current post.title, post %></h2>
+<h3> Posted by: <%= post.author.name %></h3>
+<%= post.content.html_safe %>
 ```
 
 Then run our spec again and it passes! But we have a problem. When we run our
@@ -529,7 +528,7 @@ describe '#author_name' do
     let(:author) { AdminUser.new }
     subject { Post.new(author: author).author_name }
 
-    before { author.stub(:name) { "Jane Smith" } }
+    before { allow(author).to receive(:name).and_return("Jane Smith") }
 
     it { should eq "Jane Smith" }
   end
@@ -555,15 +554,13 @@ Post model. Open `app/models/post.rb` and update the Post model to look like:
 
 ```ruby
 class Post < ApplicationRecord
-  attr_accessible :body, :title, :published, :author, :author_id
-
   has_many :comments
 
   belongs_to :author, class_name: "AdminUser"
 
   validates_presence_of :body, :title
 
-  scope :published, where(published: true)
+  scope :published, -> { where(published: true) }
 
   def content
     MarkdownService.new.render(body)
@@ -579,7 +576,7 @@ class Post < ApplicationRecord
 end
 ```
 
-Now when we run our `post_model_spec.rb` again we get no errors.
+Now when we run our `post_spec.rb` again we get no errors.
 
 Next we need to update our Admin panel to allow users to set the author on
 posts. First we update the 'writing blog posts' scenario in our tests in
@@ -604,7 +601,7 @@ feature 'Writing blog posts' do
 
     visit post_path(Post.last)
 
-    page.should have_link 'Example.com link'
+    expect(page).to have_link 'Example.com link'
     expect(page).to have_content 'Posted by: admin@example.com'
   end
 end
@@ -626,9 +623,9 @@ All that's left to do now is update our view too!
 Open `app/views/posts/_post.html.erb` and set the contents to be:
 
 ```erb
- <h2><%= link_to_unless_current post.title, post %></h2>
- <h3> Posted by: <%= post.author_name %></h3>
- <%= post.content.html_safe %>
+<h2><%= link_to_unless_current post.title, post %></h2>
+<h3> Posted by: <%= post.author_name %></h3>
+<%= post.content.html_safe %>
 ```
 
 You'll notice that instead of calling the author model directly we're using the

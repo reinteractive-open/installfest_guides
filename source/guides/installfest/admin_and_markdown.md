@@ -341,12 +341,12 @@ describe MarkdownService do
       # Stub out the redcarpet markdown engine
       # In our test we can assume it works properly
       # since it's a well tested library.
-      Redcarpet::Markdown.stub(:new) { markdown_engine }
+      allow(Redcarpet::Markdown).to receive(:new).and_return(markdown_engine)
     end
 
     it 'should delegate to the markdown engine' do
       # Set up the expectation of what our code should accomplish
-      markdown_engine.should_receive(:render).with(content)
+      expect(markdown_engine).to receive(:render).with(content)
       MarkdownService.new.render(content)
     end
   end
@@ -421,7 +421,7 @@ feature 'Writing blog posts' do
 
     visit post_path(Post.last)
 
-    page.should have_link 'Example.com link'
+    expect(page).to have_link 'Example.com link'
   end
 end
 ```
@@ -465,11 +465,11 @@ describe Post do
     before do
       # We don't want to use the actual MarkdownService
       # since it's tested elsewhere!
-      MarkdownService.stub(:new) { markdown_service }
+      allow(MarkdownService).to receive(:new).and_return(markdown_service)
     end
 
     it 'should convert its body to markdown' do
-      markdown_service.should_receive(:render).with('post body')
+      expect(markdown_service).to receive(:render).with('post body')
       Post.new(body: 'post body').content
     end
   end
