@@ -3,15 +3,15 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Assets and Errors
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started
-following through the series and you're new to Rails then you might want to start with the
-[first post](/guides/installfest/getting_started).  Today we'll be following directly on from
-[Part 5](/guides/installfest/understanding_migrations). If you feel
-confident with Rails and want to learn more about the asset pipeline, static
-pages and custom error pages then you can find setup instructions below.
+Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you 
+haven't started following through the series and you're new to Rails then you might 
+want to start with the [first post](/guides/installfest/getting_started). Today we'll 
+be following directly on from [Part 5](/guides/installfest/understanding_migrations). 
+If you feel confident with Rails and want to learn more about the asset pipeline, 
+static pages and custom error pages then you can find setup instructions below.
 
 In this article we'll be going through three separate topics that will round out a
-series of posts we've made on building a blog in Rails 4.2. Today we'll be
+series of posts we've made on building a blog in Rails 5. Today we'll be
 looking at:
 
 1. An introduction to the assets folder
@@ -55,12 +55,11 @@ and compacted in a single file. Minifying your CSS and JavaScript removes any
 whitespace, newlines and often changes variable names to save as much space as
 possible! Concatenating CSS into a single stylesheet means that you minimize
 the number of HTTP requests a browser must perform to retrieve your styles.
-When Rails (or more correctly
-    [Sprockets](https://github.com/sstephenson/sprockets)) compiles images,
-stylesheets and javascripts it will insert a fingerprint into the name which
-represents the contents of the file. You can read more about this in the [Asset
-Pipeline Rails Guide](https://github.com/sstephenson/sprockets). This might
-mean you end up with a file that looks like:
+When Rails (or more correctly [Sprockets](https://github.com/rails/sprockets)) 
+compiles images, stylesheets and javascripts it will insert a fingerprint into 
+the name which represents the contents of the file. You can read more about this 
+in the [Asset Pipeline Rails Guide](http://guides.rubyonrails.org/asset_pipeline.html). 
+This might mean you end up with a file that looks like:
 
 ```
 application-908e25f4bf641868d8683022a5b62f54.css
@@ -99,18 +98,18 @@ Guide](http://guides.rubyonrails.org/asset_pipeline.html) (specifically
 [this](http://guides.rubyonrails.org/asset_pipeline.html#coding-links-to-assets)
 section).
 
-That's a lot of background, so lets continue on with coding.
+That's a lot of background, so let's continue on with coding.
 
 ## Creating a static page
 
 One of the things missing from our blog are some static pages that aren't
-specifically part of the blog but might describe the author(s). Lets go and
-create an About page.
+specifically part of the blog but might describe the author(s). Let's go 
+ahead and create an About page.
 
 One of the techniques we might use to do this is to simply create a static html
 page and place it in the `public` folder. While this would work it would mean
 that we'd lose any styling and wouldn't be able to put dynamic content into our
-about page at all. Instead we'll create a pages controller, wire up a route
+About page at all. Instead we'll create a pages controller, wire up a route
 manually and create the view for it. This is a very quick process:
 
 Naturally we should first create a test.
@@ -123,7 +122,7 @@ Acceptance test in the form of a feature spec. Create a file
 `spec/features/static_pages_spec.rb` and make it look like:
 
 ```ruby
-require 'spec_helper'
+require 'rails_helper'
 
 feature 'Browsing Static Pages' do
   context 'the about page' do
@@ -220,34 +219,32 @@ Failures:
          * "/Users/artega/dev/reinteractive/quick_blog/app/views"
 ```
 
-If you open your browser at this time and navigate to
-http://localhost:3000/about you'll receive exactly the same error in your
-browser. What this error tells us is that we don't have a template for our
-action.  Create an empty file at: `app/views/pages/about.html.erb` (the pages
-    folder doesn't exist yet) and rerun your test (you can refresh your browser
-      too).  This time the test passes so we're ready to put some content into
-    our view.  Open `app/views/pages/about.html.erb` and update it to look
-    like:
+If you open your browser at this time and navigate to http://localhost:3000/about you'll 
+receive exactly the same error in your browser. What this error tells us is that we don't 
+have a template for our action. Create an empty file at: `app/views/pages/about.html.erb` 
+(the pages folder doesn't exist yet) and rerun your test (you can refresh your browser
+too). This time the test passes so we're ready to put some content into our view. Open 
+`app/views/pages/about.html.erb` and update it to look like:
 
 ```html
- <h1>About me</h1>
+<h1>About me</h1>
 
+<p>
+  I'm a new Rails developer learning all these cool things.
+</p>
  <p>
-   I'm a new Rails developer just learning all these cool things.
- </p>
- <p>
-   What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.
-   Here men from the planet Earth first set foot upon the Moon. July 1969 ActionDispatch. We came in peace for all mankind.
-   Dinosaurs are extinct today because they lacked opposable thumbs and the brainpower to build a space program.
- </p>
+  What was most significant about the lunar voyage was not that man set foot on the Moon but that they set eye on the earth.
+  Here men from the planet Earth first set foot upon the Moon. July 1969 ActionDispatch. We came in peace for all mankind.
+  Dinosaurs are extinct today because they lacked opposable thumbs and the brainpower to build a space program.
+</p>
 ```
 
 This is mostly just filler text so update it to be whatever you please.
 
 That's our first static page. One of the big benefits was that our styling,
-  header and footers didn't need to be implemented in our static page so we
-  could focus entirely on the content. This is because all that other stuff is
-  provided by our layout file in `app/layouts/application.html.erb`
+header and footers didn't need to be implemented in our static page so we
+could focus entirely on the content. This is because all that other stuff is
+provided by our layout file in `app/layouts/application.html.erb`
 
 Lets move along to customising our error pages but first we should commit our
 work.
@@ -259,11 +256,10 @@ git commit -m "about me page implemented"
 
 ## Custom Error Pages
 
-One final thing that we haven't customised on our personal website are custom
-error messages. One important aspect of running any web application is
-accepting that users will encounter errors and we should be making sure our
-error pages provide the user with a nice experience. There are 3 error pages
-that we need to customise:
+One final thing that we haven't customised on our personal website are custom error 
+messages. One important aspect of running any web application is accepting that users 
+will encounter errors and we should be making sure our error pages provide the user 
+with a nice experience. There are three error pages that we need to customise:
 
 * 404 - Not Found. This error occurs when the user tries to access something that doesn't exist.
 * 422 - Unprocessable Entity. This occurs when the server can't make the change that the user requests. Basically this is an error that is caused by the user submitting something that the server refuses to handle.
@@ -275,22 +271,19 @@ These pages are accessible at:
 * 422 - [http://localhost:3000/422](http://localhost:3000/422)
 * 500 - [http://localhost:3000/500](http://localhost:3000/500)
 
-Normally, in development mode you won't see these error pages when an error
-occurs. This is because Rails will give you extra debugging information to help
-your development. If you navigate to
-[http://localhost:3000/doesntexist](http://localhost:3000/doesntexist) you'll
-see an error indicating that there's been a "Routing Error". However in
-Production mode this would look like the 404 page linked above. We can force
-Rails to show the production-style error pages durign development mode by
-changing a configuration variable. If you open
-`config/environments/development.rb` and change
-`config.consider_all_requests_local` to be equal to false (then restart your
-Rails server) you'll see the error pages instead of the debugging ones.
+Normally, in development mode you won't see these error pages when an error occurs. This 
+is because Rails will give you extra debugging information to help your development. If 
+you navigate to [http://localhost:3000/doesntexist](http://localhost:3000/doesntexist) you'll
+see an error indicating that there's been a "Routing Error". However in Production mode this 
+would look like the 404 page linked above. We can force Rails to show the production-style 
+error pages during development mode by changing a configuration variable. If you open
+`config/environments/development.rb` and change `config.consider_all_requests_local` to be 
+false (then restart your Rails server) you'll see the error pages instead of the debugging ones.
 
 One more important thing to realise is that by default the error pages are
 simply the static HTML pages in the `./public/` folder. If you customise the
 `public/404.html` file that will be your new Not Found error page. However
-there are a couple of small problems.
+there are a couple of small problems:
 
 1. We can't use the asset pipeline in these static pages. We could put images and other assets into the public folder but this starts to split our applicaiton up. If we make a style change in our application we'd like this to be reflected in our error pages too.
 2. We might want to include our header and footer navigation into our error pages, but doing this would mean that we'd have to duplicate this code into our static error pages.
@@ -299,9 +292,9 @@ Luckily there is a simpler way.
 
 ### Configuring your application
 
-First of all we'll instruct Rails that when an error occurs we'd like to use
-our own application's router to handle the error. Open `config/application.rb`
-and add the following configuration directive:
+First of all we'll instruct Rails that when an error occurs we'd like to use our own 
+application's router to handle the error. Open `config/application.rb` and add the following 
+configuration directive:
 
 ```ruby
 config.exceptions_app = self.routes
@@ -310,14 +303,17 @@ config.exceptions_app = self.routes
 Your entire application.rb should look like:
 
 ```ruby
-require File.expand_path('../boot', __FILE__)
+require_relative 'boot'
 
+require "rails"
 # Pick the frameworks you want:
 require "active_model/railtie"
+require "active_job/railtie"
 require "active_record/railtie"
 require "action_controller/railtie"
 require "action_mailer/railtie"
 require "action_view/railtie"
+require "action_cable/engine"
 require "sprockets/railtie"
 # require "rails/test_unit/railtie"
 
@@ -330,14 +326,6 @@ module QuickBlog
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
-
-    # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
-    # Run "rails -D time" for a list of tasks for finding time zone names. Default is UTC.
-    # config.time_zone = 'Central Time (US & Canada)'
-
-    # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
-    # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
-    # config.i18n.default_locale = :de
 
     config.exceptions_app = self.routes
   end
@@ -379,7 +367,7 @@ Finally we need to create the view. Create a file
 `app/views/errors/not_found.html.erb` with the following contents:
 
 ```html
-  <h1>404 not found</h1>
+<h1>404 not found</h1>
 ```
 
 If we navigate to [http://localhost:3000/404](http://localhost:3000/404),
@@ -392,8 +380,8 @@ Download [this image](http://i.imgur.com/q3078Bs.jpg) and save it as
 update it to be:
 
 ```erb
-  <h1>404 not found</h1>
-  <%= image_tag '404.jpg' %>
+<h1>404 not found</h1>
+<%= image_tag '404.jpg' %>
 ```
 
 What we've done here is added an image to our asset bundle, and then referenced
@@ -437,13 +425,13 @@ Finally create two views:
 Create `app/views/errors/internal_error.html.erb` with the contents:
 
 ```html
-  <h1>500</h1>
+<h1>500</h1>
 ```
 
 And create `app/views/errors/unprocessable_entity.html.erb` with the contents:
 
 ```html
-  <h1>422</h1>
+<h1>422</h1>
 ```
 
 Both these files are just placeholders. It's up to you to customise them for
