@@ -352,7 +352,7 @@ end
 ```
 
 Notice that we've added a 404 route and wired it to the
-ErrorController#not_found action. This controller doesn't exist so we should
+`ErrorController#not_found` action. This controller doesn't exist so we should
 create it. Create a file `app/controllers/errors_controller.rb` which should
 look like:
 
