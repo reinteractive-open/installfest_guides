@@ -5,8 +5,9 @@ Here is the basic outline of what we will do:
 1. Install [chocolatey](https://chocolatey.org/)
 2. Use chocolatey to install Ruby
 3. Use chocolatey to install other helpful tools
-4. Configure our environment
-5. Use Ruby to install Rails
+4. Install Ruby Gems
+5. Configure our environment
+6. Use Ruby to install Rails
 
 ## Installing Chocolatey
 
@@ -62,9 +63,35 @@ choco install sublime -y
 choco install ruby2.devkit -y
 ```
 
+## Install Ruby Gems
+
+First change to the tools directory:
+
+```sh
+cd \tools\
+```
+
+Then fetch the latest rubygems:
+
+```sh
+wget https://rubygems.org/downloads/rubygems-update-2.6.8.gem
+```
+
+And install them:
+
+```sh
+gem install --local C:\rubygems-update-2.6.8.gem
+```
+
+And then run an update to ensure everything matches:
+
+```sh
+update_rubygems --no-ri --no-rdoc
+```
+
 ## Configure our environment
 
-In the last step we installed the [Ruby Development Kit](http://rubyinstaller.org/add-ons/devkit/). This is going to need some configuration. Run the following commands:
+In a previous step we installed the [Ruby Development Kit](http://rubyinstaller.org/add-ons/devkit/). This is going to need some configuration. Run the following commands:
 
 ```
 cd c:\tools\DevKit2
