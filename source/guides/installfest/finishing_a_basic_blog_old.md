@@ -354,15 +354,19 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 Up until this point we've really neglected the look and feel of our blog. It
 definitely feels a bit boring! We'll be making it look much nicer by using a UI
-library called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end 
-framework that allows you to make your websites look good quickly and easily.
+library called [Foundation](http://foundation.zurb.com/). Foundation is similar
+to [Twitter Bootstrap](http://twitter.github.io/bootstrap/), but is a bit
+easier to integrate with Rails. Foundation is built using
+[Sass](http://sass-lang.com/) while Bootstrap is built using
+[Less](http://lesscss.org/). You can run Less in Rails, but it has some
+compatibility issues with Windows so today we'll be using Foundation.
 
-We'll be installing Bootstrap using the bootstrap gem by adding it to
+We'll be installing Foundation using the zurb-foundation gem by adding it to
 our Gemfile's asset group. The Gemfile is a file that sits at the top level of
 your application directory structure and lists all of the dependencies and
 libraries that your code uses.
 
-Add the line `gem 'bootstrap', '~> 4.0.0.alpha5'` to your Gemfile so it looks like this:
+Add the line `gem 'foundation-rails'` to your Gemfile so it looks like this:
 
 ```ruby
 source 'https://rubygems.org'
@@ -384,7 +388,7 @@ gem 'coffee-rails', '~> 4.2'
 # gem 'therubyracer', platforms: :ruby
 gem 'record_tag_helper', '~> 1.0'
 gem 'responders'
-gem 'bootstrap', '~> 4.0.0.alpha5'
+gem 'foundation-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -417,29 +421,6 @@ development environment since it's likely your computer isn't set up to build
 it properly. Make sure at this point you also restart your Rails server, so
 switch to the command prompt where Rails is running press `Ctrl-C` and then
 restart it by typing `rails s`.
-
-Rename the file `app/assets/stylesheets/application.css` to 
-`app/assets/stylesheets/application.scss`.
-
-On Windows, the command will be:
-
-```
-rename app/assets/stylesheets/application.css app/assets/stylesheets/application.scss`
-```
-
-On Mac or Linux, the command will be:
-
-```
-mv app/assets/stylesheets/application.css app/assets/stylesheets/application.scss
-```
-
-Now we need to open `app/assets/stylesheets/application.scss` and import the bootstrap styles. We do this by adding the following to the file:
-
-```
-// Custom bootstrap variables must be set or imported before bootstrap itself.
-@import "bootstrap";
-```
-
 
 After you've done this you'll need to switch back to your other terminal and
 finish installing Foundation. Run: `rails g foundation:install`. This will
