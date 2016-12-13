@@ -1,11 +1,11 @@
 # Getting started on macOS
 
-These instructions are for macOS Sierra 10.12.1 and above. If you are running an older version of OS X, please see your event host. We will have USB drives with the files you need to install Rails.
+These instructions are for OS X versions 10.9 and above. If you are running an older version of OS X, please see your event host. We will have USB drives with the files you need to install Rails.
 
 Here is the basic outline of what we will do:
 
-1. Install a text editor of your choice (for ex. Sublime Text 2)
-2. Setup a [gcc/LLVM compiler](https://developer.apple.com/library/content/documentation/CompilerTools/Conceptual/LLVMCompilerOverview/index.html)
+1. Install a text editor (Sublime)
+2. Set up a compiler
 3. Install [homebrew](http://brew.sh)
 4. Use homebrew to install [ruby-install](https://github.com/postmodern/ruby-install) and [chruby](https://github.com/postmodern/chruby)
 5. Use ruby-install to install a new version of the Ruby programming language
@@ -19,14 +19,14 @@ Locate the file and click on it to install. Follow the instructions.
 
 ## Setting up a gcc/LLVM compiler
  
-With the installation of Xcode 8.1 you get the Command-Line tools installed by default. You can ensure it by running `gcc` in terminal. If it gives you this error: `clang: error: no input files`, then you already have the Command Line Tools installed. You can also check it in the Xcode GUI: Xcode->Preferences->Locations->Command Line Tools. If Command-Line Tools are installed you can move to the next section - [installing homebrew]().
+With the installation of Xcode 8.1 you get the Command-Line tools installed by default. You can check this by running `gcc` in terminal. If it gives you this error: `clang: error: no input files`, then you already have the Command Line Tools installed. You can also check it in the Xcode GUI: Xcode->Preferences->Locations->Command Line Tools. If Command-Line Tools are installed you can move to the next section - [installing homebrew]().
 
-But in case Command Line tools were not installed for some reason proceed with following steps:
+If Command Line tools were not installed for some reason proceed with following steps:
 
 1. Open the [Terminal application](https://en.wikipedia.org/wiki/Terminal_(macOS)) (<kbd>⌘</kbd> + <kbd>Space</kbd> (to open [Spotlight](https://support.apple.com/en-au/HT204014)) then type "terminal" in the search bar and press <kbd>Return</kbd>).
 2. In the Terminal type: `xcode-select --install` or alternatively `gcc` and press enter. A popup will appear which will install the command-line compilation tools. You may be required to enter your profile password.
 3. You may receive a warning like: "_You have not agreed to the Xcode license agreements, please run 'xcodebuild -license'_". If so, simply run: `sudo xcodebuild -license` and enter your account password then follow the steps.
-4. Once that has finished try typing `gcc -v` into your terminal window to check the version . You should see the following message:
+4. Once that has finished try typing `gcc -v` into your terminal window to check the version. You should see the following message:
 
 ```sh
 Configured with: --prefix=/Applications/Xcode.app/Contents/Developer/usr
@@ -37,7 +37,7 @@ Thread model: posix
 
 ## Installing homebrew
 
-[Homebrew](http://brew.sh) is a package manager. Using homebrew we can easily install things like the Postgres database tool, or even tools which lets us install other tools.
+[Homebrew](http://brew.sh) is a package manager, which is a tool that developers use to install other bits of software. Using homebrew we can easily install things like the Postgres database tool, or even tools that allow us to install other tools.
 
 Installing homebrew is easy. In your terminal window run:
 
@@ -50,10 +50,9 @@ Once that is complete you can run `brew -v` in the terminal to check the current
 ## Installing ruby-install and chruby
 
 
-[ruby-install](https://github.com/postmodern/ruby-install) is a tool which can install multiple versions of the Ruby programming language. Professional Ruby developers will use ruby-install (or similar tools) so they can test their
-applications with many different versions of Ruby.
+[ruby-install](https://github.com/postmodern/ruby-install) is a tool that can install multiple versions of the Ruby programming language. Professional Ruby developers will use ruby-install (or similar tools) so they can test their applications with many different versions of Ruby.
 
-[chruby](https://github.com/postmodern/chruby) is a one of the version managers for Ruby. This manager is used to manage and switch between different installed versions of Ruby.
+[chruby](https://github.com/postmodern/chruby) is a version manager for Ruby. It can be used to manage and switch between different installed versions of Ruby.
 
 Run all the the following commands step by step:
 
@@ -61,7 +60,7 @@ Run all the the following commands step by step:
 2. Next install ruby-install: `brew install ruby-install`
 3. Now use ruby-install to install Ruby: `ruby-install ruby 2.3.0`
 
-Installing Ruby may take a little while.  
+Installing Ruby may take a little while.
 
 Next we'll install and configure chruby:
 
@@ -113,7 +112,7 @@ Importantly you should NOT see:
 ruby 2.3.0p0 (2015-12-25 revision 53290) [universal.x86_64-darwin13]
 ````
 
-The word __universal__ means that it's the version of Ruby which comes with OS X.
+The word __universal__ means that it's the version of Ruby that comes with OS X.
 We don't want to use this.
 
 If your Ruby is installed properly you can move onto the next section.
