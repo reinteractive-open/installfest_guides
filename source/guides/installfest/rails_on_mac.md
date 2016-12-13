@@ -19,12 +19,12 @@ Locate the file and click on it to install. Follow the instructions.
 
 ## Setting up a gcc/LLVM compiler
  
-With the installation of Xcode 8.1 you get the Command-Line tools installed by default. You can check this by running `gcc` in terminal. If it gives you this error: `clang: error: no input files`, then you already have the Command Line Tools installed. You can also check it in the Xcode GUI: Xcode->Preferences->Locations->Command Line Tools. If Command-Line Tools are installed you can move to the next section - [installing homebrew]().
+With the installation of Xcode 8.1 you get the Command-Line tools installed by default. You can check this by running `gcc` in terminal. If it gives you this error: `clang: error: no input files`, then you already have the Command Line Tools installed. You can also check it in the Xcode GUI: Xcode->Preferences->Locations->Command Line Tools. If Command-Line Tools are installed you can move to the next section - Installing Homebrew.
 
 If Command Line tools were not installed for some reason proceed with following steps:
 
 1. Open the [Terminal application](https://en.wikipedia.org/wiki/Terminal_(macOS)) (<kbd>⌘</kbd> + <kbd>Space</kbd> (to open [Spotlight](https://support.apple.com/en-au/HT204014)) then type "terminal" in the search bar and press <kbd>Return</kbd>).
-2. In the Terminal type: `xcode-select --install` or alternatively `gcc` and press enter. A popup will appear which will install the command-line compilation tools. You may be required to enter your profile password.
+2. In the Terminal type: `xcode-select --install` or alternatively `gcc` and press enter. A popup will appear that will install the command-line compilation tools. You may be required to enter your profile password.
 3. You may receive a warning like: "_You have not agreed to the Xcode license agreements, please run 'xcodebuild -license'_". If so, simply run: `sudo xcodebuild -license` and enter your account password then follow the steps.
 4. Once that has finished try typing `gcc -v` into your terminal window to check the version. You should see the following message:
 
