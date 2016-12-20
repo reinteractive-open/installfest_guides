@@ -440,28 +440,22 @@ Now we need to open `app/assets/stylesheets/application.scss` and import the boo
 @import "bootstrap";
 ```
 
+Bootstrap is based on a grid system, whereby your screen is divided up into 12 equal-width columns. Items are arranged on your screen by specifying how many of these 12 column-widths they should occupy. We do that by applying a class to our `div` element.
 
-After you've done this you'll need to switch back to your other terminal and
-finish installing Foundation. Run: `rails g foundation:install`. This will
-prompt you with the following:
+There are different grid classes for different devices but, as we are using our laptops for this tuturial, we will use `.col-md-*` as it is designed for laptop-sized screens. You can see the other classes for other devices below.
 
-```ruby
-    conflict  app/views/layouts/application.html.erb
-Overwrite /Users/artega/dev/reinteractive/quick_blog/app/views/layouts/application.html.erb? (enter "h" for help) [Ynaqdh]
-```
+![bootstrap grid class sizes](/images/guides/bootstrap_grid_sizes.png)
 
-Press n and then enter to skip overwriting our `application.html.erb` layout
-file. By skipping this we do miss out on some of Foundation's responsive design
-features, but we've already added our RSS link to our layout file and allowing
-the install to overwrite our layout file would mean we'd lose that link. If
-you're comfortable putting the autodiscovery link tag back into the new layout
-file, rerun the foundation install and allow it to overwrite your layout.
 
+
+# maybe???
 You'll also want to remove the scaffolding css file that Rails provided to you
 when you scaffolded the Posting functionality. To do that just delete
 `app/assets/stylesheets/scaffolds.scss`. Restarting the local server again
 and navigating to [http://localhost:3000](http://localhost:3000) at this point
 will show some changes to the UI of your blog.
+###################################################
+
 
 We're going to start off with two very quick things with Foundation. We'll give
 our content some whitespace so it's easier to read, and we'll change all our
