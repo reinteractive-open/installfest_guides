@@ -18,7 +18,7 @@ It will download a disk image for Sublime 2 to your downloads folder.
 Locate the file and click on it to install. Follow the instructions.
 
 ## Setting up a gcc/LLVM compiler
- 
+
 With the installation of Xcode 8.1 you get the Command-Line tools installed by default. You can check this by running `gcc` in terminal. If it gives you this error: `clang: error: no input files`, then you already have the Command Line Tools installed. You can also check it in the Xcode GUI: Xcode->Preferences->Locations->Command Line Tools. If Command-Line Tools are installed you can move to the next section - Installing Homebrew.
 
 If Command Line tools were not installed for some reason proceed with following steps:
@@ -64,31 +64,31 @@ Installing Ruby may take a little while.
 
 Next we'll install and configure chruby:
 
-1. Install chruby with homebrew: 
+1. Install chruby with homebrew:
 
     ````sh
     brew install chruby
     ````
 
-2. Configure chruby to start when you open your terminal: 
+2. Configure chruby to start when you open your terminal:
 
-    ````sh 
+    ````sh
     echo "source '/usr/local/share/chruby/chruby.sh'" >> ~/.bash_profile
     ````
 
-3. Start chruby in your current terminal: 
+3. Start chruby in your current terminal:
 
     ````sh
     source '/usr/local/share/chruby/chruby.sh'
     ````
 
-4. Tell chruby to use the latest version of ruby when your start your terminal: 
+4. Tell chruby to use the latest version of ruby when your start your terminal:
 
     ````sh
-    echo "chruby `chruby | grep 2.3.0 | sed 's/\* //'`" >> ~/.bash_profile`
+    echo "chruby `chruby | grep 2.3.0 | sed 's/\* //'`" >> ~/.bash_profile
     ````
 
-5. Tell chruby to use the latest version of ruby in your current terminal: 
+5. Tell chruby to use the latest version of ruby in your current terminal:
 
     ````sh
     chruby `chruby | grep 2.3.0 | sed 's/\* //'`
