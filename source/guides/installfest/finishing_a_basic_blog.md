@@ -352,112 +352,34 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Giving your blog some style
 
-Up until this point we've really neglected the look and feel of our blog. It
-definitely feels a bit boring! We'll be making it look much nicer by using a UI
-library called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end 
-framework that allows you to make your websites look good quickly and easily.
+Up until this point we've really neglected the look and feel of our blog. It definitely
+feels a bit boring! We'll be making it look much nicer by using a UI library
+called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end framework
+that allows you to make your websites look good quickly and easily.
 
-We'll be installing Bootstrap using the bootstrap gem by adding it to
-our Gemfile's asset group. The Gemfile is a file that sits at the top level of
-your application directory structure and lists all of the dependencies and
-libraries that your code uses.
+The first step is to [download Bootstrap](http://getbootstrap.com/getting-started/).
+Put it in a folder that makes sense to you.
 
-Add the line `gem 'bootstrap', '~> 4.0.0.alpha5'` to your Gemfile so it looks like this:
+Next, we need to copy the files we require into our rails project. From your bootstrap
+folder, copy the following:
 
-```ruby
-source 'https://rubygems.org'
+`css/bootstrap.css` and `css/bootstrap.min.css` to: `vendor/assets/stylesheets`
+and
+`js/bootstrap.js` and `js/bootstrap.min.js` to: `vendor/assets/javascripts`.
 
-gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
+Open `app/assets/stylesheets/application.css` and add the following line:
+`*= require bootstrap.min`
 
-# Use sqlite3 as the database for Active Record in development and test, and postgres in production
-gem 'sqlite3', group: [:development, :test]
-gem 'pg', group: :production
-# Use Puma as the app server
-gem 'puma', '~> 3.0'
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 5.0'
-# Use Uglifier as compressor for JavaScript assets
-gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
-gem 'coffee-rails', '~> 4.2'
-# See https://github.com/rails/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-gem 'record_tag_helper', '~> 1.0'
-gem 'responders'
-gem 'bootstrap', '~> 4.0.0.alpha5'
+Open `app/assets/javascripts/application.js` and add the following line:
+`//= require bootstrap.min`
 
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
-# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
-gem 'turbolinks', '~> 5'
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 2.5'
+One of the signature features of Bootstrap is the grid system. The grid system creates page
+layouts through a series of rows and columns that houses your content.
 
-group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
-  gem 'byebug', platform: :mri
-end
+The basic rules are that you must have a `.container` within which a `.row` can be placed.
+Within each `.row`, you specify how many columns you wish to span (there are 12 available columns).
 
-group :development do
-  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
-  gem 'web-console'
-  gem 'listen', '~> 3.0.5'
-  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-  gem 'spring'
-  gem 'spring-watcher-listen', '~> 2.0.0'
-end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
-```
-
-After you've saved that file, switch to your terminal and run: `bundle install
---without=production`. We're going to skip installing the postgres gem in our
-development environment since it's likely your computer isn't set up to build
-it properly. Make sure at this point you also restart your Rails server, so
-switch to the command prompt where Rails is running press `Ctrl-C` and then
-restart it by typing `rails s`.
-
-Rename the file `app/assets/stylesheets/application.css` to 
-`app/assets/stylesheets/application.scss`.
-
-On Windows, the command will be:
-
-```
-rename app/assets/stylesheets/application.css app/assets/stylesheets/application.scss`
-```
-
-On Mac or Linux, the command will be:
-
-```
-mv app/assets/stylesheets/application.css app/assets/stylesheets/application.scss
-```
-
-Now we need to open `app/assets/stylesheets/application.scss` and import the bootstrap styles. We do this by adding the following to the file:
-
-```
-// Custom bootstrap variables must be set or imported before bootstrap itself.
-@import "bootstrap";
-```
-
-Bootstrap is based on a grid system, whereby your screen is divided up into 12 equal-width columns. Items are arranged on your screen by specifying how many of these 12 column-widths they should occupy. We do that by applying a class to our `div` element.
-
-There are different grid classes for different devices but, as we are using our laptops for this tuturial, we will use `.col-md-*` as it is designed for laptop-sized screens. You can see the other classes for other devices below.
-
-![bootstrap grid class sizes](/images/guides/bootstrap_grid_sizes.png)
-
-
-
-# maybe???
-You'll also want to remove the scaffolding css file that Rails provided to you
-when you scaffolded the Posting functionality. To do that just delete
-`app/assets/stylesheets/scaffolds.scss`. Restarting the local server again
-and navigating to [http://localhost:3000](http://localhost:3000) at this point
-will show some changes to the UI of your blog.
-###################################################
-
-
-We're going to start off with two very quick things with Foundation. We'll give
+We're going to start off with two very quick things with Bootstrap. We'll give
 our content some whitespace so it's easier to read, and we'll change all our
 buttons so that they have a bit more style. First open your layout file
 `app/views/layouts/application.html.erb` and update it to look like:
@@ -473,77 +395,41 @@ buttons so that they have a bit more style. First open your layout file
     <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
   </head>
   <body>
-    <div id="main">
-      <%= yield %>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8">
+          <%= yield %>
+        </div>
+      </div>
     </div>
   </body>
 </html>
 ```
 
-Then we'll create a file called `app/assets/stylesheets/common.css.scss` and
-put the following inside it:
+You will notice that, apart from wrapping the `yield` statement in various `div`s, we added several different classes to the final enclosing `div`.
+* `col-xs-12` means that on an extra-small device (such as a phone), we want whatever text is produced by the `yield` to take up all 12 columns.
+* `col-sm-10` means that on a small device (such as a tablet), we want whatever text is produced by the `yield` to take up 10 columns, leaving 2 empty columns.
+* `col-md-8` means that on a medium device (such as a laptop), we want whatever text is produced by the `yield` to take up 8 columns, leaving 4 empty columns. Because there is nothing specified for `col-lg-xx` (which would be a desktop computer), these will also fall under this category and have their content restricted to eight columns.
 
-```css
-input[type="submit"] {
-  @include button;
-}
+To illustrate the changes we just made, we are going to need a long blog post. The easiest way to create one is go to the [Lorem Ipsum website](http://www.lipsum.com/feed/html) and copy and paste the text it generates. Use this text to create a new blog post.
 
-div#main {
-  @include grid-row;
-}
+Once we have the new long post created, return to [your post listings](http://localhost:3000/posts).
 
-footer {
-  margin-top: 50px;
-  background-color: #000;
-  color: #eee;
-  text-align: center;
-  p {
-    line-height: 100px;
-  }
-}
+If your browser window is expanded (and you are using a laptop or larger), you should observe that the text occupying about three-quarters of the width of the screen. Resize the screen and, as it shrinks, you will see the text bouncing around. First occupying ten-twelfths, and then as it gets very small, the entire width of the screen.
+
+Now open `app/views/posts/index.html.erb` and update it to look like:
+
+```erb
+<h1>Listing posts</h1>
+
+<%= render partial: @posts %>
+
+<%= button_to 'New Post', new_post_path, class: "btn-primary" %>
 ```
 
-Then we'll open `app/assets/stylesheets/application.css` and delete the line
-with `*= require_tree .` so that file will be:
+We have changed `link_to`, that unobtrusive barely-noticeable link for adding a new post, to `button_to` which will now give us a button. Note: `link_to` and `button_to` are Rails helper methods that saves us writing the corresponding HTML.
 
-```css
-/*
- *= require_self
- *= require foundation_and_overrides
- */
-```
-
-Finally we'll open `app/assets/stylesheets/foundation_and_overrides.scss`
-and, at the bottom of the import statements, import the 'common' styles, so 
-that the first five lines look like this:
-
-```ruby
-@charset 'utf-8';
-
-@import 'settings';
-@import 'foundation';
-@import 'common';
-```
-
-These steps definitely need explaining. First in our layout file you wrapped
-the yield statement inside a div. Then we're creating a new SCSS file that does
-three things:
-
-1. Changes all inputs with a type of submit to use Foundation's [button styling](http://foundation.zurb.com/docs/components/buttons.html).
-2. Targets that div#main you inserted into the layout file and gives it Foundation's [grid-row behaviour](http://foundation.zurb.com/docs/components/grid.html).
-3. Sets up some footer styling that we'll be using in a later step.
-
-After this you removed the `require_tree` directive from the application.css
-file. This directive causes your application to stop automatically including
-every CSS file in the stylesheets folder. Immediately after this we import the
-new `common.css.scss` file into the `foundation_and_overrides` file so that our
-newly created CSS rules will be applied to our blog. We're doing this to inform
-Rails' asset pipeline that we'd like to use SASS to import the file, rather
-than relying on the asset pipeline's catch-all method. This gives us slightly
-more control over what gets included and also causes Foundation's mixins to
-work correctly. You can [read more about the asset
-pipeline](http://guides.rubyonrails.org/asset_pipeline.html) on the [Rails
-guide site](http://guides.rubyonrails.org/index.html).
+If you refresh your [index page](http://localhost:3000/posts), you should now see that our "New Post" link at the bottom of the page, is now a lovely blue button.
 
 #### Deploying your changes
 
