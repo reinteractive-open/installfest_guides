@@ -363,15 +363,34 @@ Put it in a folder that makes sense to you.
 Next, we need to copy the files we require into our rails project. From your bootstrap
 folder, copy the following:
 
-`css/bootstrap.css` and `css/bootstrap.min.css` to: `vendor/assets/stylesheets`
+`css/bootstrap.css` and `css/bootstrap.min.css` to: `vendor/assets/stylesheets`,
+
+`js/bootstrap.js` and `js/bootstrap.min.js` to: `vendor/assets/javascripts`,
+
 and
-`js/bootstrap.js` and `js/bootstrap.min.js` to: `vendor/assets/javascripts`.
+
+`fonts/` (the folder and it's contents) to `app/assets`.
 
 Open `app/assets/stylesheets/application.css` and add the following line:
+
 `*= require bootstrap.min`
 
 Open `app/assets/javascripts/application.js` and add the following line:
+
 `//= require bootstrap.min`
+
+Open `app/assets/stylesheets/application.css` and add the following lines:
+
+```
+@font-face {
+   font-family: 'Glyphicons Halflings';
+   src: url('/assets/glyphicons-halflings-regular.eot');
+   src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+      url('/assets/glyphicons-halflings-regular.woff') format('woff'),
+      url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
+      url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+}
+```
 
 One of the signature features of Bootstrap is the grid system. The grid system creates page
 layouts through a series of rows and columns that houses your content.
@@ -424,7 +443,7 @@ Now open `app/views/posts/index.html.erb` and update it to look like:
 
 <%= render partial: @posts %>
 
-<%= button_to 'New Post', new_post_path, class: "btn-primary" %>
+<%= button_to 'New Post', new_post_path, method: :get, class: "btn-primary" %>
 ```
 
 We have changed `link_to`, that unobtrusive barely-noticeable link for adding a new post, to `button_to` which will now give us a button. Note: `link_to` and `button_to` are Rails helper methods that saves us writing the corresponding HTML.
@@ -438,7 +457,7 @@ At this point you can commit all your changes using git by typing:
 ```ruby
 git add .
 git rm app/assets/stylesheets/scaffolds.css.scss
-git commit -m "adding zurb foundation"
+git commit -m "adding bootstrap styling"
 ```
 
 And then you can deploy to Heroku with `git push heroku master`. You'll be able
@@ -446,62 +465,68 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Adding some personality
 
-Your blog works, it has posts and comments but it doesn't feel like your own.
-We're going to add in a header and footer which will allow users to navigate a
-little more easily and will give you the chance to personalise your blog a bit
-more. In all web pages the header and footer are generally common across all
-pages, Rails gives us a layout file that lets us make these sorts of changes to
-every page at once.
+Your blog works, it has posts and comments but it doesn't feel like your own. We're going to add in a header and footer which will allow users to navigate a little more easily and will give you the chance to personalise your blog a bit more. In all web pages the header and footer are generally common across all pages, Rails gives us a layout file that lets us make these sorts of changes to every page at once.
 
-First we'll create two files a header and a footer. Create
+First we'll create two files: a header and a footer. Create
 `app/views/layouts/_header.html.erb` put the following code in it:
 
 ```erb
-<nav class="top-bar">
-  <ul class="title-area left menu simple">
-    <!-- Title Area -->
-    <li class="name">
-      <h1>
-        <%= link_to 'Your Blog Name', root_path %>
-      </h1>
-    </li>
-  </ul>
-  <section class="top-bar-right">
-    <ul class="right menu simple">
-      <li class="divider hide-for-small"></li>
-      <li>
-        <%= link_to 'Github', 'https://github.com/reInteractive-open' %>
-      </li>
-
-      <li class="divider hide-for-small"></li>
-      <li>
-        <%= link_to 'Twitter', 'https://twitter.com/' %>
-      </li>
-
-      <li class="divider hide-for-small"></li>
-      <li>
-        <%= link_to 'About me', '/about' %>
-      </li>
-    </ul>
-  </section>
-</nav>
+    <nav class="navbar navbar-inverse navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">My Awesome Blog</a>
+        </div>
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#">About</a></li>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Topics<span class="caret"></span></a>
+              <ul class="dropdown-menu">
+                <li><a href="#">Books</a></li>
+                <li><a href="#">Movies</a></li>
+                <li><a href="#">Games</a></li>
+              </ul>
+            </li>
+            <li><a href="#">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
 ```
 
 And then create `app/views/layouts/_footer.html.erb` and put the following code in it:
 
 ```erb
-<footer>
-  <p>
-    Powered by: <%= link_to 'rails-3-2-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
-    Developed at: <%= link_to 'InstallFest 2016', 'http://reinteractive.net/service/installfest' %>
-  </p>
-</footer>
+<div class="container">
+  <footer class="footer">
+    <div class="row">
+      <div class="col-md-4">
+        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
+        <h3>My Awesome Blog!</h3>
+        <p>Developed at: <%= link_to 'InstallFest 2017', 'http://reinteractive.net/service/installfest' %></p>
+      </div>
+      <div class="col-md-4">
+        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
+        <h3>I did it myself</h3>
+        <p>It was easy, just follow the guide.</p>
+      </div>
+      <div class="col-md-4">
+        <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
+        <h3>No Cheating</h3>
+        <p>Just Ruby code within a Rails framework.</p>
+      </div>
+    </div>
+  </footer>
+</div>
 ```
 
-These Header and Footer files contain some example HTML that will give you a
-starting point. Before you modify them open up
-`app/views/layouts/application.html.erb` and insert the command to render the
-partials you just created. Your layout file will look like:
+These Header and Footer files contain some example HTML that will give you a starting point. Before you modify them open up `app/views/layouts/application.html.erb` and insert the command to render the partials you just created. Your layout file will look like:
 
 ```erb
 <!DOCTYPE html>
@@ -515,22 +540,21 @@ partials you just created. Your layout file will look like:
   </head>
   <body>
     <%= render partial: 'layouts/header' %>
-
-  <div id="main">
-    <%= yield %>
-  </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
     <%= render partial: 'layouts/footer' %>
   </body>
 </html>
 ```
 
-Refresh your browser or navigate to
-[http://localhost:3000](http://localhost:3000) to see the changes you've just
-made. Feel free to go ahead and edit the header and footer html files now to
-make your blog truly personal.
+Refresh your browser or navigate to [http://localhost:3000](http://localhost:3000) to see the changes you've just made. Feel free to go ahead and edit the header and footer html files now to make your blog truly personal.
 
-If you've been entirely successful (and if you haven't feel free to ask for
-    some help) then your blog should be looking something like this:
+If you've been successful (and if you haven't, please ask for some help) then your blog should be looking something like this:
 
 ![completed blog](/images/guides/completed_blog.png)
 
