@@ -511,6 +511,7 @@ e.g. `https://peaceful-hamlet-7389.herokuapp.com/posts`
 
 Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL)
 
-Welcome to Ruby on Rails. If you're this far along you should definitely [head
-on over to Part 2](/guides/installfest/finishing_a_basic_blog) which goes
+Welcome to Ruby on Rails! If you're this far along you might want to pause and catch your breath. Check out [WTF Just Happened? A Quick Tour of your first Rails App](https://reinteractive.com/posts/316-wtf-just-happened-a-quick-tour-of-your-first-rails-app) to recap.
+
+After that, it's time to [head on over to Part 2](/guides/installfest/finishing_a_basic_blog) which goes
 more in depth with Rails and begins to add more features to the blogging engine.
