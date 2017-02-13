@@ -67,7 +67,7 @@ choco install ruby2.devkit -y
 
 First change to the tools directory:
 
-```sh
+```
 cd \tools\
 ```
 

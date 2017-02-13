@@ -352,53 +352,99 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Giving your blog some style
 
-Up until this point we've really neglected the look and feel of our blog. It definitely
-feels a bit boring! We'll be making it look much nicer by using a UI library
-called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end framework
-that allows you to make your websites look good quickly and easily.
+Up until this point we've really neglected the look and feel of our blog. It
+definitely feels a bit boring! We'll be making it look much nicer by using a UI
+library called [Foundation](http://foundation.zurb.com/). Foundation is similar
+to [Twitter Bootstrap](http://twitter.github.io/bootstrap/), but is a bit
+easier to integrate with Rails. Foundation is built using
+[Sass](http://sass-lang.com/) while Bootstrap is built using
+[Less](http://lesscss.org/). You can run Less in Rails, but it has some
+compatibility issues with Windows so today we'll be using Foundation.
 
-The first step is to [download Bootstrap](http://getbootstrap.com/getting-started/).
-Put it in a folder that makes sense to you.
+We'll be installing Foundation using the zurb-foundation gem by adding it to
+our Gemfile's asset group. The Gemfile is a file that sits at the top level of
+your application directory structure and lists all of the dependencies and
+libraries that your code uses.
 
-Next, we need to copy the files we require into our rails project. From your bootstrap
-folder, copy the following:
+Add the line `gem 'foundation-rails'` to your Gemfile so it looks like this:
 
-`css/bootstrap.css` and `css/bootstrap.min.css` to: `vendor/assets/stylesheets`,
+```ruby
+source 'https://rubygems.org'
 
-`js/bootstrap.js` and `js/bootstrap.min.js` to: `vendor/assets/javascripts`,
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 
-and
+# Use sqlite3 as the database for Active Record in development and test, and postgres in production
+gem 'sqlite3', group: [:development, :test]
+gem 'pg', group: :production
+# Use Puma as the app server
+gem 'puma', '~> 3.0'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+gem 'record_tag_helper', '~> 1.0'
+gem 'responders'
+gem 'foundation-rails'
 
-`fonts/` (the folder and it's contents) to `app/assets`.
+# Use jquery as the JavaScript library
+gem 'jquery-rails'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
 
-Open `app/assets/stylesheets/application.css` and add the following line:
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platform: :mri
+end
 
-`*= require bootstrap.min`
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console'
+  gem 'listen', '~> 3.0.5'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
 
-Open `app/assets/javascripts/application.js` and add the following line:
-
-`//= require bootstrap.min`
-
-Open `app/assets/stylesheets/application.css` and add the following lines:
-
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
-@font-face {
-   font-family: 'Glyphicons Halflings';
-   src: url('/assets/glyphicons-halflings-regular.eot');
-   src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-      url('/assets/glyphicons-halflings-regular.woff') format('woff'),
-      url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
-      url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
+
+After you've saved that file, switch to your terminal and run: `bundle install
+--without=production`. We're going to skip installing the postgres gem in our
+development environment since it's likely your computer isn't set up to build
+it properly. Make sure at this point you also restart your Rails server, so
+switch to the command prompt where Rails is running press `Ctrl-C` and then
+restart it by typing `rails s`.
+
+After you've done this you'll need to switch back to your other terminal and
+finish installing Foundation. Run: `rails g foundation:install`. This will
+prompt you with the following:
+
+```ruby
+    conflict  app/views/layouts/application.html.erb
+Overwrite /Users/artega/dev/reinteractive/quick_blog/app/views/layouts/application.html.erb? (enter "h" for help) [Ynaqdh]
 ```
 
-One of the signature features of Bootstrap is the grid system. The grid system creates page
-layouts through a series of rows and columns that houses your content.
+Press n and then enter to skip overwriting our `application.html.erb` layout
+file. By skipping this we do miss out on some of Foundation's responsive design
+features, but we've already added our RSS link to our layout file and allowing
+the install to overwrite our layout file would mean we'd lose that link. If
+you're comfortable putting the autodiscovery link tag back into the new layout
+file, rerun the foundation install and allow it to overwrite your layout.
 
-The basic rules are that you must have a `.container` within which a `.row` can be placed.
-Within each `.row`, you specify how many columns you wish to span (there are 12 available columns).
+You'll also want to remove the scaffolding css file that Rails provided to you
+when you scaffolded the Posting functionality. To do that just delete
+`app/assets/stylesheets/scaffolds.scss`. Restarting the local server again
+and navigating to [http://localhost:3000](http://localhost:3000) at this point
+will show some changes to the UI of your blog.
 
-We're going to start off with two very quick things with Bootstrap. We'll give
+We're going to start off with two very quick things with Foundation. We'll give
 our content some whitespace so it's easier to read, and we'll change all our
 buttons so that they have a bit more style. First open your layout file
 `app/views/layouts/application.html.erb` and update it to look like:
@@ -414,41 +460,77 @@ buttons so that they have a bit more style. First open your layout file
     <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
   </head>
   <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-md-8">
-          <%= yield %>
-        </div>
-      </div>
+    <div id="main">
+      <%= yield %>
     </div>
   </body>
 </html>
 ```
 
-You will notice that, apart from wrapping the `yield` statement in various `div`s, we added several different classes to the final enclosing `div`.
-* `col-xs-12` means that on an extra-small device (such as a phone), we want whatever text is produced by the `yield` to take up all 12 columns.
-* `col-sm-10` means that on a small device (such as a tablet), we want whatever text is produced by the `yield` to take up 10 columns, leaving 2 empty columns.
-* `col-md-8` means that on a medium device (such as a laptop), we want whatever text is produced by the `yield` to take up 8 columns, leaving 4 empty columns. Because there is nothing specified for `col-lg-xx` (which would be a desktop computer), these will also fall under this category and have their content restricted to eight columns.
+Then we'll create a file called `app/assets/stylesheets/common.css.scss` and
+put the following inside it:
 
-To illustrate the changes we just made, we are going to need a long blog post. The easiest way to create one is go to the [Lorem Ipsum website](http://www.lipsum.com/feed/html) and copy and paste the text it generates. Use this text to create a new blog post.
+```css
+input[type="submit"] {
+  @include button;
+}
 
-Once we have the new long post created, return to [your post listings](http://localhost:3000/posts).
+div#main {
+  @include grid-row;
+}
 
-If your browser window is expanded (and you are using a laptop or larger), you should observe that the text occupying about three-quarters of the width of the screen. Resize the screen and, as it shrinks, you will see the text bouncing around. First occupying ten-twelfths, and then as it gets very small, the entire width of the screen.
-
-Now open `app/views/posts/index.html.erb` and update it to look like:
-
-```erb
-<h1>Listing posts</h1>
-
-<%= render partial: @posts %>
-
-<%= button_to 'New Post', new_post_path, method: :get, class: "btn-primary" %>
+footer {
+  margin-top: 50px;
+  background-color: #000;
+  color: #eee;
+  text-align: center;
+  p {
+    line-height: 100px;
+  }
+}
 ```
 
-We have changed `link_to`, that unobtrusive barely-noticeable link for adding a new post, to `button_to` which will now give us a button. Note: `link_to` and `button_to` are Rails helper methods that saves us writing the corresponding HTML.
+Then we'll open `app/assets/stylesheets/application.css` and delete the line
+with `*= require_tree .` so that file will be:
 
-If you refresh your [index page](http://localhost:3000/posts), you should now see that our "New Post" link at the bottom of the page, is now a lovely blue button.
+```css
+/*
+ *= require_self
+ *= require foundation_and_overrides
+ */
+```
+
+Finally we'll open `app/assets/stylesheets/foundation_and_overrides.scss`
+and, at the bottom of the import statements, import the 'common' styles, so 
+that the first five lines look like this:
+
+```ruby
+@charset 'utf-8';
+
+@import 'settings';
+@import 'foundation';
+@import 'common';
+```
+
+These steps definitely need explaining. First in our layout file you wrapped
+the yield statement inside a div. Then we're creating a new SCSS file that does
+three things:
+
+1. Changes all inputs with a type of submit to use Foundation's [button styling](http://foundation.zurb.com/docs/components/buttons.html).
+2. Targets that div#main you inserted into the layout file and gives it Foundation's [grid-row behaviour](http://foundation.zurb.com/docs/components/grid.html).
+3. Sets up some footer styling that we'll be using in a later step.
+
+After this you removed the `require_tree` directive from the application.css
+file. This directive causes your application to stop automatically including
+every CSS file in the stylesheets folder. Immediately after this we import the
+new `common.css.scss` file into the `foundation_and_overrides` file so that our
+newly created CSS rules will be applied to our blog. We're doing this to inform
+Rails' asset pipeline that we'd like to use SASS to import the file, rather
+than relying on the asset pipeline's catch-all method. This gives us slightly
+more control over what gets included and also causes Foundation's mixins to
+work correctly. You can [read more about the asset
+pipeline](http://guides.rubyonrails.org/asset_pipeline.html) on the [Rails
+guide site](http://guides.rubyonrails.org/index.html).
 
 #### Deploying your changes
 
@@ -457,7 +539,7 @@ At this point you can commit all your changes using git by typing:
 ```ruby
 git add .
 git rm app/assets/stylesheets/scaffolds.css.scss
-git commit -m "adding bootstrap styling"
+git commit -m "adding zurb foundation"
 ```
 
 And then you can deploy to Heroku with `git push heroku master`. You'll be able
@@ -465,68 +547,62 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Adding some personality
 
-Your blog works, it has posts and comments but it doesn't feel like your own. We're going to add in a header and footer which will allow users to navigate a little more easily and will give you the chance to personalise your blog a bit more. In all web pages the header and footer are generally common across all pages, Rails gives us a layout file that lets us make these sorts of changes to every page at once.
+Your blog works, it has posts and comments but it doesn't feel like your own.
+We're going to add in a header and footer which will allow users to navigate a
+little more easily and will give you the chance to personalise your blog a bit
+more. In all web pages the header and footer are generally common across all
+pages, Rails gives us a layout file that lets us make these sorts of changes to
+every page at once.
 
-First we'll create two files: a header and a footer. Create
+First we'll create two files a header and a footer. Create
 `app/views/layouts/_header.html.erb` put the following code in it:
 
 ```erb
-    <nav class="navbar navbar-inverse navbar-static-top">
-      <div class="container">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#">My Awesome Blog</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">About</a></li>
-            <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Topics<span class="caret"></span></a>
-              <ul class="dropdown-menu">
-                <li><a href="#">Books</a></li>
-                <li><a href="#">Movies</a></li>
-                <li><a href="#">Games</a></li>
-              </ul>
-            </li>
-            <li><a href="#">Contact</a></li>
-          </ul>
-        </div>
-      </div>
-    </nav>
+<nav class="top-bar">
+  <ul class="title-area left menu simple">
+    <!-- Title Area -->
+    <li class="name">
+      <h1>
+        <%= link_to 'Your Blog Name', root_path %>
+      </h1>
+    </li>
+  </ul>
+  <section class="top-bar-right">
+    <ul class="right menu simple">
+      <li class="divider hide-for-small"></li>
+      <li>
+        <%= link_to 'Github', 'https://github.com/reInteractive-open' %>
+      </li>
+
+      <li class="divider hide-for-small"></li>
+      <li>
+        <%= link_to 'Twitter', 'https://twitter.com/' %>
+      </li>
+
+      <li class="divider hide-for-small"></li>
+      <li>
+        <%= link_to 'About me', '/about' %>
+      </li>
+    </ul>
+  </section>
+</nav>
 ```
 
 And then create `app/views/layouts/_footer.html.erb` and put the following code in it:
 
 ```erb
-<div class="container">
-  <footer class="footer">
-    <div class="row">
-      <div class="col-md-4">
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
-        <h3>My Awesome Blog!</h3>
-        <p>Developed at: <%= link_to 'InstallFest 2017', 'http://reinteractive.net/service/installfest' %></p>
-      </div>
-      <div class="col-md-4">
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
-        <h3>I did it myself</h3>
-        <p>It was easy, just follow the guide.</p>
-      </div>
-      <div class="col-md-4">
-        <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
-        <h3>No Cheating</h3>
-        <p>Just Ruby code within a Rails framework.</p>
-      </div>
-    </div>
-  </footer>
-</div>
+<footer>
+  <p>
+    Powered by: <%= link_to 'rails-3-2-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
+    Developed at: <%= link_to 'InstallFest 2016', 'http://reinteractive.net/service/installfest' %>
+  </p>
+</footer>
 ```
 
-These Header and Footer files contain some example HTML that will give you a starting point. Before you modify them open up `app/views/layouts/application.html.erb` and insert the command to render the partials you just created. Your layout file will look like:
+These Header and Footer files contain some example HTML that will give you a
+starting point. Before you modify them open up
+`app/views/layouts/application.html.erb` and insert the command to render the
+partials you just created. Your layout file will look like:
 
 ```erb
 <!DOCTYPE html>
@@ -540,21 +616,22 @@ These Header and Footer files contain some example HTML that will give you a sta
   </head>
   <body>
     <%= render partial: 'layouts/header' %>
-    <div class="container">
-      <div class="row">
-        <div class="col-xs-12 col-sm-10 col-md-8">
-          <%= yield %>
-        </div>
-      </div>
-    </div>
+
+  <div id="main">
+    <%= yield %>
+  </div>
     <%= render partial: 'layouts/footer' %>
   </body>
 </html>
 ```
 
-Refresh your browser or navigate to [http://localhost:3000](http://localhost:3000) to see the changes you've just made. Feel free to go ahead and edit the header and footer html files now to make your blog truly personal.
+Refresh your browser or navigate to
+[http://localhost:3000](http://localhost:3000) to see the changes you've just
+made. Feel free to go ahead and edit the header and footer html files now to
+make your blog truly personal.
 
-If you've been successful (and if you haven't, please ask for some help) then your blog should be looking something like this:
+If you've been entirely successful (and if you haven't feel free to ask for
+    some help) then your blog should be looking something like this:
 
 ![completed blog](/images/guides/completed_blog.png)
 
