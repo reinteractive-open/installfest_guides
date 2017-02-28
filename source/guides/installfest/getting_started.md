@@ -12,7 +12,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Next steps
 
-Open two command prompts.
+Open a command prompt.
 
 To do this on Windows: Open the Command Prompt window by clicking the Start button, clicking All Programs, clicking Accessories, and then clicking Command Prompt.
 
@@ -21,7 +21,6 @@ To do this on Mac: Open Finder in the Dock. Select applications. Then choose uti
 You'll use one of the command prompts to run your local Rails server and the other for entering all other commands.
 
 Whenever you need to start or restart the rails server use the first command prompt and for all other command line work you can use the second command prompt.
-
 
 ## Setting up our Rails app
 
