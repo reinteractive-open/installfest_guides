@@ -4,32 +4,23 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 # Understanding Migrations
 Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
-If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
+If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
-In this installment we'll be learning more about how to manage your database
-structure through migrations.
+In this installment we'll be learning more about how to manage your database structure through migrations.
 
-The first feature we're going to work on is the ability for Posts to have a
-published state. This means we can author our blog posts in the admin panel,
-          then publish them at a later date giving us a little more control
-          over our blogging system. Lets get started.
+The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with
-the [first post](/guides/installfest/getting_started), and have completed
-[Admin and Markdown](/guides/installfest/admin_and_markdown).
+You'll need to have been following our InstallFest blog posts beginning with [Getting Started](/guides/installfest/getting_started), and have completed [Admin and Markdown](/guides/installfest/admin_and_markdown).
 
 Lets dive into writing these new features.
 
 ### Write a feature spec
 
-We'll start by writing a spec for this new feature. It's often good to start
-with a feature spec since it will let you scope the new functionality without
-having to know all the in-depth implementation details ahead of time.
+We'll start by writing a spec for this new feature. It's often good to start with a feature spec since it will let you scope the new functionality without having to know all the in-depth implementation details ahead of time.
 
-Open `spec/features/managing_posts_spec.rb` and add the following scenario to
-the `as an admin user` context.
+Open `spec/features/managing_posts_spec.rb` and add the following scenario to the `as an admin user` context.
 
 ```ruby
   scenario 'Publishing an existing blog' do
@@ -48,18 +39,13 @@ the `as an admin user` context.
 
 ```
 
-When you've saved the spec you can run it with `rspec
-spec/features/managing_posts_spec.rb`. Naturally it will fail since we haven't
-implemented any of the functionality to support it yet. Lets get started with
-that now.
+When you've saved the file you can run it with `rspec spec/features/managing_posts_spec.rb`. Naturally it will fail since we haven't implemented any of the functionality to support it yet. Let's get started with that now.
 
 ### A post can be published
 
 `rails g migration AddPublishedToPost published:boolean`
 
-Open the migration generated. It will look like __but won't be the same as__
-`db/migrate/20130510023357_add_published_to_post.rb` and add `default: false`
-to the change.
+Open the migration generated. It will look like, __but won't be the same as__, `db/migrate/20130510023357_add_published_to_post.rb` and add `default: false` to the change.
 
 ```ruby
 class AddPublishedToPost < ActiveRecord::Migration
@@ -69,15 +55,13 @@ class AddPublishedToPost < ActiveRecord::Migration
 end
 ```
 
-After saving this we need to add these changes to our development database by
-running a migration. Enter the following into your terminal:
+After saving this we need to add these changes to our development database by running a migration. Enter the following into your terminal:
 
 ```sh
 rails db:migrate
 ```
 
-Now when we run `rspec spec/features/managing_posts_spec.rb` we get a new
-error:
+Now when we run `rspec spec/features/managing_posts_spec.rb` we get a new error:
 
 ```sh
 Failures:
@@ -89,14 +73,9 @@ Failures:
      # ./spec/features/managing_posts_spec.rb:62:in `block (4 levels) in <top (required)>'
 ```
 
-What this error means is that ActiveAdmin tried to use mass-assignment to
-update our Post database record and we haven't configured it to allow this.
-This error is helping us to protect our application from a common form of
-security vulnerability which you can read about in the [Rails Security
-Guide](http://guides.rubyonrails.org/security.html#mass-assignment).
+What this error means is that ActiveAdmin tried to use mass-assignment to update our Post database record and we haven't configured it to allow this. This error is helping us to protect our application from a common form of security vulnerability which you can read about in the [Rails Security Guide](http://guides.rubyonrails.org/security.html#mass-assignment).
 
-To fix the error we need to open: `app/admin/post.rb` and add `:published` to
-the permitted params as shown:
+To fix the error we need to open: `app/admin/post.rb` and add `:published` to the permitted params as shown:
 
 ```ruby
 ActiveAdmin.register Post do
@@ -106,16 +85,11 @@ ActiveAdmin.register Post do
 end
 ```
 
-The `permit_params` line lists all the attributes in the model which are
-accessible for mass-assignment. You can read more about this here: [Strong
-Parameters](https://github.com/rails/strong_parameters).
+The `permit_params` line lists all the attributes in the model which are accessible for mass-assignment. You can read more about this here: [Strong Parameters](https://github.com/rails/strong_parameters).
 
-After saving `app/admin/post.rb` we re-run our
-spec (`rspec spec/features/managing_posts_spec.rb`) and everything passes!
+After saving `app/admin/post.rb` we re-run our spec (`rspec spec/features/managing_posts_spec.rb`) and everything passes!
 
-But… there's a problem. Unpublished blogs are still visible to the public.
-We'll need to go ahead and write another feature scenario to ensure that this
-rule is enforced for the public section of our application too.
+But… there's a problem. Unpublished blogs are still visible to the public. We'll need to go ahead and write another feature scenario to ensure that this rule is enforced for the public section of our application too.
 
 ### Unpublished posts aren't visible!
 
@@ -166,9 +140,9 @@ feature 'Reading the Blog' do
 end
 ```
 
-What we've done here is split our test into two separate contexts. One for
-posts that are published, and one for posts that aren't. We expect to see
-different behaviour from both contexts.
+(Don't forget to save your file.)
+
+What we've done here is split our test into two separate contexts. One for posts that are published, and one for posts that aren't. We expect to see different behaviour from both contexts.
 
 When we run this spec (`rspec spec/features/reading_blog_spec.rb --order default`) we get two failures:
 
@@ -184,12 +158,9 @@ When we run this spec (`rspec spec/features/reading_blog_spec.rb --order default
      # ./spec/features/reading_blog_spec.rb:18:in `block (3 levels) in <top (required)>'
 ```
 
-The first error here indicates that unpublished blogs appear in our blog post
-index, and the second indicates that the blog is directly accessible even
-though it hasn't been published. Lets go and fix these problems.
+The first error here indicates that unpublished blogs appear in our blog post index, and the second indicates that the blog is directly accessible even though it hasn't been published. Lets go and fix these problems.
 
-Open: `app/controllers/posts_controller.rb` and modify the index action to look
-like:
+Open: `app/controllers/posts_controller.rb` and modify the index action to look like:
 
 ```ruby
 def index
@@ -203,13 +174,11 @@ def index
 end
 ```
 
-If you're confused as to what an "action" is, it's just a method in a
-controller that processes a particular request. Each request is "wired" from a
-URL to a controller by the routes file in your config folder.
+(Don't forget to save your file.)
 
-If you then run our spec again (`rspec spec/features/reading_blog_spec.rb`)
-you'll notice that the first error has gone and we're left with only the second.
-We can fix this by editing the show action.
+If you're confused as to what an "action" is, it's just a method in a controller that processes a particular request. Each request is "wired" from a URL to a controller by the routes file in your config folder.
+
+If you then run our spec again (`rspec spec/features/reading_blog_spec.rb`) you'll notice that the first error has gone and we're left with only the second. We can fix this by editing the show action.
 
 Change the show action to look like:
 
@@ -224,15 +193,13 @@ def show
 end
 ```
 
+(Don't forget to save your file.)
+
 ### Red, Green, Refactor!
 
-Success! Our spec now passes, but we've still got a little work to do. There's
-some code duplication there that we can fix. Instead of both the `index` and
-`show` actions both using the code `where(published: true)` we'd like to
-move that into a method. Since it's a database query we can use an [ActiveRecord
-scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to
-limit what is being returned to only the published posts. Open
-`app/models/post.rb` and update it to look like:
+Success! Our spec now passes, but we've still got a little work to do. There's some code duplication there that we can fix. Instead of both the `index` and `show` actions both using the code `where(published: true)` we'd like to move that into a method. Since it's a database query we can use an [ActiveRecord scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to limit what is being returned to only the published posts.
+
+Open `app/models/post.rb` and update it to look like:
 
 ```ruby
 class Post < ApplicationRecord
@@ -248,13 +215,11 @@ class Post < ApplicationRecord
 end
 ```
 
-What we've done here is moved the common code from both actions into a scope on
-the Post model itself. If, at a future time, we need to make the published logic
-more complicated (ie publishing at a specific time) we only have to change one
-place.
+What we've done here is moved the common code from both actions into a scope on the Post model itself. If, at a future time, we need to make the published logic more complicated (ie publishing at a specific time) we only have to change one place.
 
-Now that we've got a scope on the model to use we should update both actions to
-use it. Update `app/controllers/posts_controller.rb` to look like:
+Now that we've got a scope on the model to use we should update both actions to use it.
+
+Update `app/controllers/posts_controller.rb` to look like:
 
 ```ruby
 class PostsController < ApplicationController
@@ -279,14 +244,13 @@ class PostsController < ApplicationController
 end
 ```
 
-Re-run our feature spec again after making this
-change (`rspec spec/features/reading_blog_spec.rb`) and
-everything should still be working perfectly.
+(Don't forget to save your file.)
+
+Re-run our feature spec again after making this change (`rspec spec/features/reading_blog_spec.rb`) and everything should still be working perfectly.
 
 ### Cleaning up
 
-We've implemented a new feature and everything seems to work. Lets run our
-entire test suite just to make sure. Run: `rspec --order default`.
+We've implemented a new feature and everything seems to work. Lets run our entire test suite just to make sure. Run: `rspec --order default`.
 
 Oh no! We have some errors to fix.
 
@@ -306,9 +270,11 @@ Oh no! We have some errors to fix.
      # ./spec/features/writing_posts_spec.rb:28:in `block (2 levels) in <top (required)>'
 ```
 
-They both look like similar errors, but we'll deal with them one by one. First
-open `spec/features/post_comments_spec.rb` and notice that we're attempting to
-visit a blog post that isn't published. Update the spec to look like:
+They both look like similar errors, but we'll deal with them one by one.
+
+First, open `spec/features/post_comments_spec.rb` and notice that we're attempting to visit a blog post that isn't published.
+
+Update the spec to look like:
 
 ```ruby
 require 'rails_helper'
@@ -332,11 +298,13 @@ feature 'Posting Comments' do
 end
 ```
 
-Next we open `spec/features/writing_posts_spec.rb`. This time we need to set
-the post to be published properly. Remember that each of these feature specs is
-automating a theoretical tester clicking around in a browser. An actual user
-would just click the "Published" checkbox in order to make sure their new blog
-post is published. Lets update the spec to reflect that:
+(Don't forget to save your file.)
+
+Next we open `spec/features/writing_posts_spec.rb`.
+
+This time we need to set the post to be published properly. Remember that each of these feature specs is automating a theoretical tester clicking around in a browser. An actual user would just click the "Published" checkbox in order to make sure their new blog post is published.
+
+Let's update the spec to reflect that:
 
 ```ruby
 require 'rails_helper'
@@ -374,8 +342,7 @@ feature 'Writing blog posts' do
 end
 ```
 
-Save that and now rerunning our test suite shows we have no errors! We're ready
-to commit.
+Save that, and now rerunning our test suite shows we have no errors! We're ready to commit.
 
 ```sh
 git add .
@@ -384,14 +351,11 @@ git commit -m "Posts can be published"
 
 ## Posts should have an Author!
 
-Another feature that would be awesome to have is for Posts to have an author.
-The author would simply be the Admin User that creates the post. We should
-write a test first:
+Another feature that would be awesome to have is for Posts to have an author. The author would simply be the Admin User that creates the post. We should write a test first:
 
 ### Viewing a post should display the author
 
-Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published
-post' context to look like:
+Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published post' context to look like:
 
 ```ruby
   context 'for a published post' do
@@ -421,21 +385,20 @@ post' context to look like:
   end
 ```
 
-When we run this spec we get two failures which we're going to ignore since
-they're telling us we have work to do!
+(Don't forget to save your file.)
+
+When we run this spec we get two failures which we're going to ignore since they're telling us we have work to do!
 
 ### Running the migration and wiring up Rails
 
-First we need to create a migration. We do this using the `rails generate`
-command (which can be shortened to `rails g`) like so:
+First we need to create a migration. We do this using the `rails generate` command (which can be shortened to `rails g`) like so:
 
 ```sh
 rails g migration AddAuthorToPost author_id:integer
 rails db:migrate
 ```
 
-Now open `app/models/post.rb` and update it to inform Rails that a Post belongs
-to an author but that the Author's model is named "AdminUser".
+Now open `app/models/post.rb` and update it to inform Rails that a Post belongs to an author but that the Author's model is named "AdminUser".
 
 ```ruby
 class Post < ApplicationRecord
@@ -453,8 +416,7 @@ class Post < ApplicationRecord
 end
 ```
 
-We'll also open `app/models/admin_user.rb` and do the reverse side of the
-association by informing Rails that an AdminUser has many posts.
+We'll also open `app/models/admin_user.rb` and do the reverse side of the association by informing Rails that an AdminUser has many posts.
 
 ```ruby
 class AdminUser < ApplicationRecord
@@ -470,17 +432,15 @@ class AdminUser < ApplicationRecord
 end
 ```
 
-We've also created a name method in the AdminUser so that ActiveAdmin can use
-that in the admin panel.
+(Don't forget to save your files.)
+
+Note that we've also created a name method in the AdminUser so that ActiveAdmin can use that in the admin panel.
 
 ### Editing the view to include the author
 
-If we run our feature spec now with `rspec spec/features/reading_blog_spec.rb`
-we get an error that lets us know we're close. We don't have the right text on
-our web page.
+If we run our feature spec now with `rspec spec/features/reading_blog_spec.rb` we get an error that lets us know we're close. We don't have the right text on our web page.
 
-Open: `app/views/posts/_post.html.erb` and add ` <h3> Posted by: <%=
-post.author.name %></h3>` under the `<h2>`
+Open: `app/views/posts/_post.html.erb` and add ` <h3> Posted by: <%= post.author.name %></h3>` under the `<h2>`
 
 ```erb
 <h2><%= link_to_unless_current post.title, post %></h2>
@@ -488,8 +448,9 @@ post.author.name %></h3>` under the `<h2>`
 <%= post.content.html_safe %>
 ```
 
-Then run our spec again and it passes! But we have a problem. When we run our
-full test suite we get a couple of interesting errors:
+(Don't forget to save your file.)
+
+Then run our spec again and it passes! But we have a problem. When we run our full test suite we get a couple of interesting errors:
 
 ```sh
 ActionView::Template::Error:
@@ -497,25 +458,25 @@ ActionView::Template::Error:
 # ./app/views/posts/_post.html.erb:2:in `_app_views_posts__post_html_erb___569628799803112878_70171546453660'
 ```
 
-This "undefined method x for nil:NilClass" is a very common and confusing error
-for newer Ruby and Rails developers. The problem is in our view and it's in the
-following code:
+This "undefined method x for nil:NilClass" is a very common and confusing error for newer Ruby and Rails developers. The problem is in our view and it's in the following code:
 
 ```erb
 <%= post.author.name %>
 ```
 
-What is happenening is that some posts **don't have** authors! If the author is
-nil, it cannot have a name so we get that error. Ultimately this error is
-because not all our posts have authors and we didn't use defensive programming
-techniques. Let's address our sloppy programming.
+What is happenening is that some posts **don't have** authors!
+
+If the author is nil, it cannot have a name so we get that error. Ultimately this error is because not all our posts have authors and we didn't use defensive programming techniques.
+
+Let's address our sloppy programming!
 
 ### Fixing sloppy programming with tests!
 
-Since we can't rely on the author existing, but we can rely on the post
-existing we'll create a method on the post that returns the name of the author.
-But we should write a test for this first. Open `spec/models/post_spec.rb` and
-add a new test to it:
+Since we can't rely on the author existing, but we can rely on the post existing we'll create a method on the post that returns the name of the author.
+
+But first we should write a test for this.
+
+Open `spec/models/post_spec.rb` and add a new test to it:
 
 ```ruby
 describe '#author_name' do
@@ -536,16 +497,18 @@ describe '#author_name' do
 end
 ```
 
-When you run this spec (`rspec spec/models/post_spec.rb`) you get the following
-error:
+(Don't forget to save your file.)
+
+When you run this spec (`rspec spec/models/post_spec.rb`) you get the following error:
 
 ```sh
 NoMethodError:
   undefined method `author_name' for #<Post:0x007fef40352a28>
 ```
 
-Which is expected since you haven't made the author_name method yet in your
-Post model. Open `app/models/post.rb` and update the Post model to look like:
+Which is expected since you haven't made the author_name method yet in your Post model.
+
+Open `app/models/post.rb` and update the Post model to look like:
 
 ```ruby
 class Post < ApplicationRecord
@@ -571,11 +534,13 @@ class Post < ApplicationRecord
 end
 ```
 
+(Don't forget to save your file.)
+
 Now when we run our `post_spec.rb` again we get no errors.
 
-Next we need to update our Admin panel to allow users to set the author on
-posts. First we update the 'writing blog posts' scenario in our tests in
-`spec/features/writing_posts_spec.rb` to look like this:
+Next we need to update our Admin panel to allow users to set the author on posts.
+
+First we update the 'writing blog posts' scenario in our tests in `spec/features/writing_posts_spec.rb` to look like this:
 
 ```ruby
 require 'rails_helper'
@@ -602,8 +567,7 @@ feature 'Writing blog posts' do
 end
 ```
 
-Then we make them pass by opening `app/admin/post.rb` and adding `:author` and
-`:author_id` to the permitted params as shown:
+Then we make them pass by opening `app/admin/post.rb` and adding `:author` and `:author_id` to the permitted params as shown:
 
 ```ruby
 ActiveAdmin.register Post do
@@ -623,14 +587,13 @@ Open `app/views/posts/_post.html.erb` and set the contents to be:
 <%= post.content.html_safe %>
 ```
 
-You'll notice that instead of calling the author model directly we're using the
-method we just created instead. Let's run our entire test suite now to check
-that everything is now okay.
+(Don't forget to save your files.)
+
+You'll notice that instead of calling the author model directly we're using the method we just created instead. Let's run our entire test suite now to check that everything is now okay.
 
 ### Cleaning up
 
-Our tests all pass and we've implemented a new feature. It's time to commit our
-code again.
+Our tests all pass and we've implemented a new feature. It's time to commit our code again.
 
 ```sh
 git add .
@@ -639,22 +602,15 @@ git commit -m "posts can have an author"
 
 ## Review
 
-In this article we implemented two features both of which required a database
-migration. We wrote tests for the functionality we wanted to implement and
-fixed some problems that occured along the way.
+In this article we implemented two features both of which required a database migration. We wrote tests for the functionality we wanted to implement and fixed some problems that occured along the way.
 
 ## Next Steps
 
-The next post in the series is available
-[here](/guides/installfest/assets_and_errors). You'll be learning about the
-Asset Pipeline, Static pages and Custom error pages. If you want to learn more
-about reinteractive's training services you can:
+The next post in the series is available [here](/guides/installfest/assets_and_errors). You'll be learning about the Asset Pipeline, Static pages and Custom error pages. If you want to learn more about reinteractive's training services you can:
 
 #### Sign up to our Training mailing list.
 
-Just put your email below and we'll let you know if we have anything more for
-you. We hate spam probably more than you do so you'll only be contacted by us
-and can unsubscribe at any time:
+Just put your email below and we'll let you know if we have anything more for you. We hate spam probably more than you do so you'll only be contacted by us and can unsubscribe at any time:
 
 <form action="http://reinteractive.us4.list-manage.com/subscribe/post?u=b6281a8c8660a40e246de37d1&amp;id=e8c8222e0b" method="post" class="subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
             <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required="">
@@ -663,11 +619,8 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.com/community/development_hub).
-We'll guide you through any issues you're having getting off the ground with
-your Rails app.
+Sign up for [DevelopmentHub](http://reinteractive.com/community/development_hub). We'll guide you through any issues you're having getting off the ground with your Rails app.
 
 #### Or just
 
-Tweet us [@reinteractive](http://www.twitter.com/reinteractive). We'd love to hear feedback on this
-series, do you love it? Want us to do more? Let us know!
+Tweet us [@reinteractive](http://www.twitter.com/reinteractive). We'd love to hear feedback on this series, do you love it? Want us to do more? Let us know!

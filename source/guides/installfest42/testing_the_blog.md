@@ -13,10 +13,8 @@ Let's start by setting up our Rails application for testing.
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.com/posts/32](/guides/installfest42/getting_started) and
-have completed
-[http://reinteractive.com/posts/34](/guides/installfest42/finishing_a_basic_blog).
+You'll need to have been following our InstallFest blog posts starting with [Getting Started](/guides/installfest42/getting_started) and have completed
+[Finishing a Basic Blog](/guides/installfest42/finishing_a_basic_blog).
 
 Let's dive into testing now.
 
