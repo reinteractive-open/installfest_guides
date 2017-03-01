@@ -571,7 +571,7 @@ First we'll create two files a header and a footer. Create
     <ul class="right menu simple">
       <li class="divider hide-for-small"></li>
       <li>
-        <%= link_to 'Github', 'https://github.com/reInteractive-open' %>
+        <%= link_to 'Github', 'https://github.com/reinteractive-open' %>
       </li>
 
       <li class="divider hide-for-small"></li>
@@ -594,7 +594,7 @@ And then create `app/views/layouts/_footer.html.erb` and put the following code 
 <footer>
   <p>
     Powered by: <%= link_to 'rails-3-2-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
-    Developed at: <%= link_to 'InstallFest 2016', 'http://reinteractive.net/service/installfest' %>
+    Developed at: <%= link_to 'InstallFest 2016', 'http://reinteractive.com/community/installfest' %>
   </p>
 </footer>
 ```
@@ -652,7 +652,7 @@ to navigate to your blog on Heroku now to see the changes you've made.
 You might notice a few things you want to change about the application. While
 some things are easy, others will require more effort or possible some
 [assistance from a
-mentor](http://www.reinteractive.net/service/development_hub).
+mentor](http://www.reinteractive.com/community/development_hub).
 
 **Q) How to remove the "Listing posts" heading?**
 
@@ -672,6 +672,4 @@ A) *You can use a gem like [Devise](https://github.com/plataformatec/devise) to 
 
 ## Next Steps
 
-Up next is a guide on testing your 15 minute blog. Click
-[here](/guides/installfest/testing_the_blog) to check it out and continue
-your Rails adventure.
+Up next is a guide on testing your 15 minute blog. Click [here](/guides/installfest/testing_the_blog) to check it out and continue your Rails adventure.

@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Understanding Migrations
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest32/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest32/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest32/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest32/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
 In this installment we'll be learning more about how to manage your database structure through migrations.
 
@@ -11,7 +11,7 @@ The first feature we're going to work on is the ability for Posts to have a publ
 
 ### Application Setup
 
-You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.net/posts/32](/guides/installfest32/getting_started) and have completed [http://reinteractive.net/posts/42](/guides/installfest32/admin_and_markdown). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
+You'll need to have been following our InstallFest blog posts starting with [http://reinteractive.com/posts/32](/guides/installfest32/getting_started) and have completed [http://reinteractive.com/posts/42](/guides/installfest32/admin_and_markdown). If you've done this but want to start with some fresh code, you can by copying the tag that's available in the public git repository.
 
 [https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author](https://github.com/reinteractive-open/rails-3-2-intro-blog/tree/before_published_and_author) which you can download to your computer [here](https://github.com/reinteractive-open/rails-3-2-intro-blog/archive/before_published_and_author.zip).
 
@@ -543,7 +543,7 @@ In this article we implemented two features both of which required a database mi
 
 ## Next Steps
 
-The next post in the series is available [here](/guides/installfest32/assets_and_errors). You'll be learning about the Asset Pipeline, Static pages and Custom error pages. If you want to learn more about reInteractive's training services you can:
+The next post in the series is available [here](/guides/installfest32/assets_and_errors). You'll be learning about the Asset Pipeline, Static pages and Custom error pages. If you want to learn more about reinteractive's training services you can:
 
 #### Sign up to our Training mailing list.
 
@@ -556,7 +556,7 @@ Just put your email below and we'll let you know if we have anything more for yo
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub). We'll guide you through any issues you're having getting off the ground with your Rails app.
+Sign up for [DevelopmentHub](http://reinteractive.com/community/development_hub). We'll guide you through any issues you're having getting off the ground with your Rails app.
 
 #### Or just
 

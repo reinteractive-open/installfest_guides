@@ -3,28 +3,20 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Understanding Migrations
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
-If you haven't started following through the series and you're new to Rails
-then you might want to start with the [first
-post](/guides/installfest40/getting_started). Today we'll be following directly
-on from [Part 4](/guides/installfest40/admin_and_markdown). If you feel
-confident with Rails and want to learn more about building a feature that
-requires migrations then instructions for doing so are provided below.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
+If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest40/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest40/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
 In this installment we'll be learning more about how to manage your database
 structure through migrations.
 
-The first feature we're going to work on is the ability for Posts to have a
-published state. This means we can author our blog posts in the admin panel,
-          then publish them at a later date giving us a little more control
-          over our blogging system. Lets get started.
+The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
 
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest40/getting_started) and
+[http://reinteractive.com/posts/32](/guides/installfest40/getting_started) and
 have completed
-[http://reinteractive.net/posts/42](/guides/installfest40/admin_and_markdown).
+[http://reinteractive.com/posts/42](/guides/installfest40/admin_and_markdown).
 If you've done this but want to start with some fresh code, you can by copying
 the tag that's available in the public git repository.
 
@@ -671,16 +663,11 @@ fixed some problems that occured along the way.
 
 ## Next Steps
 
-The next post in the series is available
-[here](/guides/installfest40/assets_and_errors). You'll be learning about the
-Asset Pipeline, Static pages and Custom error pages. If you want to learn more
-about reInteractive's training services you can:
+The next post in the series is available [here](/guides/installfest40/assets_and_errors). You'll be learning about the Asset Pipeline, Static pages and Custom error pages. If you want to learn more about reinteractive's training services you can:
 
 #### Sign up to our Training mailing list.
 
-Just put your email below and we'll let you know if we have anything more for
-you. We hate spam probably more than you do so you'll only be contacted by us
-and can unsubscribe at any time:
+Just put your email below and we'll let you know if we have anything more for you. We hate spam probably more than you do so you'll only be contacted by us and can unsubscribe at any time:
 
 <form action="http://reinteractive.us4.list-manage.com/subscribe/post?u=b6281a8c8660a40e246de37d1&amp;id=e8c8222e0b" method="post" class="subscribe-form" name="mc-embedded-subscribe-form" target="_blank" novalidate="">
             <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required="">
@@ -689,9 +676,8 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
-We'll guide you through any issues you're having getting off the ground with
-your Rails app.
+Sign up for [DevelopmentHub](http://reinteractive.com/community/development_hub).
+We'll guide you through any issues you're having getting off the ground with your Rails app.
 
 #### Or just
 

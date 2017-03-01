@@ -551,7 +551,7 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
+Sign up for [DevelopmentHub](http://reinteractive.com/community/development_hub).
 We'll guide you through any issues you're having getting off the ground with
 your Rails app.
 

@@ -14,7 +14,7 @@ First we want to start our Rails server, so open two terminals and change to the
 
 ## Setting the index/root page in Rails
 
-Currently our site only shows the posts if you navigate to `/posts`.  This is all well and good, but if you go to the "root page" of the website at [http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails" page.
+Currently our site only shows the posts if you navigate to `/posts`. This is all well and good, but if you go to the "root page" of the website at [http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails" page.
 
 Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immediately when they come to our site, without having them navigate elsewhere.
 
@@ -379,7 +379,7 @@ First we'll create two files a header and a footer. Create `app/views/layouts/_h
     <ul class="right">
       <li class="divider hide-for-small"></li>
       <li>
-        <%= link_to 'Github', 'https://github.com/reInteractive-open' %>
+        <%= link_to 'Github', 'https://github.com/reinteractive-open' %>
       </li>
 
       <li class="divider hide-for-small"></li>
@@ -403,7 +403,7 @@ And then create `app/views/layouts/_footer.html.erb` and put the following code 
 <footer>
   <p>
     Powered by: <%= link_to 'rails-intro-blog', 'https://github.com/reinteractive-open/rails-3-2-intro-blog' %>
-    Developed at: <%= link_to 'InstallFest', 'http://reinteractive.net/service/installfest' %>
+    Developed at: <%= link_to 'InstallFest', 'http://reinteractive.com/service/installfest' %>
   </p>
 </footer>
 ```
@@ -451,7 +451,7 @@ And then you can deploy to Heroku with `git push heroku master`. You'll be able 
 
 ## Questions and homework
 
-You might notice a few things you want to change about the application. While some things are easy, others will require more effort or possible some [assistance from a mentor](http://www.reinteractive.net/service/development_hub).
+You might notice a few things you want to change about the application. While some things are easy, others will require more effort or possible some [assistance from a mentor](http://www.reinteractive.com/community/development_hub).
 
 **Q) How to remove the "Listing posts" heading? **
 

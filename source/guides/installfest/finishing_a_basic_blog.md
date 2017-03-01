@@ -509,7 +509,7 @@ And then create `app/views/layouts/_footer.html.erb` and put the following code 
       <div class="col-md-4">
         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         <h3>My Awesome Blog!</h3>
-        <p>Developed at: <%= link_to 'InstallFest 2017', 'http://reinteractive.net/service/installfest' %></p>
+        <p>Developed at: <%= link_to 'InstallFest 2017', 'http://reinteractive.com/community/installfest' %></p>
       </div>
       <div class="col-md-4">
         <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
@@ -575,7 +575,7 @@ to navigate to your blog on Heroku now to see the changes you've made.
 You might notice a few things you want to change about the application. While
 some things are easy, others will require more effort or possible some
 [assistance from a
-mentor](http://www.reinteractive.net/service/development_hub).
+mentor](http://www.reinteractive.com/community/development_hub).
 
 **Q) How to remove the "Listing posts" heading?**
 

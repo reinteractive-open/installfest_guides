@@ -3,13 +3,8 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Assets and Errors
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
-If you haven't started following through the series and you're new to Rails
-then you might want to start with the [first
-post](/guides/installfest41/getting_started). Today we'll be following directly
-on from [Part 5](/guides/installfest41/understanding_migrations). If you feel
-confident with Rails and want to learn more about the asset pipeline, static
-pages and custom error pages then you can find setup instructions below.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
+If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest41/getting_started). Today we'll be following directly on from [Part 5](/guides/installfest41/understanding_migrations). If you feel confident with Rails and want to learn more about the asset pipeline, static pages and custom error pages then you can find setup instructions below.
 
 In this article we'll be going through 3 separate topics that will round out a
 series of posts we've made on building a blog in Rails 3.2. Today we'll be
@@ -25,9 +20,8 @@ you should have no problems keeping up.
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest41/getting_started) and
-have completed
-[http://reinteractive.net/posts/47](/guides/installfest41/understanding_migrations).
+[http://reinteractive.com/posts/32](/guides/installfest41/getting_started) and have completed
+[http://reinteractive.com/posts/47](/guides/installfest41/understanding_migrations).
 If you've done this but want to start with some fresh code, you can by copying
 the tag that's available in the public git repository.
 
@@ -591,7 +585,7 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
+Sign up for [DevelopmentHub](http://reinteractive.com/service/development_hub).
 We'll guide you through any issues you're having getting off the ground with
 your Rails app.
 

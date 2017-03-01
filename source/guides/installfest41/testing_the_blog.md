@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Testing the Blog with RSpec
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
 If you haven't started following through the series and you're new to Rails
 then you might want to start with the [first
 post](/guides/installfest41/getting_started). Today we'll be following directly
@@ -25,9 +25,8 @@ Let's start by setting up our Rails application for testing.
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest41/getting_started) and
-have completed
-[http://reinteractive.net/posts/34](/guides/installfest41/finishing_a_basic_blog).
+[http://reinteractive.com/posts/32](/guides/installfest41/getting_started) and have completed
+[http://reinteractive.com/posts/34](/guides/installfest41/finishing_a_basic_blog).
 If you've done this but want to start with some fresh code by copying the tag
 that's available in the public git repository.
 
@@ -503,7 +502,7 @@ Up next we'll add in an Administration panel and convert our blog posts to
 Markdown format. Click [here](/guides/installfest41/admin_and_markdown) to
 check it out and continue your Rails adventure.
 
-If you're interested in more training from reInteractive or just want to give
+If you're interested in more training from reinteractive or just want to give
 us some feedback on this you can leave a comment below or:
 
 #### Sign up to our Training mailing list.
@@ -519,7 +518,7 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
+Sign up for [DevelopmentHub](http://reinteractive.com/service/development_hub).
 We'll guide you through any issues you're having getting off the ground with
 your Rails app.
 

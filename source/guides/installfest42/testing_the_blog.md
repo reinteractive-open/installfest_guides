@@ -3,31 +3,20 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Testing the Blog with RSpec
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
-If you haven't started following through the series and you're new to Rails
-then you might want to start with the [first
-post](/guides/installfest42/getting_started). Today we'll be following directly
-on from [Part 2](/guides/installfest42/finishing_a_basic_blog). If you feel
-confident with Rails but want to learn more about testing you can find some
-instructions on getting the code set up properly below.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
+If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest42/getting_started). Today we'll be following directly on from [Part 2](/guides/installfest42/finishing_a_basic_blog). If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
 
 ## Introduction to Automated Testing
-One of the biggest advantages of Rails is the community focus on testing. The
-Ruby and Rails communities have put a great deal of effort into building
-first-class tools and methods for making sure our apps are as correct as
-possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in
-developing easy to use and innovative tools to support widely embraced methods
-like Test Driven Development (TDD), Behaviour Driven Development (BDD) and
-Continuous Integration (CI).
+One of the biggest advantages of Rails is the community focus on testing. The Ruby and Rails communities have put a great deal of effort into building first-class tools and methods for making sure our apps are as correct as possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in developing easy to use and innovative tools to support widely embraced methods like Test Driven Development (TDD), Behaviour Driven Development (BDD) and Continuous Integration (CI).
 
 Let's start by setting up our Rails application for testing.
 
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest42/getting_started) and
+[http://reinteractive.com/posts/32](/guides/installfest42/getting_started) and
 have completed
-[http://reinteractive.net/posts/34](/guides/installfest42/finishing_a_basic_blog).
+[http://reinteractive.com/posts/34](/guides/installfest42/finishing_a_basic_blog).
 
 Let's dive into testing now.
 
@@ -497,7 +486,7 @@ Up next we'll add an Administration panel and convert our blog posts to
 Markdown format. Click [here](/guides/installfest42/admin_and_markdown) to
 check it out and continue your Rails adventure.
 
-If you're interested in more training from reInteractive or just want to give
+If you're interested in more training from reinteractive or just want to give
 us some feedback on this you can leave a comment below or:
 
 #### Sign up to our Training mailing list.
@@ -513,7 +502,7 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/community/development_hub).
+Sign up for [DevelopmentHub](http://reinteractive.com/community/development_hub).
 We'll guide you through any issues you're having getting off the ground with
 your Rails app.
 
