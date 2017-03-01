@@ -3,39 +3,21 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Finishing a Basic Blog
-In the [previous article](/guides/installfest/getting_started) you built a
-simple blogging engine using Rails and published it up on
-[Heroku](https://www.heroku.com). If you haven't run through that post then you
-should do so now before starting this one. In this installment, together, we'll
-add some features to your blogging engine, show you more about Rails and make
-it look nicer using [Zurb Foundation](http://foundation.zurb.com/). Let's dive
-in.
+In the [previous article](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Bootstrap](http://getbootstrap.com/). Let's dive in.
 
 ## Preparation for our coding session
 
-First we want to start our Rails server, so open two terminals and change to
-the directory we're developing our app in. In one of our terminals start the
-Rails server with `rails s` (s is short for server). Next start Sublime Text
-and open the folder that your app is stored in. By doing this you get to see
-the directory structure of Rails in the sidebar so you'll be able to navigate
-around your project a little more easily.
+First we want to start our Rails server, so open two terminals and change to the directory we're developing our app in. In one of our terminals start the Rails server with `rails s` (s is short for server). Next start Sublime Text and open the folder that your app is stored in. By doing this you get to see the directory structure of Rails in the sidebar so you'll be able to navigate around your project a little more easily.
 
 ![image](/images/guides/sublime_folder.png)
 
-
 ## Setting the index/root page in Rails
 
-Currently our site only shows the posts if you navigate to `/posts`.  This is
-all well and good, but if you go to the "root page" of the website at
-[http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails"
-page.
+Currently our site only shows the posts if you navigate to `/posts`.  This is all well and good, but if you go to the "root page" of the website at [http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails" page.
 
-Obviously, if we want people to start reading our blog, it would be good if we
-show the blog posts we have immediately when they come to our site, without
-having them navigate elsewhere.
+Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immediately when they come to our site, without having them navigate elsewhere.
 
-To set the root page of a Rails application, open `config/routes.rb` and add
-`root 'posts#index'` to that file so it looks like:
+To set the root page of a Rails application, open `config/routes.rb` and add `root 'posts#index'` to that file so it looks like:
 
 ```ruby
 Rails.application.routes.draw do
@@ -46,13 +28,9 @@ Rails.application.routes.draw do
   end
 end
 ```
+(Don't forget to save your file.)
 
-The way we're using the root
-[method](https://github.com/rails/rails/blob/a72dab0b6a16ef9e83e66c665b0f2b4364d90fb6/actionpack/lib/action_dispatch/routing/mapper.rb#L253)
-here indicates that we want the root path of our application to be sent to the
-`PostsController` index action which you created in the previous article. If
-you open [http://localhost:3000](http://localhost:3000) you'll see your posts
-index rather than the boring default Rails page.
+The way we're using the root [method](https://github.com/rails/rails/blob/a72dab0b6a16ef9e83e66c665b0f2b4364d90fb6/actionpack/lib/action_dispatch/routing/mapper.rb#L253) here indicates that we want the root path of our application to be sent to the `PostsController` index action which you created in the previous article. If you open [http://localhost:3000](http://localhost:3000) you'll see your posts index rather than the boring default Rails page.
 
 #### Deploying your changes
 
@@ -63,27 +41,17 @@ git add .
 git commit -m "setting a root page"
 ```
 
-And then you can deploy to Heroku with `git push heroku master`. You'll be able
-to navigate to your blog on Heroku now to see the changes you've made.
+And then you can deploy to Heroku with `git push heroku master`. You'll be able to navigate to your blog on Heroku now to see the changes you've made.
 
 ## AJAX commenting with unobtrusive JavaScript
 
-The blogging engine we've got works great, but it definitely doesn't feel like
-a smooth, modern web-app. Luckily with Rails it's easy to add in simple
-JavaScript! Just like all the other helpers that Rails provides if this isn't
-powerful enough for your needs you can always add as much custom JavaScript
-into `app/assets/javascripts/` as you like.
+The blogging engine we've got works great, but it definitely doesn't feel like a smooth, modern web-app. Luckily with Rails it's easy to add in simple JavaScript! Just like all the other helpers that Rails provides if this isn't powerful enough for your needs you can always add as much custom JavaScript into `app/assets/javascripts/` as you like.
 
-What you'll be doing is adding in some functionality to the commenting system so
-that posting a comment doesn't require a page reload. This means that we'll be
-submitting our comments using [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming))
-and then rendering the comments onto the post page using JavaScript. First we'll
-tackle posting the form using AJAX.
+What you'll be doing is adding in some functionality to the commenting system so that posting a comment doesn't require a page reload. This means that we'll be submitting our comments using [AJAX](https://en.wikipedia.org/wiki/Ajax_(programming)) and then rendering the comments onto the post page using JavaScript. First we'll tackle posting the form using AJAX.
 
 #### Making the form submit via AJAX
 
-Open `app/views/posts/show.html.erb` and add a `remote: true` option to the
-`form_for` method call. Your show view should look like:
+Open `app/views/posts/show.html.erb` and add a `remote: true` option to the `form_for` method call. Your show view should look like:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -107,13 +75,11 @@ Open `app/views/posts/show.html.erb` and add a `remote: true` option to the
 <% end %>
 ```
 
-Adding that remote flag to the method call means that Rails will
-automatically set up the form to be submitted via AJAX.
+(Don't forget to save your file.)
 
-If you refresh the [post view page](http://localhost:3000/posts/1) and try to
-submit a comment you'll notice that nothing happens. However if you switch to
-the terminal running your Rails server you'll be able to see that the request
-was received by the server, it's just doing the wrong thing with that request.
+Adding that remote flag to the method call means that Rails will automatically set up the form to be submitted via AJAX.
+
+If you refresh the [post view page](http://localhost:3000/posts/1) and try to submit a comment you'll notice that nothing happens. However if you switch to the terminal running your Rails server you'll be able to see that the request was received by the server, it's just doing the wrong thing with that request.
 
 ```ruby
 Started POST "/posts/1/comments" for 127.0.0.1 at 2013-04-23 11:24:09 +1000
@@ -127,8 +93,7 @@ VALUES (?, ?, ?, ?)  [["body", "Test comment"], ["created_at", Tue, 23 Apr 2013 
 Redirected to http://localhost:3000/posts/1
 ```
 
-The last line of the log here indicated that the server redirected to `/posts/1`
-as the response. We don't want that behaviour for an AJAX call.
+The last line of the log here indicated that the server redirected to `/posts/1` as the response. We don't want that behaviour for an AJAX call.
 
 #### Setting up the server to process AJAX requests
 
@@ -182,6 +147,8 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
+(Don't forget to save your file.)
+
 Return to your command prompt and run the following command to update our gems:
 
 ```
@@ -202,23 +169,20 @@ method to respond to AJAX requests as follows:
   end
 ```
 
-What this means is that your app will respond to regular HTML requests in the
-same way as before (by redirecting to the url of the post) but will render a
-view when receiving a JS request. This view doesn't exist yet so you'll need to
-create it now. Create a new file `app/views/comments/create.js.erb`. This is a
-Javascript file that will be returned to the browser and executed. We want it to
-do two things: Insert the comment html into the document, and clear the comment form.
-Your `create.js.erb` file should look like:
+(Don't forget to save your file.)
+
+What this means is that your app will respond to regular HTML requests in the same way as before (by redirecting to the url of the post) but will render a view when receiving a JS request. This view doesn't exist yet so you'll need to create it now.
+
+Create a new file `app/views/comments/create.js.erb`. This is a Javascript file that will be returned to the browser and executed. We want it to do two things: Insert the comment html into the document, and clear the comment form. Your `create.js.erb` file should look like:
 
 ```js
 $('#comments').append('<%= escape_javascript(render partial: @comment) %>');
 $('#comment_body').val('')
 ```
 
-Now when you submit a comment, you'll see the comment appear immediately in the
-section above the form and the comment field will be cleared. One cool thing
-about the approach you've learned here is that everything will continue to work
-even if a browser has JavaScript disabled.
+(Don't forget to save your file.)
+
+Now when you submit a comment, you'll see the comment appear immediately in the section above the form and the comment field will be cleared. One cool thing about the approach you've learned here is that everything will continue to work even if a browser has JavaScript disabled.
 
 #### Deploying your changes
 
@@ -229,18 +193,11 @@ git add .
 git commit -m "comments can be submitted via ajax"
 ```
 
-And then you can deploy to Heroku with `git push heroku master`. You'll be able
-to navigate to your blog on Heroku now to see the changes you've made.
+And then you can deploy to Heroku with `git push heroku master`. You'll be able to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Creating an RSS Atom feed
 
-The next feature on our list is to implement an RSS Atom feed. Once again Rails
-makes this job pretty simple. We'll be outputting our list of posts in an Atom
-format rather than a HTML format. If you open
-`app/controllers/posts_controller.rb` you might notice that already the index
-method will respond to the JSON format. We can see this in action by going to:
-[http://localhost:3000/posts.json](http://localhost:3000/posts.json). You'll
-see all your posts rendered in JSON format.
+The next feature on our list is to implement an RSS Atom feed. Once again Rails makes this job pretty simple. We'll be outputting our list of posts in an Atom format rather than a HTML format. If you open `app/controllers/posts_controller.rb` you might notice that already the index method will respond to the JSON format. We can see this in action by going to: [http://localhost:3000/posts.json](http://localhost:3000/posts.json). You'll see all your posts rendered in JSON format.
 
 #### Making the server Atom aware
 
@@ -262,17 +219,15 @@ Update your index action so it looks like:
   end
 ```
 
-If you go to
-[http://localhost:3000/posts.atom](http://localhost:3000/posts.atom) you'll
-receive an error that the template is missing.
+(Don't forget to save your file.)
+
+If you go to [http://localhost:3000/posts.atom](http://localhost:3000/posts.atom) you'll receive an error that the template is missing.
 
 ![template missing error](/images/guides/missing_template.png)
 
 #### Building the Atom feed
 
-This just means we need to create it. We'll be creating a file called:
-`app/views/posts/index.atom.builder` and putting the following contents into
-that file:
+This just means we need to create it. We'll be creating a file called: `app/views/posts/index.atom.builder` and putting the following contents into that file:
 
 ```ruby
 atom_feed do |feed|
@@ -292,17 +247,13 @@ atom_feed do |feed|
 end
 ```
 
-You might want to customise your ATOM feed by changing the name of the blog, or
-by changing the author name to your own. Refresh the
-[http://localhost:3000/posts.atom](http://localhost:3000/posts.atom) page and
-you'll see the XML being returned properly.
+(Don't forget to save your file.)
+
+You might want to customise your ATOM feed by changing the name of the blog, or by changing the author name to your own. Refresh the [http://localhost:3000/posts.atom](http://localhost:3000/posts.atom) page and you'll see the XML being returned properly.
 
 #### RSS feed discovery
 
-Our next job is to publicise the ATOM feed so that RSS readers (if they still
-    exist) can easily subscribe. We'll do this by opening
-`app/views/layouts/application.html.erb` and adding this link tag that will
-allow some browsers to auto-discover our RSS feed.
+Our next job is to publicise the ATOM feed so that RSS readers (if they still exist) can easily subscribe. We'll do this by opening `app/views/layouts/application.html.erb` and adding this link tag that will allow some browsers to auto-discover our RSS feed.
 
 ```erb
 <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
@@ -328,13 +279,9 @@ Your `application.html.erb` file should look like:
 </html>
 ```
 
-To test this you might like to temporarily install [this plugin to Google
-Chrome](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd?hl=en)
-and reload any page on your blog site. The `application.html.erb` layout file
-is used to wrap every view in your application. This means that changes made to
-this file will affect every single page in your application. After you load up
-any page in your blog you should see an RSS icon in the URL bar. Clicking it
-will take you to your site's RSS feed.
+(Don't forget to save your file.)
+
+To test this you might like to temporarily install [this plugin to Google Chrome](https://chrome.google.com/webstore/detail/rss-subscription-extensio/nlbjncdgjeocebhnmkbbbdekmmmcbfjd?hl=en) and reload any page on your blog site. The `application.html.erb` layout file is used to wrap every view in your application. This means that changes made to this file will affect every single page in your application. After you load up any page in your blog you should see an RSS icon in the URL bar. Clicking it will take you to your site's RSS feed.
 
 ![rss feed indicator](/images/guides/rss_feed_indicator.png)
 
@@ -347,21 +294,15 @@ git add .
 git commit -m "adding atom feed and autodiscovery"
 ```
 
-And then you can deploy to Heroku with `git push heroku master`. You'll be able
-to navigate to your blog on Heroku now to see the changes you've made.
+And then you can deploy to Heroku with `git push heroku master`. You'll be able to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Giving your blog some style
 
-Up until this point we've really neglected the look and feel of our blog. It definitely
-feels a bit boring! We'll be making it look much nicer by using a UI library
-called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end framework
-that allows you to make your websites look good quickly and easily.
+Up until this point we've really neglected the look and feel of our blog. It definitely feels a bit boring! We'll be making it look much nicer by using a UI library called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end framework that allows you to make your websites look good quickly and easily.
 
-The first step is to [download Bootstrap](http://getbootstrap.com/getting-started/).
-Put it in a folder that makes sense to you.
+The first step is to [download Bootstrap](http://getbootstrap.com/getting-started/). Put it in a folder that makes sense to you.
 
-Next, we need to copy the files we require into our rails project. From your bootstrap
-folder, copy the following:
+Next, we need to copy the files we require into our rails project. From your bootstrap folder, copy the following:
 
 `css/bootstrap.css` and `css/bootstrap.min.css` to: `vendor/assets/stylesheets`,
 
@@ -392,16 +333,13 @@ Open `app/assets/stylesheets/application.css` and add the following lines:
 }
 ```
 
-One of the signature features of Bootstrap is the grid system. The grid system creates page
-layouts through a series of rows and columns that houses your content.
+(Don't forget to save your files.)
 
-The basic rules are that you must have a `.container` within which a `.row` can be placed.
-Within each `.row`, you specify how many columns you wish to span (there are 12 available columns).
+One of the signature features of Bootstrap is the grid system. The grid system creates page layouts through a series of rows and columns that houses your content.
 
-We're going to start off with two very quick things with Bootstrap. We'll give
-our content some whitespace so it's easier to read, and we'll change all our
-buttons so that they have a bit more style. First open your layout file
-`app/views/layouts/application.html.erb` and update it to look like:
+The basic rules are that you must have a `.container` within which a `.row` can be placed. Within each `.row`, you specify how many columns you wish to span (there are 12 available columns).
+
+We're going to start off with two very quick things with Bootstrap. We'll give our content some whitespace so it's easier to read, and we'll change all our buttons so that they have a bit more style. First open your layout file `app/views/layouts/application.html.erb` and update it to look like:
 
 ```erb
 <!DOCTYPE html>
@@ -425,7 +363,10 @@ buttons so that they have a bit more style. First open your layout file
 </html>
 ```
 
+(Don't forget to save your file.)
+
 You will notice that, apart from wrapping the `yield` statement in various `div`s, we added several different classes to the final enclosing `div`.
+
 * `col-xs-12` means that on an extra-small device (such as a phone), we want whatever text is produced by the `yield` to take up all 12 columns.
 * `col-sm-10` means that on a small device (such as a tablet), we want whatever text is produced by the `yield` to take up 10 columns, leaving 2 empty columns.
 * `col-md-8` means that on a medium device (such as a laptop), we want whatever text is produced by the `yield` to take up 8 columns, leaving 4 empty columns. Because there is nothing specified for `col-lg-xx` (which would be a desktop computer), these will also fall under this category and have their content restricted to eight columns.
@@ -445,6 +386,8 @@ Now open `app/views/posts/index.html.erb` and update it to look like:
 
 <%= button_to 'New Post', new_post_path, method: :get, class: "btn-primary" %>
 ```
+
+(Don't forget to save your file.)
 
 We have changed `link_to`, that unobtrusive barely-noticeable link for adding a new post, to `button_to` which will now give us a button. Note: `link_to` and `button_to` are Rails helper methods that saves us writing the corresponding HTML.
 
@@ -552,6 +495,8 @@ These Header and Footer files contain some example HTML that will give you a sta
 </html>
 ```
 
+(Don't forget to save your files.)
+
 Refresh your browser or navigate to [http://localhost:3000](http://localhost:3000) to see the changes you've just made. Feel free to go ahead and edit the header and footer html files now to make your blog truly personal.
 
 If you've been successful (and if you haven't, please ask for some help) then your blog should be looking something like this:
@@ -572,10 +517,7 @@ to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Questions and homework
 
-You might notice a few things you want to change about the application. While
-some things are easy, others will require more effort or possible some
-[assistance from a
-mentor](http://www.reinteractive.com/community/development_hub).
+You might notice a few things you want to change about the application. While some things are easy, others will require more effort or possible some [assistance from a mentor](http://www.reinteractive.com/community/development_hub).
 
 **Q) How to remove the "Listing posts" heading?**
 
@@ -583,7 +525,7 @@ A) *Open `app/views/posts/index.html.erb`. You should be able to figure it out f
 
 **Q) How do I make the About me link work in the header?**
 
-A) *There are a couple of ways of doing this. You can alter the link so it points to /about.html and create a file in `public/` or alternatively create generate a controller and wire up a route to an action in that controller. You can read more about this in the [routing guide](http://guides.rubyonrails.org/routing.html#connecting-urls-to-code) and the [action controller guide](http://guides.rubyonrails.org/action_controller_overview.html#methods-and-actions).*
+A) *There are a couple of ways of doing this. You can alter the link so it points to `/about.html` and create a file in `public/` or alternatively create generate a controller and wire up a route to an action in that controller. You can read more about this in the [routing guide](http://guides.rubyonrails.org/routing.html#connecting-urls-to-code) and the [action controller guide](http://guides.rubyonrails.org/action_controller_overview.html#methods-and-actions).*
 
 **Q) There's a bug that lets a user submit blank comments!**
 

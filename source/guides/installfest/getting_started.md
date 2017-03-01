@@ -26,64 +26,61 @@ Whenever you need to start or restart the rails server use the first command pro
 
 `rails new quick_blog -T`
 
-Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue. The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
+Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue.
+
+The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
 
 Once it has finished type:
 
 `cd quick_blog`
 
-Entering this command will change you into the folder where your application is stored. If you look at the
-contents of this folder you'll see:
+Entering this command will change you into the folder where your application is stored. If you look at the contents of this folder you'll see:
 
 ![The default Rails application structure](/images/guides/default_rails_structure.png)
 
-This is the standard structure of a new Rails application. Once you learn this
-structure it makes working with Rails easier since everything is in a standard
-place.
+This is the standard structure of a new Rails application. Once you learn this structure it makes working with Rails easier since everything is in a standard place.
 
-Next we'll run this fresh application to check that our Rails install is
-working properly. Type:
+Next we'll run this fresh application to check that our Rails install is working properly. Type:
 
 `rails server`
 
-Open your web-browser and head to:
-[http://localhost:3000](http://localhost:3000) you should see something that
-looks like:
+Open your web-browser and head to: [http://localhost:3000](http://localhost:3000) you should see something that looks like:
 
 ![Rails default homepage](/images/guides/onrails5.png)
 
-Now that you've created the Rails application you should open this folder using
-Sublime. Open up Sublime, then open the quick_blog folder that was just
-generated.
+Now that you've created the Rails application you should open this folder using Sublime. Open up Sublime, then open the quick_blog folder that was just generated.
 
 ## Creating basic functionality
 
-Now we're ready to get started building an actual blog. In your command prompt
-press `Ctrl-c` (hold down the `Control` key, and press `c`) to stop the Rails server, or use your second command prompt and navigate to your Rails application folder. Then you can use a Rails generator
-to build some code for you:
+Now we're ready to get started building an actual blog.
+
+In your command prompt press `Ctrl-c` (hold down the `Control` key, and press `c`) to stop the Rails server, or use your second command prompt and navigate to your Rails application folder.
+
+Then you can use a Rails generator to build some code for you:
 
 `rails generate scaffold Post title:string body:text`
 
-Let's break this command down: we're asking `rails` to `generate` a `scaffold`
- (basic building blocks; think construction scaffolding) for a thing,
- or in Rails parlance a "resource", we want to call a `Post` in our system.
- We want to give our `Post` two attributes: a `title`, which we want to be a
- `string`, and a `body`, which we want to be `text`.
+__Let's break this command down:__
 
-A `string` is computer-speak for a short sequence of characters like `"hello"` or
-`"Are you having fun, yet?"`, and can usually be as long as your average tweet.
-Blog titles tend to be short, so we'll use a `string` for ours. `text` is like a
-`string`, but longer, so we'll use it to have enough room to write as many
-paragraphs as we want in the `body` of our blog post.
+We're asking `rails` to `generate` a `scaffold` (basic building blocks; think construction scaffolding) for a "thing" that we want to call a `Post` in our system. In Rails terminology this "thing" (Post) is called a "resource".
+
+We want to give our `Post` two attributes:
+
+* a `title`, which we want to be a `string`, and
+* a `body`, which we want to be `text`.
+
+A `string` is computer-speak for a short sequence of characters like `"hello"` or `"Are you having fun, yet?"`, and can usually be as long as your average tweet. Blog titles tend to be short, so we'll use a `string` for ours.
+
+`text` is like a `string`, but longer, so we'll use it to have enough room to write as many paragraphs as we want in the `body` of our blog post.
 
 After running your command, you'll be presented with something that looks like:
 
 ![Scaffolding posts](/images/guides/scaffolding_posts.png)
 
 An important file that was generated was the migration file:
-`db/migrate/20140528075017_create_posts.rb` Note that, as this file name starts
-with a unique id including the date and time, yours will have a different set
-of numbers.
+`db/migrate/20140528075017_create_posts.rb`
+
+Note that, as this filename starts with a unique id including the date and time, yours will have a different set of numbers.
 
 ```ruby
 class CreatePosts < ActiveRecord::Migration
@@ -98,34 +95,36 @@ class CreatePosts < ActiveRecord::Migration
 end
 ```
 
-This file is Ruby code that Rails uses to manage how your data is stored in the
-database. You can see that this code is to create a table called `Posts` and to
-create two columns in this table, a title column and a body column.  Finally we
-need to instruct Rails to apply this to our database. Type:
+This file is Ruby code that Rails uses to manage how your data is stored in the database.
+
+You can see that this code is to create a table called `Posts` and to create two columns in this table, a title column and a body column.
+
+Finally we need to instruct Rails to apply this to our database. Type:
 
 `rails db:migrate`
 
-Once this command has run you can start up your Rails server again with `rails
-server` and then navigate to
-[http://localhost:3000/posts](http://localhost:3000/posts) to see the changes
-you've made to your application.
+Once this command has run you can start up your Rails server again with `rails server` and then navigate to
+[http://localhost:3000/posts](http://localhost:3000/posts) to see the changes you've made to your application.
 
 ![Empty posts list](/images/guides/empty_posts_list.png)
 
-From here you can play around with your application. Go ahead and create a new
-blog post.
+From here you can play around with your application. Go ahead and create a new blog post.
 
 ![Creating a new post](/images/guides/filling_out_posts_form.png)
 
-You'll notice you can create new posts, edit or delete them. We're going to add
-in some functionality to our new Rails app which enforces a rule that every
-post must have a title. Open `app/models/post.rb` in Sublime and add the line:
+You'll notice you can create new posts, edit or delete them.
+
+We're going to add in some functionality to our new Rails app which enforces a rule that every post must have a title.
+
+Open `app/models/post.rb` in Sublime and add the following line to your code:
 
 ```ruby
 validates_presence_of :body, :title
 ```
 
-To the code. Your `post.rb` file should look like:
+(Don't forget to save your file.)
+
+Your `post.rb` file should look like:
 
 ```ruby
 class Post < ApplicationRecord
@@ -133,16 +132,17 @@ class Post < ApplicationRecord
 end
 ```
 
-We can check that this works by editing our blog post, deleting the title and
-clicking `Update Post`. You'll get an error informing you that you've just
-attempted to break the rule you just inserted:
+We can check that this works by editing our blog post, deleting the title and clicking `Update Post`.
+
+You'll get an error informing you that you've just attempted to break the rule you just created:
 
 ![Rails validation error](/images/guides/validation_errors.png)
 
 ## Making things prettier
 
-Right now our [show post page](http://localhost:3000/posts/1) isn't looking
-very good. We'll open `app/views/posts/show.html.erb` in Sublime and make it look like the following:
+Right now our [show post page](http://localhost:3000/posts/1) isn't looking very good.
+
+Open `app/views/posts/show.html.erb` in Sublime and make it look like the following:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -154,33 +154,37 @@ very good. We'll open `app/views/posts/show.html.erb` in Sublime and make it loo
 <%= link_to 'Back', posts_path %>
 ```
 
-At this point you can refresh the show post page in your browser to see the
-changes you've made.
+(Don't forget to save your file.)
 
-We'll also want to make our blog listing prettier too, we'll use a Rails
-partial (a partial is simply a reusuable block of HTML code. It's part of a web
-page) to achieve this. We want our listing and the individual blog pages to
-look the same so first we'll create a file: `app/views/posts/_post.html.erb`
-The underscore in front of the filename here tells Rails that this is a
-partial. We'll take
+At this point you can refresh the show post page in your browser to see the changes you've made.
+
+We'll also want to make our blog listing prettier too, we'll use a Rails partial to achieve this. A partial is simply a reusuable block of HTML code which is part of a web page.
+
+We want our listing and the individual blog pages to look the same so first we'll create a file: `app/views/posts/_post.html.erb`. (The underscore in front of the filename here tells Rails that this is a partial.)
+
+We'll take:
 
 ```erb
 <h2><%= link_to_unless_current @post.title, @post %></h2>
 <%= simple_format @post.body %>
 ```
 
-Out of `app/views/posts/show.html.erb` and put it in our `_post.html.erb` file.
-After that, change all three mentions of `@post` to be `post` instead. This
-means your `_post.html.erb` file will be:
+out of `app/views/posts/show.html.erb` 
+
+and put it in our `_post.html.erb` file.
+
+After that, change all three mentions of `@post` to be `post` instead.
+
+This means your `_post.html.erb` file will be:
 
 ```erb
 <h2><%= link_to_unless_current post.title, post %></h2>
 <%= simple_format post.body %>
 ```
 
-In our `show.html.erb` file we want to insert the code to put our partial into
-our show view. Insert the code: `<%= render partial: @post %>` to make it
-look like:
+In our `show.html.erb` file we want to insert the code to put our partial into our show view.
+
+Insert the code: `<%= render partial: @post %>` to make it look like:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -191,13 +195,13 @@ look like:
 <%= link_to 'Back', posts_path %>
 ```
 
-Save all these files and refresh [the show posts
-page](http://localhost:3000/posts/1). This is to check that you haven't broken
-anything with those changes.
+Save all these files and refresh [the show posts page](http://localhost:3000/posts/1).
 
-Our index page still hasn't changed, so we're going to open the
-`index.html.erb` file up and remove the table in there and replace it with the
-partial again so we're re-using that code:
+This is to check that you haven't broken anything with those changes.
+
+Our index page still hasn't changed, so we're going to remove the table in there and replace it with the partial again so we're re-using that code.
+
+Open the `index.html.erb` file up and make it look like:
 
 ```erb
 <h1>Listing posts</h1>
@@ -207,14 +211,17 @@ partial again so we're re-using that code:
 <%= link_to 'New Post', new_post_path %>
 ```
 
+(Don't forget to save your file.)
+
 ## Access control
 
-One huge problem with our blog is that anyone can create, edit and delete blog
-posts. Let's fix that. We'll use HTTP Basic authenticate to put a password on
-actions we don't want everyone accessing. Open
-`app/controllers/posts_controller.rb` and add
-`before_action :authenticate, except: [ :index, :show ]` on line 2 just below
-the class declaration. At the bottom of your file put the following code:
+One huge problem with our blog is that anyone can create, edit and delete blog posts. Let's fix that!
+
+We'll use HTTP Basic authenticate to put a password on actions we don't want everyone accessing.
+
+Open `app/controllers/posts_controller.rb` and add `before_action :authenticate, except: [ :index, :show ]` on line 2 just below the class declaration.
+
+At the bottom of your file put the following code:
 
 ```ruby
   private
@@ -225,9 +232,9 @@ the class declaration. At the bottom of your file put the following code:
   end
 ```
 
-Overall your `posts_controller.rb` should have the following code at the top
-and the bottom of the file. Note that all the methods are excluded here for
-brevity.
+(Don't forget to save your file.)
+
+Overall your `posts_controller.rb` should have the following code at the top and the bottom of the file. Note that all the methods are excluded here for brevity.
 
 ```ruby
 class PostsController < ApplicationController
@@ -252,28 +259,28 @@ class PostsController < ApplicationController
 end
 ```
 
-With that code in place you can try to [add a new
-post](http://localhost:3000/posts/new) and you'll be prompted to enter a
-username and password.
+With that code in place you can try to [add a new post](http://localhost:3000/posts/new) and you'll be prompted to enter a username and password.
 
 ![image](/images/guides/authentication_required.png)
 
 ## Adding comments
 #### Creating a database model and routing
 
-No blog is complete without comments. Let's add them in. On our command prompt,
-   shut down your rails server by hitting `Ctrl-C` and then type in:
+No blog is complete without comments. Let's add them in.
+
+In our command prompt, shut down your rails server by hitting `Ctrl-C` and then type in:
 
 `rails generate resource Comment post:references body:text`
 
-Then you'll want to update your database here to reflect the schema change
-you've just made:
+Then you'll want to update your database here to reflect the schema change you've just made:
 
 `rails db:migrate`
 
-After this you'll need to inform Rails that your Posts will potentially have
-many Comments. Open `app/models/post.rb` and add the line: `has_many :comments`
-somewhere inside the class. This should look like:
+After this you'll need to inform Rails that your Posts will potentially have many Comments.
+
+Open `app/models/post.rb` and add the line: `has_many :comments` somewhere inside the class.
+
+This should look like:
 
 ```ruby
 class Post < ApplicationRecord
@@ -283,7 +290,15 @@ class Post < ApplicationRecord
 end
 ```
 
-The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments. Since comments belong to a post, we'll make the URL reflect this. Right now you can see all the configured URLs by typing `rails routes` in your command prompt. If you do this now you'll get something like the following:
+(Don't forget to save your file.)
+
+The back-end for your comments is almost complete, we only need to configure the url that is used to create your comments.
+
+Since comments belong to a post, we'll make the URL reflect this.
+
+Right now you can see all the configured URLs by typing `rails routes` in your command prompt.
+
+If you do this now you'll get something like the following:
 
 ```ruby
       Prefix Verb   URI Pattern                  Controller#Action
@@ -305,10 +320,13 @@ edit_comment GET    /comments/:id/edit(.:format) comments#edit
              DELETE /posts/:id(.:format)         posts#destroy
 ```
 
-Your URLs (or routes) are configured in all Rails applications in the file
-`config/routes.rb`, open it now and remove the line `resources :comments`.
-Re-run `rails routes` and you'll notice that all the URLs for comments have
-disappeared. Update your `routes.rb` file to look like the following:
+Your URLs (or routes) are configured in all Rails applications in the file `config/routes.rb`.
+
+Open this file and remove the line `resources :comments`.
+
+Re-run `rails routes` and you'll notice that all the URLs for comments have disappeared.
+
+Update your `routes.rb`file to look like the following:
 
 ```ruby
 Rails.application.routes.draw do
@@ -320,19 +338,20 @@ Rails.application.routes.draw do
 end
 ```
 
-Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments. When you rerun `rails routes` you'll now see the following line:
+(Don't forget to save your file.)
+
+Because comments will be visible from the show Post page along with the form for creating them, we don't need to have URLs for displaying comment listings, or individual comments.
+
+When you rerun `rails routes` you'll now see the following line:
 
 ```ruby
 post_comments POST   /posts/:post_id/comments(.:format) comments#create
 ```
 
-Before we're finished with the backend for our commenting system we need to
-write the action that will create our comments. For more information on actions
-please read the Rails Guide on
-[ActionController](http://guides.rubyonrails.org/action_controller_overview.html).
+Before we're finished with the backend for our commenting system we need to write the action that will create our comments. (For more information on actions please read the Rails Guide on
+[ActionController](http://guides.rubyonrails.org/action_controller_overview.html))
 
-Open `app/controllers/comments_controller.rb` and make your code look like the
-following:
+Open `app/controllers/comments_controller.rb` and make your code look like the following:
 
 ```ruby
 class CommentsController < ApplicationController
@@ -350,9 +369,21 @@ class CommentsController < ApplicationController
 end
 ```
 
+(Don't forget to save your file.)
+
 #### Putting comments into your HTML view
 
-You've created the database model for your comments, migrated your database, informed Rails of the relationship between comments and posts, configured a URL that lets you create your comments and created the controller action that will create the comments. Now you need to display any comments that have been submitted for a post, and allow users to submit comments. Open `app/views/posts/show.html.erb` and make it look like:
+So far you have:
+
+* created the database model for your comments, 
+* migrated your database, 
+* informed Rails of the relationship between comments and posts, 
+* configured a URL that lets you create your comments, and 
+* created the controller action that will create the comments.
+
+Now you need to display any comments that have been submitted for a post, and allow users to submit comments.
+
+Open `app/views/posts/show.html.erb` and make it look like:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -368,8 +399,7 @@ You've created the database model for your comments, migrated your database, inf
 </div>
 ```
 
-You'll now need to create a file called `app/views/comments/_comment.html.erb`
-with the following contents:
+You'll now need to create a file called `app/views/comments/_comment.html.erb` with the following contents:
 
 ```erb
 <%= div_for comment do %>
@@ -383,8 +413,9 @@ with the following contents:
 <% end %>
 ```
 
-Back in `app/views/posts/show.html.erb` you need to add in the form for
-submitting a comment so add the following code to the bottom of that file.
+(Don't forget to save these files.)
+
+Back in `app/views/posts/show.html.erb` you need to add in the form for submitting a comment so add the following code to the bottom of that file.
 
 ```erb
 <%= form_for [@post, Comment.new] do |f| %>
@@ -397,35 +428,34 @@ submitting a comment so add the following code to the bottom of that file.
 ```
 
 To access the `div_for` helper method used above, we need to add the `record_tag_helper` gem to our Gemfile.
-Open `Gemfile` and add the following line anywhere in the file:
-`gem 'record_tag_helper', '~> 1.0'`
+
+Open `Gemfile` and add the following line anywhere in the file: `gem 'record_tag_helper', '~> 1.0'`
 
 Whenever you make changes to your Gemfile, you need to run a `bundle install` so go back to your terminal and stop the server.
-Then run `bundle install`. Restart your server.
+
+Then, making sure you have saved your changes, run `bundle install`.
+
+Restart your server.
 
 Comments are now working, so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
 
 ## Publishing your Blog on the internet
 
-Heroku is a fantastically simple service that can be used to host Ruby on Rails
-applications. You'll be able to host your blog on Heroku on their free-tier, but
-first you'll need a Heroku account. Head to
-[https://www.heroku.com/](https://www.heroku.com/), click Sign Up and create an
-account. The starter documentation for Heroku is available at:
-[https://devcenter.heroku.com/articles/quickstart](https://devcenter.heroku.com/articles/quickstart).
-Once you've got an account you'll need to download the toolbelt from
-[https://toolbelt.heroku.com/](https://toolbelt.heroku.com/) and set it up on
-your computer.
+Heroku is a fantastically simple service that can be used to host Ruby on Rails applications. You'll be able to host your blog on Heroku on their free-tier, but first you'll need a Heroku account.
+
+Head to [https://www.heroku.com/](https://www.heroku.com/), click Sign Up and create an account.
+
+The starter documentation for Heroku is available at: [https://devcenter.heroku.com/articles/quickstart](https://devcenter.heroku.com/articles/quickstart).
+
+Once you've got an account you'll need to download the toolbelt from [https://toolbelt.heroku.com/](https://toolbelt.heroku.com/) and set it up on your computer.
 
 ### Make the application work on Heroku
 
-Up until this point we've been using SQLite as our database, but unfortunately
-Heroku doesn't support the use of SQLite. So we're going to be running Postgres
-instead.
+Up until this point we've been using SQLite as our database, but unfortunately Heroku doesn't support the use of SQLite. So we're going to be running Postgres instead.
 
-We need to do some other things to make our application work on Heroku. These
-changes are easy to make. You'll need to open the `Gemfile` and make
-your `Gemfile` look like:
+We need to do some other things to make our application work on Heroku. These changes are easy to make.
+
+Open the `Gemfile` in Sublime and make it look like:
 
 ```ruby
 source 'https://rubygems.org'
@@ -471,14 +501,15 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
-After this, run the command `bundle install --without=production` on your
-command line.
+(Don't forget to save your file.)
+
+After this, run the command `bundle install --without=production` on your command line.
 
 ### Regarding version control
 
-Heroku also requires that every application is placed under version control
-before it is deployed. Simply run the following commands on the command prompt
-to make sure your application is properly controlled:
+Heroku also requires that every application is placed under version control before it is deployed.
+
+Simply run the following commands on the command prompt to make sure your application is properly controlled:
 
 ```ruby
 git init
@@ -489,6 +520,7 @@ git commit -m "initial blog commit"
 ### Deploying your application
 
 In the same command prompt you should be ready to deploy your application.
+
 First we create our Heroku application:
 
 `heroku create`
@@ -501,14 +533,12 @@ Finally we set up our database:
 
 `heroku run:detached rails db:migrate`
 
-The `detached` option runs the command in the background. It is there only to
-ensure the process will go through, even on faulty Internet connection. You can
-use `heroku logs` to view the output of the command.
+The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
 To check that your blog has been deployed properly, browse to the URL that Heroku has gien you, remembering to append "/posts" to the end of the URL.
 e.g. `https://peaceful-hamlet-7389.herokuapp.com/posts`
 
-Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL)
+Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL).
 
 Welcome to Ruby on Rails! If you're this far along you might want to pause and catch your breath. Check out [WTF Just Happened? A Quick Tour of your first Rails App](https://reinteractive.com/posts/316-wtf-just-happened-a-quick-tour-of-your-first-rails-app) to recap.
 
