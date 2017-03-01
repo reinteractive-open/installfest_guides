@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Understanding Migrations
-Welcome back to reInteractive's Ruby on Rails 15 minute blog tutorial series.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
 If you haven't started following through the series and you're new to Rails
 then you might want to start with the [first
 post](/guides/installfest41/getting_started). Today we'll be following directly
@@ -22,9 +22,8 @@ published state. This means we can author our blog posts in the admin panel,
 ### Application Setup
 
 You'll need to have been following our InstallFest blog posts starting with
-[http://reinteractive.net/posts/32](/guides/installfest41/getting_started) and
-have completed
-[http://reinteractive.net/posts/42](/guides/installfest41/admin_and_markdown).
+[http://reinteractive.com/posts/32](/guides/installfest41/getting_started) and have completed
+[http://reinteractive.com/posts/42](/guides/installfest41/admin_and_markdown).
 If you've done this but want to start with some fresh code, you can by copying
 the tag that's available in the public git repository.
 
@@ -674,7 +673,7 @@ fixed some problems that occured along the way.
 The next post in the series is available
 [here](/guides/installfest41/assets_and_errors). You'll be learning about the
 Asset Pipeline, Static pages and Custom error pages. If you want to learn more
-about reInteractive's training services you can:
+about reinteractive's training services you can:
 
 #### Sign up to our Training mailing list.
 
@@ -689,7 +688,7 @@ and can unsubscribe at any time:
 
 #### Do Development Hub
 
-Sign up for [DevelopmentHub](http://reinteractive.net/service/development_hub).
+Sign up for [DevelopmentHub](http://reinteractive.com/service/development_hub).
 We'll guide you through any issues you're having getting off the ground with
 your Rails app.
 

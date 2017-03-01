@@ -25,8 +25,7 @@ Spot an error? Had some issues following the guide? [Raise an issue](https://git
 
 ## Sponsorship
 
-The Ruby on Rails Installfest is a proud initiative from Australian Rails
-development firm [reInteractive](http://reinteractive.net/).
+The Ruby on Rails Installfest is a proud initiative from Australian Rails development firm [reinteractive](http://reinteractive.com/).
 
 ## License
 
