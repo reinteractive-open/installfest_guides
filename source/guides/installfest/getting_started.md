@@ -18,15 +18,13 @@ To do this on Windows: Open the Command Prompt window by clicking the Start butt
 
 To do this on Mac: Open Finder in the Dock. Select applications. Then choose utilities. Double click on Terminal.
 
-You'll use one of the command prompts to run your local Rails server and the other for entering all other commands.
-
-Whenever you need to start or restart the rails server use the first command prompt and for all other command line work you can use the second command prompt.
-
 ## Setting up our Rails app
+
+Enter the following command into your command prompt:
 
 `rails new quick_blog -T`
 
-Entering this command into your command prompt will cause Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue.
+This command tells Rails to generate a new application and begin to install dependencies for your application. This process may take a few minutes, so you should let it continue.
 
 The `-T` is short for `--skip-test-unit`.  We won't be specifically covering testing just now, so we won't need the `test` directory that Rails normally provides for you when generating a new project.
 
@@ -48,7 +46,11 @@ Open your web-browser and head to: [http://localhost:3000](http://localhost:3000
 
 ![Rails default homepage](/images/guides/onrails5.png)
 
-Now that you've created the Rails application you should open this folder using Sublime. Open up Sublime, then open the quick_blog folder that was just generated.
+Now that you've created the Rails application you should open this folder using Sublime.
+
+Open up Sublime (or your chosen text editor).
+
+From there, select `file -> open...` and navigate to the quick_blog folder that was just generated. Note: If you open the entire folder - rather than just a file - you will find it much easier to navigate your project.
 
 ## Creating basic functionality
 
@@ -82,6 +84,8 @@ An important file that was generated was the migration file:
 
 Note that, as this filename starts with a unique id including the date and time, yours will have a different set of numbers.
 
+You can view this file by going to Sublime, navigating through the folders on the left side column, and clicking on `20140528075017_create_posts.rb`.
+
 ```ruby
 class CreatePosts < ActiveRecord::Migration
   def change
@@ -99,24 +103,28 @@ This file is Ruby code that Rails uses to manage how your data is stored in the 
 
 You can see that this code is to create a table called `Posts` and to create two columns in this table, a title column and a body column.
 
-Finally we need to instruct Rails to apply this to our database. Type:
+Whilst we have generated this code to create our Posts table, the script has not yet been executed and therefore the table does not yet exist in our database.
+
+We need to instruct Rails to apply this to our database. Returning to the command-line, type:
 
 `rails db:migrate`
 
 Once this command has run you can start up your Rails server again with `rails server` and then navigate to
-[http://localhost:3000/posts](http://localhost:3000/posts) to see the changes you've made to your application.
+[http://localhost:3000/posts](http://localhost:3000/posts) in your web browser to see the changes you've made to your application.
 
 ![Empty posts list](/images/guides/empty_posts_list.png)
 
-From here you can play around with your application. Go ahead and create a new blog post.
+From here you can play around with your application.
+
+Go ahead and create a new blog post.
 
 ![Creating a new post](/images/guides/filling_out_posts_form.png)
 
 You'll notice you can create new posts, edit or delete them.
 
-We're going to add in some functionality to our new Rails app which enforces a rule that every post must have a title.
+We're going to add some functionality to our new Rails app to enforce a rule that every post must have a title.
 
-Open `app/models/post.rb` in Sublime and add the following line to your code:
+In Sublime, open `app/models/post.rb` and add the following line to your code:
 
 ```ruby
 validates_presence_of :body, :title
@@ -132,9 +140,9 @@ class Post < ApplicationRecord
 end
 ```
 
-We can check that this works by editing our blog post, deleting the title and clicking `Update Post`.
+We can check that this works by returning to our browser, editing our blog post, deleting the title and clicking `Update Post`.
 
-You'll get an error informing you that you've just attempted to break the rule you just created:
+You'll get an error informing you that you've attempted to break the rule you just created:
 
 ![Rails validation error](/images/guides/validation_errors.png)
 
@@ -142,7 +150,7 @@ You'll get an error informing you that you've just attempted to break the rule y
 
 Right now our [show post page](http://localhost:3000/posts/1) isn't looking very good.
 
-Open `app/views/posts/show.html.erb` in Sublime and make it look like the following:
+In Sublime, open `app/views/posts/show.html.erb` and make it look like the following:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -156,11 +164,13 @@ Open `app/views/posts/show.html.erb` in Sublime and make it look like the follow
 
 (Don't forget to save your file.)
 
-At this point you can refresh the show post page in your browser to see the changes you've made.
+At this point you can refresh the Show Post page in your browser to see the changes you've made.
 
-We'll also want to make our blog listing prettier too, we'll use a Rails partial to achieve this. A partial is simply a reusuable block of HTML code which is part of a web page.
+We want to make our blog listing prettier too, and we'll use a Rails partial to achieve this. A partial is simply a reusuable block of HTML code which can be embedded into a web page.
 
-We want our listing and the individual blog pages to look the same so first we'll create a file: `app/views/posts/_post.html.erb`. (The underscore in front of the filename here tells Rails that this is a partial.)
+We want our listing and the individual blog pages to look the same so first we'll create a new file using Sublime.
+
+This file will be a partial file that will live in `app/views/posts/` and we will name `_post.html.erb`. (The underscore in front of the filename here tells Rails that this is a partial.)
 
 We'll take:
 
@@ -182,7 +192,7 @@ This means your `_post.html.erb` file will be:
 <%= simple_format post.body %>
 ```
 
-In our `show.html.erb` file we want to insert the code to put our partial into our show view.
+In our `show.html.erb` file we want to add in the partial that we just created.
 
 Insert the code: `<%= render partial: @post %>` to make it look like:
 
@@ -195,13 +205,13 @@ Insert the code: `<%= render partial: @post %>` to make it look like:
 <%= link_to 'Back', posts_path %>
 ```
 
-Save all these files and refresh [the show posts page](http://localhost:3000/posts/1).
+Save all these files and refresh the [show posts page](http://localhost:3000/posts/1).
 
 This is to check that you haven't broken anything with those changes.
 
-Our index page still hasn't changed, so we're going to remove the table in there and replace it with the partial again so we're re-using that code.
+At this point, our index page still hasn't changed. So we're going to remove the table in there and replace it with the partial so we're re-using that code.
 
-Open the `index.html.erb` file up and make it look like:
+In Sublime, open the `index.html.erb` file up and make it look like:
 
 ```erb
 <h1>Listing posts</h1>
@@ -215,16 +225,15 @@ Open the `index.html.erb` file up and make it look like:
 
 ## Access control
 
-One huge problem with our blog is that anyone can create, edit and delete blog posts. Let's fix that!
+One huge problem with our blog is that absolutely anyone can create, edit and delete blog posts. This is not good so let's fix that!
 
-We'll use HTTP Basic authenticate to put a password on actions we don't want everyone accessing.
+We'll use HTTP Basic authenticate to put a password on actions we don't want just anyone accessing.
 
-Open `app/controllers/posts_controller.rb` and add `before_action :authenticate, except: [ :index, :show ]` on line 2 just below the class declaration.
+Open `app/controllers/posts_controller.rb` and add `before_action :authenticate, except: [ :index, :show ]` on line two, just below the class declaration.
 
-At the bottom of your file put the following code:
+At the bottom of your file, just before the final `end`, put the following code:
 
 ```ruby
-  private
   def authenticate
     authenticate_or_request_with_http_basic do |name, password|
       name == "admin" && password == "secret"
@@ -272,13 +281,13 @@ In our command prompt, shut down your rails server by hitting `Ctrl-C` and then 
 
 `rails generate resource Comment post:references body:text`
 
-Then you'll want to update your database here to reflect the schema change you've just made:
+Don't forget to update your database here to reflect the schema change you've just made:
 
 `rails db:migrate`
 
 After this you'll need to inform Rails that your Posts will potentially have many Comments.
 
-Open `app/models/post.rb` and add the line: `has_many :comments` somewhere inside the class.
+In Sublime, open `app/models/post.rb` and add the line: `has_many :comments` somewhere inside the class.
 
 This should look like:
 
@@ -300,7 +309,7 @@ Right now you can see all the configured URLs by typing `rails routes` in your c
 
 If you do this now you'll get something like the following:
 
-```ruby
+```
       Prefix Verb   URI Pattern                  Controller#Action
     comments GET    /comments(.:format)          comments#index
              POST   /comments(.:format)          comments#create
@@ -320,9 +329,9 @@ edit_comment GET    /comments/:id/edit(.:format) comments#edit
              DELETE /posts/:id(.:format)         posts#destroy
 ```
 
-Your URLs (or routes) are configured in all Rails applications in the file `config/routes.rb`.
+In Rails, your URLs (or routes) are configured in the file `config/routes.rb`.
 
-Open this file and remove the line `resources :comments`.
+Open this file in Sublime and remove the line `resources :comments`.
 
 Re-run `rails routes` and you'll notice that all the URLs for comments have disappeared.
 
@@ -344,14 +353,14 @@ Because comments will be visible from the show Post page along with the form for
 
 When you rerun `rails routes` you'll now see the following line:
 
-```ruby
+```
 post_comments POST   /posts/:post_id/comments(.:format) comments#create
 ```
 
-Before we're finished with the backend for our commenting system we need to write the action that will create our comments. (For more information on actions please read the Rails Guide on
+Before we're completely finished with the backend for our commenting system, we need to write the action that will create our comments. (For more information on actions please read the Rails Guide on
 [ActionController](http://guides.rubyonrails.org/action_controller_overview.html))
 
-Open `app/controllers/comments_controller.rb` and make your code look like the following:
+In Sublime, open `app/controllers/comments_controller.rb` and make your code look like the following:
 
 ```ruby
 class CommentsController < ApplicationController
@@ -383,7 +392,7 @@ So far you have:
 
 Now you need to display any comments that have been submitted for a post, and allow users to submit comments.
 
-Open `app/views/posts/show.html.erb` and make it look like:
+In Sublime, open `app/views/posts/show.html.erb` and make it look like:
 
 ```erb
 <p id="notice"><%= notice %></p>
@@ -443,7 +452,7 @@ Comments are now working, so go ahead and browse to [your post](http://localhost
 
 Heroku is a fantastically simple service that can be used to host Ruby on Rails applications. You'll be able to host your blog on Heroku on their free-tier, but first you'll need a Heroku account.
 
-Head to [https://www.heroku.com/](https://www.heroku.com/), click Sign Up and create an account.
+Head to [https://www.heroku.com/](https://www.heroku.com/), click 'Sign Up' and create an account.
 
 The starter documentation for Heroku is available at: [https://devcenter.heroku.com/articles/quickstart](https://devcenter.heroku.com/articles/quickstart).
 
