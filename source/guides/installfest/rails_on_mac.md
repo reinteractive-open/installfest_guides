@@ -2,22 +2,23 @@
 
 These instructions are for OS X versions 10.9 and above. If you are running an older version of OS X, please see your event host. We will have USB drives with the files you need to install Rails.
 
-Here is the basic outline of what we will do:
+The detailed instructions are below, but here is the basic outline of what we will do:
 
 1. Install a text editor (Sublime)
 2. Set up a compiler
 3. Install [homebrew](http://brew.sh)
-4. Use homebrew to install [ruby-install](https://github.com/postmodern/ruby-install) and [chruby](https://github.com/postmodern/chruby)
+4. Use homebrew to install [ruby-install](https://github.com/postmodern/ruby-install)
 5. Use ruby-install to install a new version of the Ruby programming language
-6. Use Ruby to install Rails
+6. Use homebrew to install [chruby](https://github.com/postmodern/chruby)
+7. Use Ruby to install Rails
 
-## Install a Text Editor
+## Step One: Install a Text Editor
 
 Go to [the Sublime website](https://www.sublimetext.com/2) and click on the link for OS X.
 It will download a disk image for Sublime 2 to your downloads folder.
 Locate the file and click on it to install. Follow the instructions.
 
-## Setting up a gcc/LLVM compiler
+## Step Two: Set up a gcc/LLVM compiler
 
 With the installation of Xcode 8.1 you get the Command-Line tools installed by default. You can check this by running `gcc` in terminal. If it gives you this error: `clang: error: no input files`, then you already have the Command Line Tools installed. You can also check it in the Xcode GUI: Xcode->Preferences->Locations->Command Line Tools. If Command-Line Tools are installed you can move to the next section - Installing Homebrew.
 
@@ -35,7 +36,7 @@ Target: x86_64-apple-darwin13.0.0
 Thread model: posix
 ```
 
-## Installing homebrew
+## Step Three: Install homebrew
 
 [Homebrew](http://brew.sh) is a package manager, which is a tool that developers use to install other bits of software. Using homebrew we can easily install things like the Postgres database tool, or even tools that allow us to install other tools.
 
@@ -47,22 +48,26 @@ Installing homebrew is easy. In your terminal window run:
 
 Once that is complete you can run `brew -v` in the terminal to check the current installed version of homebrew.
 
-## Installing ruby-install and chruby
-
+## Step Four: Install ruby-install
 
 [ruby-install](https://github.com/postmodern/ruby-install) is a tool that can install multiple versions of the Ruby programming language. Professional Ruby developers will use ruby-install (or similar tools) so they can test their applications with many different versions of Ruby.
-
-[chruby](https://github.com/postmodern/chruby) is a version manager for Ruby. It can be used to manage and switch between different installed versions of Ruby.
 
 Run all the the following commands step by step:
 
 1. First install openssl: `brew install openssl`
 2. Next install ruby-install: `brew install ruby-install`
-3. Now use ruby-install to install Ruby: `ruby-install ruby 2.3.0`
+
+## Step Five: Use ruby-install to Install Ruby
+
+Run the following command: `ruby-install ruby 2.4.0`
 
 Installing Ruby may take a little while.
 
-Next we'll install and configure chruby:
+## Step Six: Install chruby
+
+[chruby](https://github.com/postmodern/chruby) is a version manager for Ruby. It can be used to manage and switch between different installed versions of Ruby.
+
+Here is how to install and configure chruby:
 
 1. Install chruby with homebrew:
 
@@ -85,13 +90,13 @@ Next we'll install and configure chruby:
 4. Tell chruby to use the latest version of ruby when your start your terminal:
 
     ````sh
-    echo "chruby `chruby | grep 2.3.0 | sed 's/\* //'`" >> ~/.bash_profile
+    echo "chruby `chruby | grep 2.4.0 | sed 's/\* //'`" >> ~/.bash_profile
     ````
 
 5. Tell chruby to use the latest version of ruby in your current terminal:
 
     ````sh
-    chruby `chruby | grep 2.3.0 | sed 's/\* //'`
+    chruby `chruby | grep 2.4.0 | sed 's/\* //'`
     ````
 
 Assuming that all worked properly you can run:
@@ -103,13 +108,13 @@ ruby -v
 and you should see something like:
 
 ````sh
-ruby 2.3.0p0 (2015-12-25 revision 53290) [x86_64-darwin13]
+ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-darwin16]
 ````
 
 Importantly you should NOT see:
 
 ````sh
-ruby 2.3.0p0 (2015-12-25 revision 53290) [universal.x86_64-darwin13]
+ruby 2.4.0p0 (2016-12-24 revision 57164) [universal.x86_64-darwin13]
 ````
 
 The word __universal__ means that it's the version of Ruby that comes with OS X.
@@ -117,7 +122,7 @@ We don't want to use this.
 
 If your Ruby is installed properly you can move onto the next section.
 
-## Installing Rails
+## Step Seven: Install Rails
 
 Installing Rails is easy. To get the latest version just run:
 
