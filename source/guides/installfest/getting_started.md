@@ -50,7 +50,9 @@ Now that you've created the Rails application you should open this folder using 
 
 Open up Sublime (or your chosen text editor).
 
-From there, select `file -> open...` and navigate to the quick_blog folder that was just generated. Note: If you open the entire folder - rather than just a file - you will find it much easier to navigate your project.
+From there, select `file -> open folder...` and navigate to the quick_blog folder that was just generated.
+
+Note: If you open the entire folder - rather than just a file - you will find it much easier to navigate your project.
 
 ## Creating basic functionality
 
