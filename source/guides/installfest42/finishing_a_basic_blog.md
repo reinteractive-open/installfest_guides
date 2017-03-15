@@ -515,7 +515,7 @@ First we'll create two files a header and a footer. Create
     <ul class="right">
       <li class="divider hide-for-small"></li>
       <li>
-        <%= link_to 'Github', 'https://github.com/reInteractive-open' %>
+        <%= link_to 'Github', 'https://github.com/reinteractive-open' %>
       </li>
 
       <li class="divider hide-for-small"></li>
