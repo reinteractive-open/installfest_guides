@@ -108,13 +108,13 @@ cd \tools\
 Then fetch the latest rubygems:
 
 ```sh
-wget https://rubygems.org/downloads/rubygems-update-2.6.8.gem
+wget https://rubygems.org/downloads/rubygems-update-2.6.11.gem
 ```
 
 And install them:
 
 ```
-gem install --local C:\rubygems-update-2.6.8.gem
+gem install --local C:\rubygems-update-2.6.11.gem
 ```
 
 And then run an update to ensure everything matches:
