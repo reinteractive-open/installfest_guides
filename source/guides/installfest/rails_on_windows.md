@@ -81,7 +81,7 @@ choco install nodejs -y
 choco install ruby2.devkit -y
 ```
 
-This last step is optional. If you already have a text editor that you use for writing code, you are welcome to use that.
+This next step is optional. If you already have a text editor that you use for writing code, you are welcome to use that.
 
 If you do not, or you would like to try something new, feel free to install Sublime Text which is a popular text editor for Ruby developers.
 
