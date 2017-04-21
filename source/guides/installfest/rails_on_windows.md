@@ -1,14 +1,5 @@
 # Getting started on Windows
 
-Here is the basic outline of what we will do:
-
-1. Install [chocolatey](https://chocolatey.org/)
-2. Use chocolatey to install Ruby
-3. Use chocolatey to install other helpful tools
-4. Install Ruby Gems
-5. Configure our environment
-6. Use Ruby to install Rails
-
 ## Step One: Install Chocolatey
 
 [Chocolatey](https://chocolatey.org/) is a tool that developers use to install other bits of software. Using chocolatey we can easily install things like the Postgres database tool, or even tools that will allow us to install other tools.

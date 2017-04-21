@@ -2,16 +2,6 @@
 
 These instructions are for OS X versions 10.9 and above. If you are running an older version of OS X, please see your event host. We will have USB drives with the files you need to install Rails.
 
-The detailed instructions are below, but here is the basic outline of what we will do:
-
-1. Install a text editor (Sublime)
-2. Set up a compiler
-3. Install [homebrew](http://brew.sh)
-4. Use homebrew to install [ruby-install](https://github.com/postmodern/ruby-install)
-5. Use ruby-install to install a new version of the Ruby programming language
-6. Use homebrew to install [chruby](https://github.com/postmodern/chruby)
-7. Use Ruby to install Rails
-
 ## Step One: Install a Text Editor
 
 Go to [the Sublime website](https://www.sublimetext.com/2) and click on the link for OS X.
