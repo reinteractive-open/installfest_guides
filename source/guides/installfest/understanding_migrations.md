@@ -73,7 +73,7 @@ Failures:
      # ./spec/features/managing_posts_spec.rb:62:in `block (4 levels) in <top (required)>'
 ```
 
-What this error means is that ActiveAdmin tried to use mass-assignment to update our Post database record and we haven't configured it to allow this. This error is helping us to protect our application from a common form of security vulnerability which you can read about in the [Rails Security Guide](http://guides.rubyonrails.org/security.html#mass-assignment).
+What this error means is that ActiveAdmin tried to use mass-assignment to update our Post database record and we haven't configured it to allow this. This error is helping us to protect our application from a common form of security vulnerability which you can read about in the [Rails Security Guide](http://guides.rubyonrails.org/v3.2.8/security.html#mass-assignment).
 
 To fix the error we need to open: `app/admin/post.rb` and add `:published` to the permitted params as shown:
 
@@ -602,7 +602,7 @@ git commit -m "posts can have an author"
 
 ## Review
 
-In this article we implemented two features both of which required a database migration. We wrote tests for the functionality we wanted to implement and fixed some problems that occured along the way.
+In this article we implemented two features both of which required a database migration. We wrote tests for the functionality we wanted to implement and fixed some problems that occurred along the way.
 
 ## Next Steps
 
