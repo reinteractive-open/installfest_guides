@@ -360,7 +360,7 @@ We've made a couple of changes here.
 
 Next we'll update our routes file.
 
-Open `app/routes.rb` and add in the following two routes:
+Open `config/routes.rb` and add in the following two routes:
 
 ```ruby
   get '/500' => 'errors#internal_error'
