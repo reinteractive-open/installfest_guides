@@ -26,16 +26,17 @@ First we need to determine which version of Rails you're using. Open a command p
 rails -v
 ```
 
-Ideally, this should be Rails 5.
+Ideally, this should be Rails 5.1.
 
 ## Get Coding!
 
-* **For Rails version 5 use our [version 5 guide](/guides/installfest/getting_started)**
+* **For Rails version 5.1 use our [version 5.1 guide](/guides/installfest/getting_started)**
 
 ### Older Versions of Rails
 
 If you have an earlier version of Rails you can find the correct guide here:
 
+* For Rails version 5.0 continue on our [version 5.0 guide](/guides/installfest50/getting_started)
 * For Rails version 4.2 continue on our [version 4.2 guide](/guides/installfest42/getting_started)
 * For Rails version 4.1 continue on our [version 4.1 guide](/guides/installfest41/getting_started)
 * For Rails version 4.0 continue on our [version 4.0 guide](/guides/installfest40/getting_started)
