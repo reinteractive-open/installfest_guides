@@ -148,7 +148,7 @@ You'll get an error informing you that you've attempted to break the rule you ju
 
 ![Rails validation error](/images/guides/validation_errors.png)
 
-## Making things prettier
+## Changing the default look
 
 Right now our [show post page](http://localhost:3000/posts/1) isn't looking very good.
 
@@ -344,8 +344,7 @@ Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create]
   end
-
-  # root 'welcome#index'
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end
 ```
 
@@ -466,7 +465,9 @@ Up until this point we've been using SQLite as our database, but unfortunately H
 
 We need to do some other things to make our application work on Heroku. These changes are easy to make.
 
-Open the `Gemfile` in Sublime and make it look like:
+Open the `Gemfile` in Sublime and add `gem 'pg', group: :production` on line 6, immediately after the `sqlite3` gem.
+
+It should look like:
 
 ```ruby
 source 'https://rubygems.org'
