@@ -99,13 +99,13 @@ cd \tools\
 Then fetch the latest rubygems:
 
 ```sh
-wget https://rubygems.org/downloads/rubygems-update-2.6.11.gem
+wget https://rubygems.org/downloads/rubygems-update-2.6.12.gem
 ```
 
 And install them:
 
 ```
-gem install --local C:\rubygems-update-2.6.11.gem
+gem install --local C:\rubygems-update-2.6.12.gem
 ```
 
 And then run an update to ensure everything matches:
@@ -120,8 +120,17 @@ In a previous step we installed the [Ruby Development Kit](http://rubyinstaller.
 
 ```
 cd c:\tools\DevKit2
+```
+
+```
 echo - c:/tools/Ruby22 > config.yml
+```
+
+```
 ruby dk.rb install
+```
+
+```
 gem update --system
 ```
 
