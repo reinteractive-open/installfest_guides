@@ -463,9 +463,17 @@ Once you've got an account you'll need to download the toolbelt from [https://to
 
 Up until this point we've been using SQLite as our database, but unfortunately Heroku doesn't support the use of SQLite. So we're going to be running Postgres instead.
 
-We need to do some other things to make our application work on Heroku. These changes are easy to make.
+Open the `Gemfile` in Sublime and change line 5 from:
 
-Open the `Gemfile` in Sublime and add `gem 'pg', group: :production` on line 6, immediately after the `sqlite3` gem.
+`gem 'sqlite3'`
+
+to:
+
+`gem 'sqlite3', group: [:development, :test]`
+
+This tells Rails that, instead of using SQLite in *all* environments, we want to use SQLite in development and test only.
+
+Then add `gem 'pg', group: :production` on the following line to let Rails know that we will be using Postgres in production.
 
 It should look like:
 
