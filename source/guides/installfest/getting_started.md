@@ -463,7 +463,7 @@ Once you've got an account you'll need to download the toolbelt from [https://to
 
 Up until this point we've been using SQLite as our database, but unfortunately Heroku doesn't support the use of SQLite. So we're going to be running Postgres instead.
 
-Open the `Gemfile` in Sublime and change line 11 from:
+Open the `Gemfile` in Sublime and change line 12 from:
 
 `gem 'sqlite3'`
 
@@ -561,7 +561,7 @@ Now we push our application to Heroku:
 
 `git push heroku master`
 
-Finally we set up our database:
+Finally, we set up our database:
 
 `heroku run:detached rails db:migrate`
 

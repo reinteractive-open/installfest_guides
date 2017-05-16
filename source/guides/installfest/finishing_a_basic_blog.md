@@ -339,11 +339,11 @@ Open `app/assets/stylesheets/application.css` and add the following lines:
 ```
 @font-face {
    font-family: 'Glyphicons Halflings';
-   src: url('/assets/glyphicons-halflings-regular.eot');
-   src: url('/assets/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-      url('/assets/glyphicons-halflings-regular.woff') format('woff'),
-      url('/assets/glyphicons-halflings-regular.ttf') format('truetype'),
-      url('/assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
+   src: url('/assets/fonts/glyphicons-halflings-regular.eot');
+   src: url('/assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
+      url('/assets/fonts/glyphicons-halflings-regular.woff') format('woff'),
+      url('/assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
+      url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 ```
 
@@ -415,13 +415,12 @@ If you refresh your [index page](http://localhost:3000/posts), you should now se
 At this point you can commit all your changes using git by typing:
 
 ```ruby
+git rm app/assets/stylesheets/scaffolds.scss
 git add .
-git rm app/assets/stylesheets/scaffolds.css.scss
 git commit -m "adding bootstrap styling"
 ```
 
-And then you can deploy to Heroku with `git push heroku master`. You'll be able
-to navigate to your blog on Heroku now to see the changes you've made.
+And then you can deploy to Heroku with `git push heroku master`. You'll be able to navigate to your blog on Heroku now to see the changes you've made.
 
 ## Adding some personality
 
