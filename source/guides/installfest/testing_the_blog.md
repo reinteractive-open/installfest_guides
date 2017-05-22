@@ -3,16 +3,10 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Testing the Blog with RSpec
-Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 2](/guides/installfest/finishing_a_basic_blog). If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
+In the [previous article](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
 
 ## Introduction to Automated Testing
 One of the biggest advantages of Rails is the community focus on testing. The Ruby and Rails communities have put a great deal of effort into building first-class tools and methods for making sure our apps are as correct as possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in developing easy to use and innovative tools to support widely embraced methods like Test Driven Development (TDD), Behaviour Driven Development (BDD) and Continuous Integration (CI).
-
-Let's start by setting up our Rails application for testing.
-
-### Application Setup
-
-You'll need to have been following our InstallFest blog posts starting with [Getting Started](/guides/installfest/getting_started) and have completed [Finishing a Basic Blog](/guides/installfest/finishing_a_basic_blog).
 
 Let's dive into testing now.
 
@@ -445,7 +439,7 @@ git commit -m "Adding rspec and tests for existing functionality"
 
 ## Next Steps
 
-Up next we'll add an Administration panel and convert our blog posts to Markdown format. Click [here](/guides/installfest/admin_and_markdown) to check it out and continue your Rails adventure.
+Up next we're going to go more in depth with Rails and begin to add more features to the blogging engine. Head on over to [Part 3: Finishing a Basic Blog](/guides/installfest/finishing_a_basic_blog) to get started.
 
 If you're interested in more training from reinteractive or just want to give us some feedback on this you can leave a comment below or:
 
