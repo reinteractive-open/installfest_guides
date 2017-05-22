@@ -53,40 +53,22 @@ Run the following command: `ruby-install ruby 2.4.0`
 
 Installing Ruby may take a little while.
 
-## Step Six: Install chruby
+## Step Six: Install rbenv
 
-[chruby](https://github.com/postmodern/chruby) is a version manager for Ruby. It can be used to manage and switch between different installed versions of Ruby.
+[rbenv](https://github.com/rbenv/rbenv) is a version manager for Ruby. It can be used to manage and switch between different installed versions of Ruby.
 
-Here is how to install and configure chruby:
+Here is how to install and configure rbenv:
 
-1. Install chruby with homebrew:
+1. Install rbenv with homebrew:
 
     ````sh
-    brew install chruby
+    brew install rbenv
     ````
 
-2. Configure chruby to start when you open your terminal:
+2. Set up rbenv:
 
     ````sh
-    echo "source '/usr/local/share/chruby/chruby.sh'" >> ~/.bash_profile
-    ````
-
-3. Start chruby in your current terminal:
-
-    ````sh
-    source '/usr/local/share/chruby/chruby.sh'
-    ````
-
-4. Tell chruby to use the latest version of ruby when your start your terminal:
-
-    ````sh
-    echo "chruby `chruby | grep 2.4.0 | sed 's/\* //'`" >> ~/.bash_profile
-    ````
-
-5. Tell chruby to use the latest version of ruby in your current terminal:
-
-    ````sh
-    chruby `chruby | grep 2.4.0 | sed 's/\* //'`
+    rbenv init
     ````
 
 Assuming that all worked properly you can run:
