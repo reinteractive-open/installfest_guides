@@ -449,6 +449,28 @@ Restart your server.
 
 Comments are now working, so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
 
+## Setting the index/root page in Rails
+
+Currently our site only shows the posts if you navigate to `/posts`.  This is all well and good, but if you go to the "root page" of the website at [http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails" page.
+
+Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immediately when they come to our site, without having them navigate elsewhere.
+
+To set the root page of a Rails application, open `config/routes.rb` and add `root 'posts#index'` to that file so it looks like:
+
+```ruby
+Rails.application.routes.draw do
+  root 'posts#index'
+
+  resources :posts do
+    resources :comments, only: [:create]
+  end
+  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+end
+```
+(Don't forget to save your file.)
+
+The way we're using the root [method](https://github.com/rails/rails/blob/a72dab0b6a16ef9e83e66c665b0f2b4364d90fb6/actionpack/lib/action_dispatch/routing/mapper.rb#L253) here indicates that we want the root path of our application to be sent to the `PostsController` index action which you created in the previous article. If you open [http://localhost:3000](http://localhost:3000) you'll see your posts index rather than the boring default Rails page.
+
 ## Publishing your Blog on the internet
 
 Heroku is a fantastically simple service that can be used to host Ruby on Rails applications. You'll be able to host your blog on Heroku on their free-tier, but first you'll need a Heroku account.
@@ -567,12 +589,12 @@ Finally, we set up our database:
 
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
-To check that your blog has been deployed properly, browse to the URL that Heroku has gien you, remembering to append "/posts" to the end of the URL.
-e.g. `https://peaceful-hamlet-7389.herokuapp.com/posts`
+To check that your blog has been deployed properly, browse to the URL that Heroku has gien you.
+e.g. `https://peaceful-hamlet-7389.herokuapp.com`
 
-Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL).
+Note that you can also use the `heroku open` command to get to the root URL.
 
-Welcome to Ruby on Rails! If you're this far along you might want to pause and catch your breath. Check out [WTF Just Happened? A Quick Tour of your first Rails App](https://reinteractive.com/posts/316-wtf-just-happened-a-quick-tour-of-your-first-rails-app) to recap.
+Welcome to Ruby on Rails! If you're this far along you might want to pause and catch your breath. Check out [WTF Just Happened? A Quick Tour of your first Rails App](https://reinteractive.com/posts/316) to recap.
 
 After that, it's time to [head on over to Part 2](/guides/installfest/finishing_a_basic_blog) which goes
 more in depth with Rails and begins to add more features to the blogging engine.

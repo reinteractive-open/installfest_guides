@@ -11,39 +11,6 @@ First we want to start our Rails server, so open two terminals and change to the
 
 ![image](/images/guides/sublime_folder.png)
 
-## Setting the index/root page in Rails
-
-Currently our site only shows the posts if you navigate to `/posts`.  This is all well and good, but if you go to the "root page" of the website at [http://localhost:3000](http://localhost:3000) you get the "Welcome to Rails" page.
-
-Obviously, if we want people to start reading our blog, it would be good if we show the blog posts we have immediately when they come to our site, without having them navigate elsewhere.
-
-To set the root page of a Rails application, open `config/routes.rb` and add `root 'posts#index'` to that file so it looks like:
-
-```ruby
-Rails.application.routes.draw do
-  root 'posts#index'
-
-  resources :posts do
-    resources :comments, only: [:create]
-  end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-end
-```
-(Don't forget to save your file.)
-
-The way we're using the root [method](https://github.com/rails/rails/blob/a72dab0b6a16ef9e83e66c665b0f2b4364d90fb6/actionpack/lib/action_dispatch/routing/mapper.rb#L253) here indicates that we want the root path of our application to be sent to the `PostsController` index action which you created in the previous article. If you open [http://localhost:3000](http://localhost:3000) you'll see your posts index rather than the boring default Rails page.
-
-#### Deploying your changes
-
-At this point you can commit all your changes using git by typing:
-
-```ruby
-git add .
-git commit -m "setting a root page"
-```
-
-And then you can deploy to Heroku with `git push heroku master`. You'll be able to navigate to your blog on Heroku now to see the changes you've made.
-
 ## AJAX commenting with unobtrusive JavaScript
 
 The blogging engine we've got works great, but it definitely doesn't feel like a smooth, modern web-app. Luckily with Rails it's easy to add in simple JavaScript! Just like all the other helpers that Rails provides if this isn't powerful enough for your needs you can always add as much custom JavaScript into `app/assets/javascripts/` as you like.
