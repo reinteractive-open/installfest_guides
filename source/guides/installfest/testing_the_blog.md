@@ -11,9 +11,10 @@ One of the biggest advantages of Rails is the community focus on testing. The Ru
 Let's dive into testing now.
 
 ### Setup
-Add the gem `rspec-rails` to your `Gemfile` so it looks like this:
+Add the gem `rspec-rails` to the development and test group in your `Gemfile` so it looks like this:
 
 ```ruby
+# Gemfile
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -47,7 +48,6 @@ gem 'jbuilder', '~> 2.5'
 # gem 'bcrypt', '~> 3.1.7'
 
 gem 'record_tag_helper', '~> 1.0'
-gem 'responders'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -98,9 +98,10 @@ Or all the model specs with: `rspec spec/models`. With this last example you're 
 Our Post model seems fairly empty but there is already some business logic in there that we can test. Rails validations are considered business logic and are easy to test. Open `spec/models/post_spec.rb` and update it so that it looks like:
 
 ```ruby
+# spec/models/post_spec.rb
 require 'rails_helper'
 
-describe Post do
+RSpec.describe Post, type: :model do
   it 'should validate presence of title' do
     post = Post.new
     post.valid?
@@ -112,9 +113,10 @@ end
 Once you've saved it, run `rspec spec/models/post_spec.rb`. The test should pass with `1 example, 0 failures`. But we're not done yet. Over the lifetime of our application we'll probably be adding lots of extra functionality and our spec is very flat. We should organise it a litte better and structure it in such a way which also allows us to reuse code:
 
 ```ruby
+# spec/models/post_spec.rb
 require 'rails_helper'
 
-describe Post do
+RSpec.describe Post, type: :model do
   describe 'validations' do
     subject(:post) { Post.new } # sets the subject of this describe block
     before { post.valid? }      # runs a precondition for the test/s
@@ -136,6 +138,7 @@ RSpec is a tool that provides a nice Domain Specific Language (DSL) to write spe
 Since we're writing a fully functional spec for code that is already written, we'll need to make sure our test actually works by intentionally "breaking" some of our code. Open `app/models/post.rb` and comment out Line 6 so your Post model looks like:
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   has_many :comments
 
@@ -148,9 +151,10 @@ Once you've saved the file, you can rerun the spec with `rspec spec/models/post_
 We'll also need to write a unit test for our comment model. Open `spec/models/comment_spec.rb` and update it to ensure that a comment will always belong to a post, and the comment will always have a body. The code to do this looks like:
 
 ```ruby
+# spec/models/comment_spec.rb
 require 'rails_helper'
 
-describe Comment do
+RSpec.describe Comment, type: :model do
   describe 'validations' do
     subject(:comment) { Comment.new }
     before { comment.valid? }
@@ -181,7 +185,18 @@ Failures:
      # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
 ```
 
-If you open `app/models/comment.rb` you'll notice that there isn't any validations on our comment model. If you add `validates_presence_of :post, :body` into the class and re-run your spec you'll see the test pass and "go green".
+If you open `app/models/comment.rb` you'll notice that there aren't any validations on our comment model. If you add `validates_presence_of :post, :body` into the class so that it looks like:
+
+```ruby
+# app/models/comment.rb
+class Comment < ApplicationRecord
+  belongs_to :post
+
+  validates_presence_of :post, :body
+end
+```
+
+and re-run your spec you'll see the test pass and "go green".
 
 Congratulations, you've just TDD'd your first piece of application logic! One of the amazing things about working with Rails there's a very quick feedback loop between writing a failing test, making it pass and then suddenly having a complete functional feature in your application.
 
@@ -215,9 +230,10 @@ require 'capybara/rspec'
 
 (Don't forget to save your file.)
 
-Your spec file should now look like this
+Your spec file should now look like this:
 
 ```ruby
+# spec/rails_helper.rb
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV['RAILS_ENV'] ||= 'test'
 require File.expand_path('../../config/environment', __FILE__)
@@ -283,9 +299,10 @@ Next we'll create our first acceptance test.
 
 #### The first acceptance test
 
-Create a folder: `spec/features` then create a file `spec/features/reading_blog_spec.rb` with the following contents:
+Create a folder called `spec/features` then create a file `spec/features/reading_blog_spec.rb` with the following contents:
 
 ```ruby
+# spec/features/reading_blog_spec.rb
 require 'rails_helper'
 
 feature 'Reading the Blog' do
@@ -348,6 +365,7 @@ We're going to make more acceptance tests now.
 Create a file: `spec/features/post_comments_spec.rb` with the contents:
 
 ```ruby
+# spec/features/post_comments_spec.rb
 require 'rails_helper'
 
 feature 'Posting Comments' do
@@ -372,6 +390,7 @@ end
 Save that, then create a file: `spec/features/managing_posts_spec.rb` with the contents:
 
 ```ruby
+# spec/features/managing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Managing blog posts' do

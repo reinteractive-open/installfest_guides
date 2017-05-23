@@ -5,7 +5,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 # Assets and Errors
 Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 5](/guides/installfest/understanding_migrations). If you feel confident with Rails and want to learn more about the asset pipeline, static pages and custom error pages then you can find setup instructions below.
 
-In this article we'll be going through three separate topics that will round out a series of posts we've made on building a blog in Rails 5. Today we'll be looking at:
+In this article we'll be going through three separate topics that will round out a series of posts we've made on building a blog in Rails 5.1. Today we'll be looking at:
 
 1. An introduction to the assets folder
 2. How to make Static Pages and understanding routes
@@ -73,6 +73,7 @@ Naturally we should first create a test.
 Since this is a fairly simple, high-level feature often it would go untested but since we're being good developers we'll implement a straight-forward Acceptance test in the form of a feature spec. Create a file `spec/features/static_pages_spec.rb` and make it look like:
 
 ```ruby
+# spec/features/static_pages_spec.rb
 require 'rails_helper'
 
 feature 'Browsing Static Pages' do
@@ -116,6 +117,7 @@ Open your terminal, start your rails server (using `rails s`) then open another 
 Open Sublime and create a file `app/controllers/pages_controller.rb` with the following contents:
 
 ```ruby
+# app/controllers/pages_controller.rb
 class PagesController < ApplicationController
   def about
   end
@@ -135,6 +137,7 @@ Open `config/routes.rb` and update it to add `get '/about' => 'pages#about'`.
 The result should look like this:
 
 ```ruby
+# config/routes.rb
 Rails.application.routes.draw do
   ActiveAdmin.routes(self)
 
@@ -246,6 +249,7 @@ config.exceptions_app = self.routes
 Your entire application.rb should look like:
 
 ```ruby
+# config/application.rb
 require_relative 'boot'
 
 require "rails"
@@ -280,6 +284,7 @@ Save that file and next we'll configure our router to handle a 404 Not Found err
 Open `config/routes.rb` and make it look like:
 
 ```ruby
+# config/routes.rb
 Rails.application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -300,6 +305,7 @@ Notice that we've added a 404 route and wired it to the `ErrorController#not_fou
 Create a file `app/controllers/errors_controller.rb` which should look like:
 
 ```ruby
+# app/controllers/errors_controller.rb
 class ErrorsController < ApplicationController
   def not_found
   end
@@ -338,6 +344,7 @@ What we've done here is added an image to our asset bundle, and then referenced 
 Open your `errors_controller.rb` file and update it to look like:
 
 ```ruby
+# app/controllers/errors_controller.rb
 class ErrorsController < ActionController::Base
   layout 'application'
 
@@ -408,6 +415,7 @@ Next, we'll force an error to occur by raising one. By raising this error we'll 
 Open `app/controllers/posts_controller.rb` and update it to look like:
 
 ```ruby
+# app/controllers/posts_controller.rb
 class PostsController < ApplicationController
   def index
     raise 'test'
@@ -438,6 +446,7 @@ Open your browser and navigate to [http://localhost:3000/](http://localhost:3000
 Open `app/controllers/posts_controller.rb` and change it back to what it was:
 
 ```ruby
+# app/controllers/posts_controller.rb
 class PostsController < ApplicationController
   def index
     @posts = Post.published

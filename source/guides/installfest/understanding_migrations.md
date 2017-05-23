@@ -48,6 +48,7 @@ When you've saved the file you can run it with `rspec spec/features/managing_pos
 Open the migration generated. It will look like, __but won't be the same as__, `db/migrate/20130510023357_add_published_to_post.rb` and add `default: false` to the change.
 
 ```ruby
+# db/migrate/20130510023357_add_published_to_post.rb
 class AddPublishedToPost < ActiveRecord::Migration
   def change
     add_column :posts, :published, :boolean, default: false
@@ -78,6 +79,7 @@ What this error means is that ActiveAdmin tried to use mass-assignment to update
 To fix the error we need to open: `app/admin/post.rb` and add `:published` to the permitted params as shown:
 
 ```ruby
+# app/admin/post.rb
 ActiveAdmin.register Post do
 
   permit_params :title, :body, :published
@@ -87,7 +89,13 @@ end
 
 The `permit_params` line lists all the attributes in the model which are accessible for mass-assignment. You can read more about this here: [Strong Parameters](https://github.com/rails/strong_parameters).
 
-After saving `app/admin/post.rb` we re-run our spec (`rspec spec/features/managing_posts_spec.rb`) and everything passes!
+After saving `app/admin/post.rb` we re-run our spec:
+
+```sh
+rspec spec/features/managing_posts_spec.rb
+```
+
+ and everything passes!
 
 But… there's a problem. Unpublished blogs are still visible to the public. We'll need to go ahead and write another feature scenario to ensure that this rule is enforced for the public section of our application too.
 
@@ -96,6 +104,7 @@ But… there's a problem. Unpublished blogs are still visible to the public. We'
 Open `spec/features/reading_blog_spec.rb` and change the contents to be:
 
 ```ruby
+# spec/features/reading_blog_spec.rb
 require 'rails_helper'
 
 feature 'Reading the Blog' do
@@ -183,6 +192,10 @@ If you then run our spec again (`rspec spec/features/reading_blog_spec.rb`) you'
 Change the show action to look like:
 
 ```ruby
+# spec/features/reading_blog_spec.rb
+
+...
+
 def show
   @post = Post.where(published: true).find(params[:id])
 
@@ -202,6 +215,7 @@ Success! Our spec now passes, but we've still got a little work to do. There's s
 Open `app/models/post.rb` and update it to look like:
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   has_many :comments
 
@@ -222,6 +236,7 @@ Now that we've got a scope on the model to use we should update both actions to 
 Update `app/controllers/posts_controller.rb` to look like:
 
 ```ruby
+# app/controllers/posts_controller.rb
 class PostsController < ApplicationController
   def index
     @posts = Post.published
@@ -277,6 +292,7 @@ First, open `spec/features/post_comments_spec.rb` and notice that we're attempti
 Update the spec to look like:
 
 ```ruby
+# spec/features/post_comments_spec.rb
 require 'rails_helper'
 
 feature 'Posting Comments' do
@@ -307,6 +323,7 @@ This time we need to set the post to be published properly. Remember that each o
 Let's update the spec to reflect that:
 
 ```ruby
+# spec/features/writing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Writing blog posts' do
@@ -358,6 +375,10 @@ Another feature that would be awesome to have is for Posts to have an author. Th
 Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published post' context to look like:
 
 ```ruby
+# spec/features/reading_blog_spec.rb
+
+  ...
+
   context 'for a published post' do
     background do
       email = 'admin@example.com'
@@ -401,6 +422,7 @@ rails db:migrate
 Now open `app/models/post.rb` and update it to inform Rails that a Post belongs to an author but that the Author's model is named "AdminUser".
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   has_many :comments
 
@@ -419,6 +441,7 @@ end
 We'll also open `app/models/admin_user.rb` and do the reverse side of the association by informing Rails that an AdminUser has many posts.
 
 ```ruby
+# app/models/admin_user.rb
 class AdminUser < ApplicationRecord
   devise :database_authenticatable,
     :recoverable, :rememberable, :trackable, :validatable
@@ -479,6 +502,10 @@ But first we should write a test for this.
 Open `spec/models/post_spec.rb` and add a new test to it:
 
 ```ruby
+# spec/models/post_spec.rb
+
+...
+
 describe '#author_name' do
   context 'when the author exists' do
     let(:author) { AdminUser.new }
@@ -511,6 +538,7 @@ Which is expected since you haven't made the author_name method yet in your Post
 Open `app/models/post.rb` and update the Post model to look like:
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   has_many :comments
 
@@ -543,6 +571,7 @@ Next we need to update our Admin panel to allow users to set the author on posts
 First we update the 'writing blog posts' scenario in our tests in `spec/features/writing_posts_spec.rb` to look like this:
 
 ```ruby
+# spec/features/writing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Writing blog posts' do
@@ -570,6 +599,7 @@ end
 Then we make them pass by opening `app/admin/post.rb` and adding `:author` and `:author_id` to the permitted params as shown:
 
 ```ruby
+# app/admin/post.rb
 ActiveAdmin.register Post do
 
   permit_params :title, :body, :published, :author, :author_id
