@@ -50,6 +50,7 @@ We're about to start implementing some functionality which means we should first
 Open `spec/features/managing_posts_spec.rb` and change the contents of this file to match:
 
 ```ruby
+# spec/features/managing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Managing blog posts' do
@@ -112,6 +113,7 @@ These scenarios fail because we haven't created the posts section of our admin p
 Run: `rails generate active_admin:resource Post`, then open `app/admin/post.rb` and add `permit_params :title, :body` at the top so it looks like:
 
 ```ruby
+# app/admin/post.rb
 ActiveAdmin.register Post do
 
   permit_params :title, :body
@@ -126,6 +128,7 @@ You can open up your browser and manually check that our changes work did what y
 Finally, we'll be editing and adding an additional feature spec aimed at the user interface of our application:
 
 ```ruby
+# spec/features/managing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Managing blog posts' do
@@ -169,6 +172,7 @@ Some of you might already be protesting that we still have the backend code for 
 Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. You can also delete the authenticate method and the before_filter line. Your PostsController should look like the following when you've finished:
 
 ```ruby
+# app/controllers/posts_controller.rb
 class PostsController < ApplicationController
   # GET /posts
   # GET /posts.json
@@ -243,6 +247,7 @@ Now lets get started by writing a failing test for our markdown service first.
 We're going to be creating a class for our Rails application that takes markdown formatted text and returns HTML. There is some disagreement in the Rails community as to where custom code should be placed. Some people prefer to use the `lib` folder, but we prefer to put application code in `app/<directory>`. In this case we'll be creating a service so we'll first be making two folders: `app/services` and `spec/services`. Also create a file `spec/services/markdown_service_spec.rb`. This test will look like:
 
 ```ruby
+# spec/services/markdown_service_spec.rb
 require 'rails_helper'
 
 describe MarkdownService do
@@ -270,6 +275,7 @@ After saving this file, rerun our spec with `rspec spec/services`. This time the
 The contents of this spec file will look like:
 
 ```ruby
+# spec/services/markdown_service_spec.rb
 require 'rails_helper'
 
 describe MarkdownService do
@@ -304,6 +310,7 @@ This is a pretty big jump. But effectively this test is saying that the `markdow
 Save the spec file and run your spec again. This time you'll receive another failure so it's time to open the class we're testing again (`app/services/markdown_service.rb`) and update the contents to:
 
 ```ruby
+# app/services/markdown_service.rb
 require 'rouge/plugins/redcarpet'
 
 class MarkdownService
@@ -330,6 +337,7 @@ Re-running our spec everything should now pass.
 We've implemented a utility class for converting a markdown string into HTML, but we still need to properly integrate that into our Rails application. We should write a feature spec to make sure that this feature works properly. Create a file: `spec/features/writing_posts_spec.rb` with the following content.
 
 ```ruby
+# spec/features/writing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Writing blog posts' do
@@ -377,6 +385,7 @@ The problem is that right now our blog application just spits out the text rough
 Open: `spec/models/post_spec.rb` and update it to read:
 
 ```ruby
+# spec/models/post_spec.rb
 require 'rails_helper'
 
 describe Post do
@@ -419,6 +428,7 @@ Run that spec (using `rspec spec/models/post_spec.rb`) and notice that it's fail
 Open: `app/models/post.rb` and provide the implementation for the render method:
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   has_many :comments
 

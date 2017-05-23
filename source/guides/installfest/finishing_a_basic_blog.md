@@ -68,9 +68,10 @@ The last line of the log here indicated that the server redirected to `/posts/1`
 Let's fix that by making our 'create comment' action aware of JavaScript AJAX requests.
 First we need to add the responders gem to our Gemfile.
 
-Open the `Gemfile` and make your `Gemfile` look like:
+Open the `Gemfile` and make it look like:
 
 ```ruby
+# Gemfile
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -112,6 +113,7 @@ gem 'responders'
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
 end
 
 group :development do
@@ -121,6 +123,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'capybara'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -135,8 +141,7 @@ Return to your command prompt and run the following command to update our gems:
 bundle install
 ```
 
-Open `app/controllers/comments_controller.rb` and change the create
-method to respond to AJAX requests as follows:
+Open `app/controllers/comments_controller.rb` and change the create method to respond to AJAX requests as follows:
 
 ```ruby
   def create
@@ -210,6 +215,7 @@ If you go to [http://localhost:3000/posts.atom](http://localhost:3000/posts.atom
 This just means we need to create it. We'll be creating a file called: `app/views/posts/index.atom.builder` and putting the following contents into that file:
 
 ```ruby
+# app/views/posts/index.atom.builder
 atom_feed do |feed|
   feed.title "InstallFest Quick Blog"
   feed.updated @posts.first.updated_at

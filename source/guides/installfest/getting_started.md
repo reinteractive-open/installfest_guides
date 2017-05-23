@@ -7,7 +7,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 
 #### Prerequisites
 
-1. A working version of Rails 5. To determine if you've got a working version of Rails 5, type `rails -v` into your command prompt, or ask a mentor.
+1. A working version of Rails 5.1. To determine if you've got a working version of Rails 5.1, type `rails -v` into your command prompt, or ask a mentor.
 2. [Sublime Text](https://www.sublimetext.com). If you prefer another text editor like [Vim](http://www.vim.org/download.php), [emacs](https://www.gnu.org/software/emacs/), [TextMate](https://macromates.com/) or Github's [Atom](https://atom.io/) that's fine too but these instructions will specifically mention Sublime.
 
 #### Next steps
@@ -89,6 +89,7 @@ Note that, as this filename starts with a unique id including the date and time,
 You can view this file by going to Sublime, navigating through the folders on the left side column, and clicking on `20140528075017_create_posts.rb`.
 
 ```ruby
+# db/migrate/20140528075017_create_posts.rb
 class CreatePosts < ActiveRecord::Migration
   def change
     create_table :posts do |t|
@@ -137,6 +138,7 @@ validates_presence_of :body, :title
 Your `post.rb` file should look like:
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   validates_presence_of :body, :title
 end
@@ -248,6 +250,7 @@ At the bottom of your file, just before the final `end`, put the following code:
 Overall your `posts_controller.rb` should have the following code at the top and the bottom of the file. Note that all the methods are excluded here for brevity.
 
 ```ruby
+# app/controllers/posts_controller.rb
 class PostsController < ApplicationController
   before_action :authenticate, except: [ :index, :show ]
   before_action :set_post, only: [:show, :edit, :update, :destroy]
@@ -294,6 +297,7 @@ In Sublime, open `app/models/post.rb` and add the line: `has_many :comments` som
 This should look like:
 
 ```ruby
+# app/models/post.rb
 class Post < ApplicationRecord
   has_many :comments
 
@@ -340,6 +344,7 @@ Re-run `rails routes` and you'll notice that all the URLs for comments have disa
 Update your `routes.rb`file to look like the following:
 
 ```ruby
+# config/routes.rb
 Rails.application.routes.draw do
   resources :posts do
     resources :comments, only: [:create]
@@ -364,6 +369,7 @@ Before we're completely finished with the backend for our commenting system, we 
 In Sublime, open `app/controllers/comments_controller.rb` and make your code look like the following:
 
 ```ruby
+# app/controllers/comments_controller.rb
 class CommentsController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
@@ -458,6 +464,7 @@ Obviously, if we want people to start reading our blog, it would be good if we s
 To set the root page of a Rails application, open `config/routes.rb` and add `root 'posts#index'` to that file so it looks like:
 
 ```ruby
+# config/routes.rb
 Rails.application.routes.draw do
   root 'posts#index'
 
@@ -500,6 +507,7 @@ Then add `gem 'pg', group: :production` on the following line to let Rails know 
 It should look like:
 
 ```ruby
+# Gemfile
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
