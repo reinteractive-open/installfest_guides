@@ -50,6 +50,7 @@ We're about to start implementing some functionality which means we should first
 Open `spec/features/managing_posts_spec.rb` and change the contents of this file to match:
 
 ```ruby
+# spec/features/managing_posts_spec.rb
 require 'rails_helper'
 
 feature 'Managing blog posts' do
@@ -80,6 +81,23 @@ feature 'Managing blog posts' do
       click_button 'Create Post'
 
       expect(page).to have_content 'This post was made from the Admin Interface'
+    end
+
+    context 'with an existing blog post' do
+      background do
+        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
+      end
+
+      scenario 'Editing an existing blog' do
+        visit admin_post_path(@post)
+
+        click_link 'Edit'
+
+        fill_in 'Title', with: 'Not really Awesome Blog Post'
+        click_button 'Update Post'
+
+        expect(page).to have_content 'Not really Awesome Blog Post'
+      end
     end
 
   end

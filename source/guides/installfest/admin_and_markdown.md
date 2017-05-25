@@ -21,15 +21,88 @@ Let's dive into installing ActiveAdmin.
 
 ### Installing ActiveAdmin
 
-Open your `Gemfile` and add the following lines to the bottom of the file:
+Open your `Gemfile` and add the following lines to the file:
 
 ```ruby
+# Gemfile
+
+...
+
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
 gem 'devise'
 ```
 
 (Don't forget to save your file.)
+
+Your gemfile should now look like:
+
+```ruby
+# Gemfile
+source 'https://rubygems.org'
+
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
+# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
+gem 'rails', '~> 5.1.0'
+# Use sqlite3 as the database for Active Record
+gem 'sqlite3', group: [:development, :test]
+gem 'pg', group: :production
+# Use Puma as the app server
+gem 'puma', '~> 3.7'
+# Use SCSS for stylesheets
+gem 'sass-rails', '~> 5.0'
+# Use Uglifier as compressor for JavaScript assets
+gem 'uglifier', '>= 1.3.0'
+# See https://github.com/rails/execjs#readme for more supported runtimes
+# gem 'therubyracer', platforms: :ruby
+
+# Use CoffeeScript for .coffee assets and views
+gem 'coffee-rails', '~> 4.2'
+# Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
+gem 'turbolinks', '~> 5'
+# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
+gem 'jbuilder', '~> 2.5'
+# Use Redis adapter to run Action Cable in production
+# gem 'redis', '~> 3.0'
+# Use ActiveModel has_secure_password
+# gem 'bcrypt', '~> 3.1.7'
+
+gem 'record_tag_helper', '~> 1.0'
+gem 'responders'
+
+gem 'inherited_resources', github: 'activeadmin/inherited_resources'
+gem 'activeadmin', github: 'activeadmin'
+gem 'devise'
+
+# Use Capistrano for deployment
+# gem 'capistrano-rails', group: :development
+
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
+end
+
+group :development do
+  # Access an IRB console on exception pages or by using <%= console %> anywhere in the code.
+  gem 'web-console', '>= 3.3.0'
+  gem 'listen', '>= 3.0.5', '< 3.2'
+  # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
+  gem 'spring'
+  gem 'spring-watcher-listen', '~> 2.0.0'
+end
+
+group :test do
+  gem 'capybara'
+end
+
+# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+```
 
 Then in your terminal run `bundle install --without=production` to install ActiveAdmin. Once bundle has finished installing you will need to configure ActiveAdmin by running:
 
@@ -83,6 +156,23 @@ feature 'Managing blog posts' do
       expect(page).to have_content 'This post was made from the Admin Interface'
     end
 
+    context 'with an existing blog post' do
+      background do
+        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
+      end
+
+      scenario 'Editing an existing blog' do
+        visit admin_post_path(@post)
+
+        click_link 'Edit'
+
+        fill_in 'Title', with: 'Not really Awesome Blog Post'
+        click_button 'Update Post'
+
+        expect(page).to have_content 'Not really Awesome Blog Post'
+      end
+    end
+
   end
 
 end
@@ -91,6 +181,14 @@ end
 (Don't forget to save your file.)
 
 As an admin user we'd expect to be able to log into the admin panel, click a 'Posts' link and create a post or edit an existing one.
+
+Run this spec with the following command:
+
+```sh
+rspec spec/features/managing_posts_spec.rb
+```
+
+You should expect to see the following errors (note that excess lines have been removed for brevity):
 
 ```sh
 Failures:
@@ -125,7 +223,16 @@ end
 
 You can open up your browser and manually check that our changes work did what you want, but we will re-run the spec (`rspec spec/features/managing_posts_spec.rb`) to be sure.
 
-Finally, we'll be editing and adding an additional feature spec aimed at the user interface of our application:
+Finally, we'll be editing and adding an additional feature spec aimed at the user interface of our application. Add the following to the top of `managing_posts_spec.rb`:
+
+```ruby
+  scenario 'Guests cannot create posts' do
+    visit root_path
+    expect(page).to_not have_link 'New Post'
+  end
+```
+
+so that it looks like:
 
 ```ruby
 # spec/features/managing_posts_spec.rb
@@ -139,7 +246,51 @@ feature 'Managing blog posts' do
   end
 
   context 'as an admin user' do
-    ...
+    background do
+      email = 'admin@example.com'
+      password = 'password'
+      @admin = AdminUser.create(email: email, password: password)
+
+      log_in_admin_user
+    end
+
+    def log_in_admin_user(email = 'admin@example.com', password = 'password')
+      reset_session!
+      visit admin_root_path
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      click_button 'Login'
+    end
+
+    scenario 'Posting a new blog' do
+      click_link 'Posts'
+      click_link 'New Post'
+
+      fill_in 'post_title', with: 'New Blog Post'
+      fill_in 'post_body', with: 'This post was made from the Admin Interface'
+      click_button 'Create Post'
+
+      expect(page).to have_content 'This post was made from the Admin Interface'
+    end
+
+
+    context 'with an existing blog post' do
+      background do
+        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
+      end
+
+      scenario 'Editing an existing blog' do
+        visit admin_post_path(@post)
+
+        click_link 'Edit'
+
+        fill_in 'Title', with: 'Not really Awesome Blog Post'
+        click_button 'Update Post'
+
+        expect(page).to have_content 'Not really Awesome Blog Post'
+      end
+    end
+
   end
 
 end
@@ -169,7 +320,7 @@ Save that and rerun our spec which should pass or "go green".
 
 Some of you might already be protesting that we still have the backend code for adding a post and all we've done is remove the link in the HTML, and you're completely correct. We need to remove the code from our controller and configure our routes so that the only way to create or edit a post is in the admin panel.
 
-Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. You can also delete the authenticate method and the before_filter line. Your PostsController should look like the following when you've finished:
+Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. You can also delete the authenticate method and the before_action line. Your PostsController should look like the following when you've finished:
 
 ```ruby
 # app/controllers/posts_controller.rb
@@ -229,9 +380,9 @@ git commit -m "added ActiveAdmin and a Posting admin interface"
 
 One feature we'd love to have on our blog is the ability to author our blog posts using Github-style [Markdown](https://help.github.com/enterprise/11.10.340/user/articles/github-flavored-markdown/). Luckily doing this in Ruby is quite simple and integrating it in Rails should only take a few lines of code. We'll be using the excellent [redcarpet](https://github.com/vmg/redcarpet) markdown engine, and the [rouge](https://github.com/jneen/rouge) code highlighting utility.
 
-Note to people who are following along and can't compile gems with native extensions. You can skip following section and use the pure Ruby [Maruku](https://github.com/bhollis/maruku) gem for markdown support instead. You can head to: [http://git.io/9h-eeQ](http://git.io/9h-eeQ) to find a guide on how to do this next section using the Maruku gem instead.
+Note to people who are following along and can't compile gems with native extensions: You can skip following section and use the pure Ruby [Maruku](https://github.com/bhollis/maruku) gem for markdown support instead. You can head to: [http://git.io/9h-eeQ](http://git.io/9h-eeQ) to find a guide on how to do this next section using the Maruku gem instead.
 
-First, open your `Gemfile` and add the following lines at the bottom:
+First, open your `Gemfile` and add the following lines:
 
 ```ruby
 gem 'redcarpet'
