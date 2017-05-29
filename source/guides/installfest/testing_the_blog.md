@@ -330,8 +330,8 @@ end
 Save this file and run it with: `rspec spec/features`. You should get `2 examples, 0 failures`. But once again there's a problem. We've written a test which passes immediately, we should make it fail to check that the test is actually checking what we want it to check. We'll open `app/views/posts/_post.html.erb` and alter the Post titles as follows:
 
 ```erb
- <h2><%= link_to_unless_current 'Blog Post', post %></h2>
- <%= simple_format post.body %>
+<h2><%= link_to_unless_current 'Blog Post', post %></h2>
+<%= simple_format post.body %>
 ```
 
 (Don't forget to save your file.)
@@ -350,8 +350,8 @@ Failure/Error: click_link 'Awesome Blog Post'
 Undo your changes to `app/views/posts/_post.html.erb` so that it once again looks like:
 
 ```erb
- <h2><%= link_to_unless_current post.title, post %></h2>
- <%= simple_format post.body %>
+<h2><%= link_to_unless_current post.title, post %></h2>
+<%= simple_format post.body %>
 ```
 
 Save your changes and rerun your spec to make sure everything is okay.
