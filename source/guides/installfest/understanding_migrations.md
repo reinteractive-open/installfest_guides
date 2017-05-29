@@ -10,12 +10,6 @@ In this installment we'll be learning more about how to manage your database str
 
 The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
 
-### Application Setup
-
-You'll need to have been following our InstallFest blog posts beginning with [Getting Started](/guides/installfest/getting_started), and have completed [Admin and Markdown](/guides/installfest/admin_and_markdown).
-
-Lets dive into writing these new features.
-
 ### Write a feature spec
 
 We'll start by writing a spec for this new feature. It's often good to start with a feature spec since it will let you scope the new functionality without having to know all the in-depth implementation details ahead of time.
@@ -49,7 +43,7 @@ Open the migration generated. It will look like, __but won't be the same as__, `
 
 ```ruby
 # db/migrate/20130510023357_add_published_to_post.rb
-class AddPublishedToPost < ActiveRecord::Migration
+class AddPublishedToPost < ActiveRecord::Migration[5.1]
   def change
     add_column :posts, :published, :boolean, default: false
   end
@@ -69,9 +63,9 @@ Failures:
 
   1) Managing blog posts as an admin user with an existing blog post Publishing an existing blog
      Failure/Error: expect(Post.last.published?).to be true
-       expected: truthy value
+       expected: true
             got: false
-     # ./spec/features/managing_posts_spec.rb:62:in `block (4 levels) in <top (required)>'
+     # ./spec/features/managing_posts_spec.rb:50:in `block (3 levels) in <top (required)>'
 ```
 
 What this error means is that ActiveAdmin tried to use mass-assignment to update our Post database record and we haven't configured it to allow this. This error is helping us to protect our application from a common form of security vulnerability which you can read about in the [Rails Security Guide](http://guides.rubyonrails.org/v3.2.8/security.html#mass-assignment).
@@ -158,13 +152,15 @@ When we run this spec (`rspec spec/features/reading_blog_spec.rb --order default
 ```sh
   1) Reading the Blog for an unpublished post it does not appear in the index
      Failure/Error: expect(page).to_not have_content 'Unpublished Post'
-       expected not to find text "Unpublished Post" in "Your Blog Name Menu Github Twitter About me Listing posts Unpublished Post Lorem ipsum dolor sit amet Powered by: rails-3-2-intro-blog Developed at: InstallFest 2013"
-     # ./spec/features/reading_blog_spec.rb:12:in `block (3 levels) in <top (required)>'
+       expected not to find text "Toggle navigation My Awesome Blog About Topics Books Movies Games Contact Listing posts Unpublished Post Lorem ipsum dolor sit amet My Awesome Blog! Developed at: InstallFest 2017"
+     # ./spec/features/reading_blog_spec.rb:13:in `block (3 levels) in <top (required)>'
 
   2) Reading the Blog for an unpublished post it cannot be visited directly
-     Failure/Error: }).to raise_error(ActiveRecord::RecordNotFound)
+     Failure/Error: expect(lambda {
+         visit post_path(@post)
+       }).to raise_error(ActiveRecord::RecordNotFound)
        expected ActiveRecord::RecordNotFound but nothing was raised
-     # ./spec/features/reading_blog_spec.rb:18:in `block (3 levels) in <top (required)>'
+     # ./spec/features/reading_blog_spec.rb:17:in `block (3 levels) in <top (required)>'
 ```
 
 The first error here indicates that unpublished blogs appear in our blog post index, and the second indicates that the blog is directly accessible even though it hasn't been published. Lets go and fix these problems.
@@ -238,6 +234,9 @@ Update `app/controllers/posts_controller.rb` to look like:
 ```ruby
 # app/controllers/posts_controller.rb
 class PostsController < ApplicationController
+  # GET /posts
+  # GET /posts.json
+  # GET /posts.atom
   def index
     @posts = Post.published
 
@@ -248,6 +247,8 @@ class PostsController < ApplicationController
     end
   end
 
+  # GET /posts/1
+  # GET /posts/1.json
   def show
     @post = Post.published.find(params[:id])
 
@@ -273,16 +274,16 @@ Oh no! We have some errors to fix.
   1) Posting Comments Posting a comment
      Failure/Error: visit post_path(@post)
      ActiveRecord::RecordNotFound:
-       Couldn't find Post with id=1 [WHERE "posts"."published" = 't']
-     # ./app/controllers/posts_controller.rb:13:in `show'
-     # ./spec/features/post_comments_spec.rb:10:in `block (2 levels) in <top (required)>'
+       Couldn't find Post with id=1 [WHERE "posts"."published" = '?']
+     # ./app/controllers/posts_controller.rb:19:in `show'
+     # ./spec/features/post_comments_spec.rb:11:in `block (2 levels) in <top (required)>'
 
   2) Writing blog posts Writing a blog post in markdown
      Failure/Error: visit post_path(Post.last)
      ActiveRecord::RecordNotFound:
-       Couldn't find Post with id=1 [WHERE "posts"."published" = 't']
-     # ./app/controllers/posts_controller.rb:13:in `show'
-     # ./spec/features/writing_posts_spec.rb:28:in `block (2 levels) in <top (required)>'
+       Couldn't find Post with id=1 [WHERE "posts"."published" = '>']
+     # ./app/controllers/posts_controller.rb:19:in `show'
+     # ./spec/features/writing_posts_spec.rb:29:in `block (2 levels) in <top (required)>'
 ```
 
 They both look like similar errors, but we'll deal with them one by one.

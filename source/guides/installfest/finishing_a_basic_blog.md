@@ -138,7 +138,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 Return to your command prompt and run the following command to update our gems:
 
 ```
-bundle install
+bundle install --without=production
 ```
 
 Open `app/controllers/comments_controller.rb` and change the create method to respond to AJAX requests as follows:
@@ -149,7 +149,7 @@ Open `app/controllers/comments_controller.rb` and change the create method to re
     @comment = @post.comments.create!(comment_params)
     respond_to do |format|
       format.html { redirect_to @post }
-      format.js
+      format.js { redirect_to @post }
     end
   end
 ```
@@ -299,13 +299,47 @@ and
 
 `fonts/` (the folder and it's contents) to `public/assets`. You may need to create an `assets` folder under `public` and then move the `fonts` folder under that.
 
-Open `app/assets/stylesheets/application.css` and add the following line:
+Open `app/assets/stylesheets/application.css` and add the line `*= require bootstrap.min` so that it looks like:
 
-`*= require bootstrap.min`
+```css
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
+ * vendor/assets/stylesheets directory can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the bottom of the
+ * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
+ * files in this directory. Styles in this file should be added after the last require_* statement.
+ * It is generally better to create a new file per style scope.
+ *
+ *= require_tree .
+ *= require_self
+ *= require bootstrap.min
+ */
+```
 
-Open `app/assets/javascripts/application.js` and add the following line:
+Open `app/assets/javascripts/application.js` and add the line `//= require bootstrap.min` so that it looks like:
 
-`//= require bootstrap.min`
+```javascript
+// This is a manifest file that'll be compiled into application.js, which will include all the files
+// listed below.
+//
+// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
+// vendor/assets/javascripts directory can be referenced here using a relative path.
+//
+// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
+// compiled file. JavaScript code in this file should be added after the last require_* statement.
+//
+// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
+// about supported directives.
+//
+//= require rails-ujs
+//= require turbolinks
+//= require_tree .
+//= require bootstrap.min
+```
 
 Open `app/assets/stylesheets/application.css` and add the following lines:
 
@@ -382,6 +416,90 @@ Now open `app/views/posts/index.html.erb` and update it to look like:
 We have changed `link_to`, that unobtrusive barely-noticeable link for adding a new post, to `button_to` which will now give us a button. Note: `link_to` and `button_to` are Rails helper methods that saves us writing the corresponding HTML.
 
 If you refresh your [index page](http://localhost:3000/posts), you should now see that our "New Post" link at the bottom of the page, is now a lovely blue button.
+
+### Run your specs
+
+Let's re-run the specs we wrote in the previous guide to make sure everything is still OK:
+
+```
+rspec spec
+```
+
+Oh no, `managing_posts_spec.rb` has broken!
+
+```sh
+Failures:
+
+  1) Managing blog posts Guests cannot create posts
+     Failure/Error: click_link 'New Post'
+     
+     Capybara::ElementNotFound:
+       Unable to find link "New Post"
+     # ./spec/features/managing_posts_spec.rb:7:in `block (2 levels) in <top (required)>'
+
+  2) Managing blog posts Posting a new blog
+     Failure/Error: click_link 'New Post'
+     
+     Capybara::ElementNotFound:
+       Unable to find link "New Post"
+     # ./spec/features/managing_posts_spec.rb:16:in `block (2 levels) in <top (required)>'
+
+Finished in 0.46489 seconds (files took 1.74 seconds to load)
+10 examples, 2 failures
+```
+
+From this output we can see that, on lines 7 and 16, RSpec was unable to find the links 'New Post'. This is to be expected, because we just changed these links into buttons.
+
+To fix this, we need to open `spec/features/managing_posts_spec.rb` and change `click_link 'New Post'` to `click_button 'New Post'`
+
+Our spec should now look like:
+
+```ruby
+# spec/features/managing_posts_spec.rb
+require 'rails_helper'
+
+feature 'Managing blog posts' do
+  scenario 'Guests cannot create posts' do
+    visit root_path
+    click_button 'New Post'
+
+    expect(page).to have_content 'Access denied'
+  end
+
+  scenario 'Posting a new blog' do
+    visit root_path
+
+    page.driver.browser.authorize 'admin', 'secret'
+    click_button 'New Post'
+
+    expect(page).to have_content 'New Post'
+
+    fill_in 'Title', with: 'I love cheese'
+    fill_in 'Body', with: "It's pretty amazing, don't you think?"
+
+    click_button 'Create Post'
+    expect(page).to have_content 'I love cheese'
+  end
+
+  context 'with an existing blog post' do
+    background do
+      @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
+    end
+
+    scenario 'Editing an existing blog' do
+      visit post_path(@post)
+
+      page.driver.browser.authorize 'admin', 'secret'
+      click_link 'Edit'
+
+      fill_in 'Title', with: 'Not really Awesome Blog Post'
+      click_button 'Update Post'
+
+      expect(page).to have_content 'Not really Awesome Blog Post'
+    end
+  end
+end
+```
 
 #### Deploying your changes
 
