@@ -373,12 +373,34 @@ Another feature that would be awesome to have is for Posts to have an author. Th
 
 ### Viewing a post should display the author
 
-Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published post' context to look like:
+Open `spec/features/reading_blog_spec.rb` and change the contents to be:
 
 ```ruby
 # spec/features/reading_blog_spec.rb
+require 'rails_helper'
 
-  ...
+feature 'Reading the Blog' do
+  context 'for an unpublished post' do
+    background do
+      email = 'admin@example.com'
+      password = 'password'
+      @admin = AdminUser.create(email: email, password: password)
+
+      @post = Post.create(title: 'Unpublished Post', body: 'Lorem ipsum dolor sit amet', author: @admin)
+    end
+
+    scenario 'it does not appear in the index' do
+      visit root_path
+
+      expect(page).to_not have_content 'Unpublished Post'
+    end
+
+    scenario 'it cannot be visited directly' do
+      expect(lambda {
+        visit post_path(@post)
+      }).to raise_error(ActiveRecord::RecordNotFound)
+    end
+  end
 
   context 'for a published post' do
     background do
@@ -405,6 +427,8 @@ Open up: `spec/features/reading_blog_spec.rb` and update the 'for a published po
       expect(current_path).to eq post_path(@post)
     end
   end
+
+end
 ```
 
 (Don't forget to save your file.)
@@ -620,7 +644,40 @@ Open `app/views/posts/_post.html.erb` and set the contents to be:
 
 (Don't forget to save your files.)
 
-You'll notice that instead of calling the author model directly we're using the method we just created instead. Let's run our entire test suite now to check that everything is now okay.
+You'll notice that instead of calling the author model directly we're using the method we just created instead.
+
+We have one final thing to fix.
+
+Open `spec/features/post_comments_spec` and change the contents to be:
+
+```ruby
+# spec/features/post_comments_spec.rb
+require 'rails_helper'
+
+feature 'Posting Comments' do
+  background do
+    email = 'admin@example.com'
+    password = 'password'
+    @admin = AdminUser.create(email: email, password: password)
+
+    @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true, author: @admin)
+  end
+
+  # Note this scenario doesn't test the AJAX comment posting.
+  scenario 'Posting a comment' do
+    visit post_path(@post)
+
+    comment = 'This post is just filler text. Ripped off!'
+
+    fill_in 'comment_body', with: comment
+    click_button 'Add comment'
+
+    expect(page).to have_content comment
+  end
+end
+```
+
+Let's run our entire test suite now to check that everything is now okay.
 
 ### Cleaning up
 
