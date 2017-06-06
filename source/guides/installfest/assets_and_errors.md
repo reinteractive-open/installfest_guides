@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Assets and Errors
-Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 5](/guides/installfest/understanding_migrations). If you feel confident with Rails and want to learn more about the asset pipeline, static pages and custom error pages then you can find setup instructions below.
+Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series. If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 5: Understanding Migrations](/guides/installfest/understanding_migrations). If you feel confident with Rails and want to learn more about the asset pipeline, static pages and custom error pages then you can find setup instructions below.
 
 In this article we'll be going through three separate topics that will round out a series of posts we've made on building a blog in Rails 5.1. Today we'll be looking at:
 
@@ -12,12 +12,6 @@ In this article we'll be going through three separate topics that will round out
 3. Customising your application error pages
 
 Each of these topics are fairly simple so if you're at this stage of the series you should have no problems keeping up.
-
-### Application Setup
-
-You'll need to have been following our InstallFest blog posts starting with [Getting Started](/guides/installfest/getting_started) and have completed [Understanding Migrations](/guides/installfest/understanding_migrations).
-
-Let's dive into writing these new features.
 
 ## Assets in Rails
 
@@ -66,11 +60,11 @@ One of the things missing from our blog are some static pages that aren't specif
 
 One of the techniques we might use to do this is to simply create a static html page and place it in the `public` folder. While this would work it would mean that we'd lose any styling and wouldn't be able to put dynamic content into our About page at all. Instead we'll create a pages controller, wire up a route manually and create the view for it. This is a very quick process:
 
-Naturally we should first create a test.
+Naturally, we should first create a test.
 
 ### Creating a failing feature spec
 
-Since this is a fairly simple, high-level feature often it would go untested but since we're being good developers we'll implement a straight-forward Acceptance test in the form of a feature spec. Create a file `spec/features/static_pages_spec.rb` and make it look like:
+Since this is a fairly simple, high-level feature often it would go untested. But since we're being good developers we'll implement a straight-forward Acceptance test in the form of a feature spec. Create a file `spec/features/static_pages_spec.rb` and make it look like:
 
 ```ruby
 # spec/features/static_pages_spec.rb
@@ -81,7 +75,7 @@ feature 'Browsing Static Pages' do
     scenario 'it is browseable from the header' do
       visit root_path
 
-      click_link 'About me'
+      click_link 'About'
 
       expect(page.status_code).to eq 200
     end
@@ -249,7 +243,6 @@ config.exceptions_app = self.routes
 Your entire application.rb should look like:
 
 ```ruby
-# config/application.rb
 require_relative 'boot'
 
 require "rails"
@@ -270,9 +263,15 @@ Bundler.require(*Rails.groups)
 
 module QuickBlog
   class Application < Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 5.1
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
+
+    # Don't generate system test files.
+    config.generators.system_tests = nil
 
     config.exceptions_app = self.routes
   end
@@ -286,8 +285,10 @@ Open `config/routes.rb` and make it look like:
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
-  devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
+
+  devise_for :admin_users, ActiveAdmin::Devise.config
+
   root 'posts#index'
 
   resources :posts do
@@ -295,7 +296,6 @@ Rails.application.routes.draw do
   end
 
   get '/about' => 'pages#about'
-
   get '/404' => 'errors#not_found'
 end
 ```
@@ -322,7 +322,7 @@ Create a file `app/views/errors/not_found.html.erb` with the following contents:
 
 If we navigate to [http://localhost:3000/404](http://localhost:3000/404), however, we still see the Rails default error page. This is because we still have the `public/404.html` file.
 
-Delete it, refresh your browser and you'll see our custom error page.
+If you delete that, and then refresh your browser, you'll see our custom error page.
 
 Let's make it a bit more fun!
 
