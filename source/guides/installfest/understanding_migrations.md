@@ -30,7 +30,6 @@ Open `spec/features/managing_posts_spec.rb` and add the following scenario to th
     expect(page).to have_content 'Post was successfully updated'
     expect(Post.last.published?).to be true
   end
-
 ```
 
 When you've saved the file you can run it with `rspec spec/features/managing_posts_spec.rb`. Naturally it will fail since we haven't implemented any of the functionality to support it yet. Let's get started with that now.
@@ -646,7 +645,7 @@ Open `app/views/posts/_post.html.erb` and set the contents to be:
 
 You'll notice that instead of calling the author model directly we're using the method we just created instead.
 
-We have one final thing to fix.
+We have a couple of final things to fix.
 
 Open `spec/features/post_comments_spec` and change the contents to be:
 
@@ -674,6 +673,83 @@ feature 'Posting Comments' do
 
     expect(page).to have_content comment
   end
+end
+```
+
+Open `spec/features/managing_posts_spec.rb` and change the contents to be:
+
+```ruby
+# spec/features/managing_posts_spec.rb
+require 'rails_helper'
+
+feature 'Managing blog posts' do
+
+  scenario 'Guests cannot create posts' do
+    visit root_path
+    expect(page).to_not have_button 'New Post'
+  end
+
+  context 'as an admin user' do
+    background do
+      email = 'admin@example.com'
+      password = 'password'
+      @admin = AdminUser.create(email: email, password: password)
+
+      log_in_admin_user
+    end
+
+    def log_in_admin_user(email = 'admin@example.com', password = 'password')
+      reset_session!
+      visit admin_root_path
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      click_button 'Login'
+    end
+
+    scenario 'Posting a new blog' do
+      click_link 'Posts'
+      click_link 'New Post'
+
+      fill_in 'post_title', with: 'New Blog Post'
+      fill_in 'post_body', with: 'This post was made from the Admin Interface'
+      click_button 'Create Post'
+
+      expect(page).to have_content 'This post was made from the Admin Interface'
+    end
+
+    scenario 'Publishing an existing blog' do
+      @post = Post.create(title: 'New Post', body: "Hello world!", published: true, author: @admin)
+      @post.save!
+
+      visit admin_post_path(@post)
+      click_link 'Edit Post'
+
+      check 'Published'
+      click_button 'Update Post'
+
+      expect(page).to have_content 'Post was successfully updated'
+      expect(Post.last.published?).to be true
+    end
+
+    context 'with an existing blog post' do
+      background do
+        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet', published: true, author: @admin)
+      end
+
+      scenario 'Editing an existing blog' do
+        visit admin_post_path(@post)
+
+        click_link 'Edit'
+
+        fill_in 'Title', with: 'Not really Awesome Blog Post'
+        click_button 'Update Post'
+
+        expect(page).to have_content 'Not really Awesome Blog Post'
+      end
+    end
+
+  end
+
 end
 ```
 

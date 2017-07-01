@@ -262,7 +262,7 @@ feature 'Managing blog posts' do
 
     scenario 'Posting a new blog' do
       click_link 'Posts'
-      click_button 'New Post'
+      click_link 'New Post'
 
       fill_in 'post_title', with: 'New Blog Post'
       fill_in 'post_body', with: 'This post was made from the Admin Interface'

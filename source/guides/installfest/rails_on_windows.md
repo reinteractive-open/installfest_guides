@@ -6,7 +6,8 @@
 
 Installing chocolatey is easy.
 
-First, open a command prompt as administrator (right click "run as administrator").
+First, open a command prompt as administrator
+(Click Start, type: cmd, and press Control + Shift + Enter).
 
 Then copy and paste the following command into the terminal and hit enter:
 
@@ -142,6 +143,8 @@ Installing Rails is easy. To get the latest version just run:
 gem install rails
 ```
 
-Now close your administrator command prompt and re-open it as a normal user.
+Depending on your internet connection, this may take a while so sit back and relax. :-)
+
+When it is complete, close your administrator command prompt and re-open it as a normal user (Click Start, type: cmd, and press Enter).
 
 Congratulations on installing Rails! You should probably [get started with the rest of the guide now.](/guides/installfest/getting_started)

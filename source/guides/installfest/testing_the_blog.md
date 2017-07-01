@@ -442,7 +442,7 @@ Save that file. Now let's run all of our acceptance/feature specs. Open your ter
 ......
 
 Finished in 0.26705 seconds
-6 examples, 0 failures
+10 examples, 0 failures
 ```
 
 ### Cleaning up
