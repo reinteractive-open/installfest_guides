@@ -292,14 +292,14 @@ Don't forget to update your database here to reflect the schema change you've ju
 
 After this you'll need to inform Rails that your Posts will potentially have many Comments.
 
-In Sublime, open `app/models/post.rb` and add the line: `has_many :comments` somewhere inside the class.
+In Sublime, open `app/models/post.rb` and add the line: `has_many :comments, :dependent :destroy` inside the class.
 
 This should look like:
 
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments
+  has_many :comments, :dependent :destroy
 
   validates_presence_of :body, :title
 end

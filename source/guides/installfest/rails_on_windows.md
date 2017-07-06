@@ -22,7 +22,7 @@ It might take a minute or two to start, but remain patient. :-)
 Installing Ruby is as simple as running the following command:
 
 ```sh
-choco install ruby -y -version 2.2.4
+choco install ruby -y -version 2.4.0
 ```
 
 We also need to add Ruby to PATH so our operating system knows about it.
@@ -42,7 +42,7 @@ ruby -v
 and you should see something like:
 
 ```sh
-ruby 2.2.4p230 (2015-12-16 revision 53155) [i386-mingw32]
+ruby 2.4.0p230 (2015-12-16 revision 53155) [i386-mingw32]
 ```
 
 If your Ruby is installed properly you can move onto the next section.

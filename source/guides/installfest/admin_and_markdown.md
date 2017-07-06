@@ -578,7 +578,7 @@ Open: `app/models/post.rb` and provide the implementation for the render method:
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments
+  has_many :comments, :dependent :destroy
 
   validates_presence_of :body, :title
 
