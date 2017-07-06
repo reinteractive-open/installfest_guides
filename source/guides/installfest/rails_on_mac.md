@@ -38,22 +38,7 @@ Installing homebrew is easy. In your terminal window run:
 
 Once that is complete you can run `brew -v` in the terminal to check the current installed version of homebrew.
 
-## Step Four: Install ruby-install
-
-[ruby-install](https://github.com/postmodern/ruby-install) is a tool that can install multiple versions of the Ruby programming language. Professional Ruby developers will use ruby-install (or similar tools) so they can test their applications with many different versions of Ruby.
-
-Run all the the following commands step by step:
-
-1. First install openssl: `brew install openssl`
-2. Next install ruby-install: `brew install ruby-install`
-
-## Step Five: Use ruby-install to Install Ruby
-
-Run the following command: `ruby-install ruby 2.4.0`
-
-Installing Ruby may take a little while.
-
-## Step Six: Install rbenv
+## Step Four: Install rbenv
 
 [rbenv](https://github.com/rbenv/rbenv) is a version manager for Ruby. It can be used to manage and switch between different installed versions of Ruby.
 
@@ -70,6 +55,22 @@ Here is how to install and configure rbenv:
     ````sh
     rbenv init
     ````
+
+## Step Five: Use rbenv to Install Ruby
+
+Run the following command:
+
+````sh
+rbenv install 2.4.0
+````
+
+Installing Ruby may take a little while.
+
+Once it has completed, set this version of Ruby as your default:
+
+```sh
+rbenv global 2.4.0
+```
 
 Assuming that all worked properly you can run:
 
@@ -94,7 +95,7 @@ We don't want to use this.
 
 If your Ruby is installed properly you can move onto the next section.
 
-## Step Seven: Install Rails
+## Step Six: Install Rails
 
 Installing Rails is easy. To get the latest version just run:
 
