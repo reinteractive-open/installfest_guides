@@ -69,10 +69,6 @@ choco install git -y
 choco install nodejs -y
 ```
 
-```sh
-choco install ruby2.devkit -y
-```
-
 This next step is optional. If you already have a text editor that you use for writing code, you are welcome to use that.
 
 If you do not, or you would like to try something new, feel free to install Sublime Text which is a popular text editor for Ruby developers.
@@ -91,13 +87,26 @@ For example, `choco install git -f`
 
 ## Step Four: Install Ruby Gems
 
-First change to the tools\DevKit2 directory:
+First we need to install the ruby build tools. Run the following command from Command Prompt (Administrator):
 
-```
-cd \tools\DevKit2
+```sh
+ridk install
 ```
 
-Then fetch the latest rubygems:
+Type `1` and press Enter to start installing MSYS.
+
+1. Click **Next**
+1. Change the installation folder to `C:\tools\msys32` or `C:\tools\msys64` depending on your operating system and click **Next**
+1. Click **Next**
+1. Uncheck "Run MSYS now" and click **Finish**
+
+Once completed the MSYS installer will be waiting for another selection, type `2` and press Enter to install MSYS updates.
+
+Once this step is complete, type `3` and press Enter to install the MSYS and MINGW development toolchain.
+
+Once finished if the MSYS prompt is waiting for another option simply press Enter to exist the MSYS installer.
+
+Fetch the latest rubygems:
 
 ```sh
 wget https://rubygems.org/downloads/rubygems-update-2.6.12.gem
@@ -115,43 +124,12 @@ And then run an update to ensure everything matches:
 update_rubygems --no-ri --no-rdoc
 ```
 
-## Step Five: Configure our environment
-
-In a previous step we installed the [Ruby Development Kit](http://rubyinstaller.org/add-ons/devkit/). This is going to need some configuration. Run the following commands:
-
-```
-echo - c:/tools/Ruby24 > config.yml
-```
-
-```
-ruby dk.rb install
-```
-
 ```
 gem update --system
 ```
 
-## Step Six: Set up MSYS2
 
-In your command line, run:
-
-```
-ridk install
-```
-
-Select option 1 and hit enter
-
-Click 'next' through the wizard
-
-When complete, uncheck run MSYS2
-
-When complete, select option 2
-
-When complete, select option 3
-
-When completed, press enter to exit
-
-## Step Seven: Install Rails
+## Step Five: Install Rails
 
 Installing Rails is easy. To get the latest version just run:
 
@@ -161,6 +139,18 @@ gem install rails --no-ri --no-rdoc
 
 Depending on your internet connection, this may take a while so sit back and relax. :-)
 
-When it is complete, close your administrator command prompt and re-open it as a normal user (Click Start, type: cmd, and press Enter).
+When it is complete, run the following:
+
+```sh
+rails -v
+```
+
+You should see the following output:
+
+```
+Rails 5.1.2
+```
+
+Close your administrator command prompt and re-open it as a normal user (Click Start, type: cmd, and press Enter).
 
 Congratulations on installing Rails! You should probably [get started with the rest of the guide now.](/guides/installfest/getting_started)
