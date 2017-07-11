@@ -131,7 +131,27 @@ ruby dk.rb install
 gem update --system
 ```
 
-## Step Six: Install Rails
+## Step Six: Set up MSYS2
+
+In your command line, run:
+
+```
+ridk install
+```
+
+Select option 1 and hit enter
+
+Click 'next' through the wizard
+
+When complete, uncheck run MSYS2
+
+When complete, select option 2
+
+When complete, select option 3
+
+When completed, press enter to exit
+
+## Step Seven: Install Rails
 
 Installing Rails is easy. To get the latest version just run:
 
