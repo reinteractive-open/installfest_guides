@@ -22,7 +22,7 @@ It might take a minute or two to start, but remain patient. :-)
 Installing Ruby is as simple as running the following command:
 
 ```sh
-choco install ruby -y -version 2.4.0
+choco install ruby -y -version 2.4.1.2
 ```
 
 We also need to add Ruby to PATH so our operating system knows about it.
@@ -30,7 +30,7 @@ We also need to add Ruby to PATH so our operating system knows about it.
 Run the following command:
 
 ```
-PATH=%PATH%;C:\tools\Ruby22\bin
+PATH=%PATH%;C:\tools\Ruby24\bin
 ```
 
 Assuming that worked properly you can run:
@@ -42,7 +42,7 @@ ruby -v
 and you should see something like:
 
 ```sh
-ruby 2.4.0p230 (2015-12-16 revision 53155) [i386-mingw32]
+ruby 2.4.1p111 (2017-03-22 revision 58053) [x64-mingw32]
 ```
 
 If your Ruby is installed properly you can move onto the next section.
@@ -91,10 +91,10 @@ For example, `choco install git -f`
 
 ## Step Four: Install Ruby Gems
 
-First change to the tools directory:
+First change to the tools\DevKit2 directory:
 
 ```
-cd \tools\
+cd \tools\DevKit2
 ```
 
 Then fetch the latest rubygems:
@@ -106,7 +106,7 @@ wget https://rubygems.org/downloads/rubygems-update-2.6.12.gem
 And install them:
 
 ```
-gem install --local C:\rubygems-update-2.6.12.gem
+gem install --local C:\rubygems-update-2.6.12.gem --no-ri --no-rdoc
 ```
 
 And then run an update to ensure everything matches:
@@ -120,11 +120,7 @@ update_rubygems --no-ri --no-rdoc
 In a previous step we installed the [Ruby Development Kit](http://rubyinstaller.org/add-ons/devkit/). This is going to need some configuration. Run the following commands:
 
 ```
-cd c:\tools\DevKit2
-```
-
-```
-echo - c:/tools/Ruby22 > config.yml
+echo - c:/tools/Ruby24 > config.yml
 ```
 
 ```
@@ -140,7 +136,7 @@ gem update --system
 Installing Rails is easy. To get the latest version just run:
 
 ```sh
-gem install rails
+gem install rails --no-ri --no-rdoc
 ```
 
 Depending on your internet connection, this may take a while so sit back and relax. :-)
