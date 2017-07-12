@@ -212,7 +212,7 @@ Open `app/models/post.rb` and update it to look like:
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments, :dependent :destroy
+  has_many :comments, dependent: :destroy
 
   validates_presence_of :body, :title
 
@@ -448,7 +448,7 @@ Now open `app/models/post.rb` and update it to inform Rails that a Post belongs 
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments, :dependent :destroy
+  has_many :comments, dependent: :destroy
 
   belongs_to :author, class_name: "AdminUser"
 
@@ -564,7 +564,7 @@ Open `app/models/post.rb` and update the Post model to look like:
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments, :dependent :destroy
+  has_many :comments, dependent: :destroy
 
   belongs_to :author, class_name: "AdminUser"
 

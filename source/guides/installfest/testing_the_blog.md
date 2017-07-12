@@ -140,7 +140,7 @@ Since we're writing a fully functional spec for code that is already written, we
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments, :dependent :destroy
+  has_many :comments, dependent: :destroy
 
   # validates_presence_of :body, :title
 end
