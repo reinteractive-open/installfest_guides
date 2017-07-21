@@ -555,7 +555,7 @@ Finally we set up our database:
 
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
-To check that your blog has been deployed properly, browse to the URL that Heroku has gien you, remembering to append "/posts" to the end of the URL.
+To check that your blog has been deployed properly, browse to the URL that Heroku has given you, remembering to append "/posts" to the end of the URL.
 e.g. `https://peaceful-hamlet-7389.herokuapp.com/posts`
 
 Note that you can also use the `heroku open` command to get to the root URL (and then append the "/posts" to that URL).
