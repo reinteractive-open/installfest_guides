@@ -56,6 +56,12 @@ Here is how to install and configure rbenv:
     rbenv init
     ````
 
+3. You will notice in the output of running `rbenv init`, that it tells you to add rbenv to your `.bash_profile`, so make sure you do it now. Run the following in terminal:
+
+		```sh
+		echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+		```
+
 ## Step Five: Use rbenv to Install Ruby
 
 Run the following command:
