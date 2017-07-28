@@ -301,7 +301,7 @@ You've created the database model for your comments, migrated your database, inf
 You'll now need to create a file called `app/views/comments/_comment.html.erb` with the following contents:
 
 ```erb
-<%= div_for comment do %>
+<%= content_tag comment do %>
   <p>
     <strong>
       Posted <%= time_ago_in_words(comment.created_at) %> ago
