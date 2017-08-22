@@ -99,12 +99,10 @@ Type `1` and press Enter to start installing MSYS.
 1. Change the installation folder to `C:\tools\msys32` or `C:\tools\msys64` depending on your operating system and click **Next**
 1. Click **Next**
 1. Uncheck "Run MSYS now" and click **Finish**
+1. Once completed the MSYS installer will be waiting for another selection, type `2` and press Enter to install MSYS updates.
+1. Once this step is complete, type `3` and press Enter to install the MSYS and MINGW development toolchain.
 
-Once completed the MSYS installer will be waiting for another selection, type `2` and press Enter to install MSYS updates.
-
-Once this step is complete, type `3` and press Enter to install the MSYS and MINGW development toolchain.
-
-Once finished if the MSYS prompt is waiting for another option simply press Enter to exist the MSYS installer.
+Once finished if the MSYS prompt is waiting for another option simply press Enter to exist the MSYS installer. If this doesn't work, `ctrl-c` followed by `Y` should do it.
 
 Fetch the latest rubygems:
 
@@ -148,7 +146,7 @@ rails -v
 You should see the following output:
 
 ```
-Rails 5.1.2
+Rails 5.1.3
 ```
 
 Close your administrator command prompt and re-open it as a normal user (Click Start, type: cmd, and press Enter).
