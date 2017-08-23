@@ -583,11 +583,17 @@ git commit -m "initial blog commit"
 
 In the same command prompt you should be ready to deploy your application.
 
-First we create our Heroku application:
+First, login to Heroku by typing:
+
+`heroku login`
+
+in your terminal.
+
+Then we create our Heroku application:
 
 `heroku create`
 
-Now we push our application to Heroku:
+Next we push our application to Heroku:
 
 `git push heroku master`
 

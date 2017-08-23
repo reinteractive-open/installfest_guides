@@ -102,7 +102,7 @@ Type `1` and press Enter to start installing MSYS.
 1. Once completed the MSYS installer will be waiting for another selection, type `2` and press Enter to install MSYS updates.
 1. Once this step is complete, type `3` and press Enter to install the MSYS and MINGW development toolchain.
 
-Once finished if the MSYS prompt is waiting for another option simply press Enter to exist the MSYS installer. If this doesn't work, `ctrl-c` followed by `Y` should do it.
+Once finished, if the MSYS prompt is waiting for another option, simply press Enter to exit the MSYS installer. If this doesn't work, `ctrl-c` followed by `Y` should do it.
 
 Fetch the latest rubygems:
 
