@@ -445,7 +445,7 @@ Back in `app/views/posts/show.html.erb` you need to add in the form for submitti
 
 To access the `div_for` helper method used above, we need to add the `record_tag_helper` gem to our Gemfile.
 
-Open `Gemfile` and add the following line anywhere in the file: `gem 'record_tag_helper', '~> 1.0'`
+Open `Gemfile` and add the following line: `gem 'record_tag_helper', '~> 1.0'`. You can add this anywhere in the Gemfile that there is an empty line. (Many developers like to add extra gems at the end of the gem list, but before the grouped gems, e.g. before the line `group :development, :test do`).
 
 Whenever you make changes to your Gemfile, you need to run a `bundle install` so go back to your terminal and stop the server.
 
@@ -581,9 +581,9 @@ git commit -m "initial blog commit"
 
 ### Deploying your application
 
-In the same command prompt you should be ready to deploy your application.
+First, open a new command prompt.
 
-First, login to Heroku by typing:
+Then, login to Heroku by typing:
 
 `heroku login`
 
