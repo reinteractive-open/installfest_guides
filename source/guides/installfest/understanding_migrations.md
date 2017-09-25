@@ -214,7 +214,7 @@ Open `app/models/post.rb` and update it to look like:
 class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
-  validates_presence_of :body, :title
+  validates :body, :title, presence: true
 
   scope :published, -> { where(published: true) }
 
@@ -452,7 +452,7 @@ class Post < ApplicationRecord
 
   belongs_to :author, class_name: "AdminUser"
 
-  validates_presence_of :body, :title
+  validates :body, :title, presence: true
 
   scope :published, -> { where(published: true) }
 
@@ -568,7 +568,7 @@ class Post < ApplicationRecord
 
   belongs_to :author, class_name: "AdminUser"
 
-  validates_presence_of :body, :title
+  validates :body, :title, presence: true
 
   scope :published, -> { where(published: true) }
 

@@ -130,7 +130,7 @@ We're going to add some functionality to our new Rails app to enforce a rule tha
 In Sublime, open `app/models/post.rb` and add the following line to your code:
 
 ```ruby
-validates_presence_of :body, :title
+validates :body, :title, presence: true
 ```
 
 (Don't forget to save your file.)
@@ -140,7 +140,7 @@ Your `post.rb` file should look like:
 ```ruby
 # app/models/post.rb
 class Post < ApplicationRecord
-  validates_presence_of :body, :title
+  validates :body, :title, presence: true
 end
 ```
 
@@ -301,7 +301,7 @@ This should look like:
 class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
-  validates_presence_of :body, :title
+  validates :body, :title, presence: true
 end
 ```
 

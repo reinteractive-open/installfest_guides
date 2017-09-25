@@ -142,7 +142,7 @@ Since we're writing a fully functional spec for code that is already written, we
 class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
-  # validates_presence_of :body, :title
+  # validates :body, :title, presence: true
 end
 ```
 
@@ -185,14 +185,14 @@ Failures:
      # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
 ```
 
-If you open `app/models/comment.rb` you'll notice that there aren't any validations on our comment model. If you add `validates_presence_of :post, :body` into the class so that it looks like:
+If you open `app/models/comment.rb` you'll notice that there aren't any validations on our comment model. If you add `validates :body, :title, presence: true` into the class so that it looks like:
 
 ```ruby
 # app/models/comment.rb
 class Comment < ApplicationRecord
   belongs_to :post
 
-  validates_presence_of :post, :body
+  validates :body, :title, presence: true
 end
 ```
 

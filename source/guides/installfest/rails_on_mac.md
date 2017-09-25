@@ -47,19 +47,14 @@ Here is how to install and configure rbenv:
 1. Install rbenv with homebrew:
 
     ````sh
-    brew install rbenv
+    brew install rbenv ruby-build
     ````
 
-2. Set up rbenv:
-
-    ````sh
-    rbenv init
-    ````
-
-3. You will notice in the output of running `rbenv init`, that it tells you to add rbenv to your `.bash_profile`, so make sure you do it now. Run the following in terminal:
+2. Add rbenv to your bash_profile so that it loads every time you open a terminal. Run the following in terminal:
 
 	````sh
-	echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bash_profile
+	echo 'if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi' >> ~/.bash_profile
+  source ~/.bash_profile
 	````
 
 ## Step Five: Use rbenv to Install Ruby
@@ -67,7 +62,7 @@ Here is how to install and configure rbenv:
 Run the following command:
 
 ````sh
-rbenv install 2.4.0
+rbenv install 2.4.2
 ````
 
 Installing Ruby may take a little while.
@@ -75,7 +70,7 @@ Installing Ruby may take a little while.
 Once it has completed, set this version of Ruby as your default:
 
 ```sh
-rbenv global 2.4.0
+rbenv global 2.4.2
 ```
 
 Assuming that all worked properly you can run:
@@ -87,17 +82,17 @@ ruby -v
 and you should see something like:
 
 ````sh
-ruby 2.4.0p0 (2016-12-24 revision 57164) [x86_64-darwin16]
+ruby 2.4.2p0 (2016-12-24 revision 57164) [x86_64-darwin16]
 ````
 
 Importantly you should NOT see:
 
 ````sh
-ruby 2.4.0p0 (2016-12-24 revision 57164) [universal.x86_64-darwin13]
+ruby 2.0.0p0 (2016-12-24 revision 57164) [universal.x86_64-darwin13]
 ````
 
 The word __universal__ means that it's the version of Ruby that comes with OS X.
-We don't want to use this.
+We don't want to use this, unless it is showing ruby 2.4.2 or similar.
 
 If your Ruby is installed properly you can move onto the next section.
 
@@ -107,6 +102,18 @@ Installing Rails is easy. To get the latest version just run:
 
 ```sh
 gem install rails
+```
+
+When this completes (and it can take a little while), you need to tell `rbenv` that you now have rails installed. You do this by running the following command:
+
+```sh
+rbenv rehash
+```
+
+From there, type the following into your terminal to confirm that rails is correctly installed and ready for use:
+
+```sh
+rails -v
 ```
 
 Congratulations on installing Rails! You should probably [get started with the rest of the guide now.](/guides/installfest/getting_started)

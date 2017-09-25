@@ -124,7 +124,7 @@ Models are used to contain business logic which is related to that particular mo
 
 ```
 class Post < ActiveRecord::Base
-  validates_presence_of :body
+  validates :body, presence: true
 end
 ```
 
@@ -132,7 +132,7 @@ This can mirror a database-constraint, but it can also do different things. For 
 
 ```
 class User < ActiveRecord::Base
-  validates_presence_of :email
+  validates :email, presence: true
   validates_format_of :email, with: /@/ # email must have a @ symbol in it.
 end
 ```
