@@ -219,7 +219,7 @@
 
         has_many :comments
 
-        validates_presence_of :body, :title
+        validates :body, :title, presence: true
       End
       <p>The "<" means one class inherits from another class.</p>
     </td>

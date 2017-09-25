@@ -580,7 +580,7 @@ Open: `app/models/post.rb` and provide the implementation for the render method:
 class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
 
-  validates_presence_of :body, :title
+  validates :body, :title, presence: true
 
   def content
     MarkdownService.new.render(body)
