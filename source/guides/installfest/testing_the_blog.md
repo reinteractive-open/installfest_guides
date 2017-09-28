@@ -453,7 +453,7 @@ To run all your tests either run `rake spec` or `rspec`. Rake is a utility comma
 
 ```sh
 git add .
-git commit -m "Adding rspec and tests for existing functionality"
+git commit -m "Adding capybara and tests for existing functionality"
 ```
 
 ## Next Steps
