@@ -69,6 +69,7 @@ Let's fix that by making our 'create comment' action aware of JavaScript AJAX re
 First we need to add the responders gem to our Gemfile.
 
 Open the `Gemfile` and make it look like:
+(Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
 
 ```ruby
 # Gemfile
