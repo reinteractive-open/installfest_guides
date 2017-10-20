@@ -4,8 +4,8 @@ These instructions are for OS X versions 10.9 and above. If you are running an o
 
 ## Step One: Install a Text Editor
 
-Go to [the Sublime website](https://www.sublimetext.com/2) and click on the link for OS X.
-It will download a disk image for Sublime 2 to your downloads folder.
+Go to [the Sublime website](https://www.sublimetext.com/) and click on 'DOWNLOAD FOR MAC'.
+It will download a disk image for Sublime Text to your downloads folder.
 Locate the file and click on it to install. Follow the instructions.
 
 ## Step Two: Set up a gcc/LLVM compiler

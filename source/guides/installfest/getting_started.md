@@ -113,7 +113,7 @@ We need to instruct Rails to apply this to our database. Returning to the comman
 `rails db:migrate`
 
 Once this command has run you can start up your Rails server again with `rails server` and then navigate to
-[http://localhost:3000/posts](http://localhost:3000/posts) in your web browser to see the changes you've made to your application.
+[http://localhost:3000/posts](http://localhost:3000/posts) in your web browser to see the changes you've made to your application.*(Windows users see below)
 
 ![Empty posts list](/images/guides/empty_posts_list.png)
 
@@ -124,6 +124,22 @@ Go ahead and create a new blog post.
 ![Creating a new post](/images/guides/filling_out_posts_form.png)
 
 You'll notice you can create new posts, edit or delete them.
+
+<hr>
+
+*__Windows Users Only__
+
+Some of you might get an error like the one below:
+
+![Windows-coffeescript-error](/images/guides/windows-coffeescript-error.png)
+
+You can fix this by opening up your `Gemfile` and adding `gem 'coffee-script-source', '1.8.0'`. Then go back to your command-line and run `bundle install` to install the gem.
+
+__Important Note__: This extra line in your Gemfile is unique to your project. Further in the guide, where we make changes to our Gemfile, you must be sure that this line remains. Otherwise the error message above will return.
+
+<hr>
+
+__Back to guide...__
 
 We're going to add some functionality to our new Rails app to enforce a rule that every post must have a title.
 
@@ -502,7 +518,7 @@ to:
 
 This tells Rails that, instead of using SQLite in *all* environments, we want to use SQLite in development and test only.
 
-Then add `gem 'pg', group: :production` on the following line to let Rails know that we will be using Postgres in production.
+Then add `gem 'pg', group: :production` on the following line to let Rails know that we will be using Postgres in production. (Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
 
 It should look like:
 

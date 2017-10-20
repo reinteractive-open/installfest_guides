@@ -32,6 +32,7 @@ gem 'devise'
 (Don't forget to save your file.)
 
 Your gemfile should now look like:
+(Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
 
 ```ruby
 # Gemfile

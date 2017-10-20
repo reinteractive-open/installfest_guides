@@ -12,6 +12,8 @@ Let's dive into testing now.
 
 ### Setup
 Add the gem `rspec-rails` to the development and test group in your `Gemfile` so it looks like this:
+(Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
+
 
 ```ruby
 # Gemfile
