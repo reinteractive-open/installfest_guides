@@ -87,7 +87,7 @@ Once it has completed, set this version of Ruby as your default:
 rvm --default use 2.4.2
 ```
 
-Assuming that all worked properly you can run:
+Assuming that was successful, you can run:
 
 ````sh
 ruby -v
@@ -117,7 +117,7 @@ Installing Rails is easy. To get the latest version just run:
 gem install rails
 ```
 
-When this completes (and it can take a little while), type the following into your terminal to confirm that rails is correctly installed and ready for use:
+When this completes (and it can take a little while), type the following in your terminal to confirm that rails is correctly installed and ready for use:
 
 ```sh
 rails -v
