@@ -434,15 +434,13 @@ In Sublime, open `app/views/posts/show.html.erb` and make it look like:
 You'll now need to create a file called `app/views/comments/_comment.html.erb` with the following contents:
 
 ```erb
-<%= content_tag comment do %>
-  <p>
-    <strong>
-      Posted <%= time_ago_in_words(comment.created_at) %> ago
-    </strong>
-    <br/>
-    <%= comment.body %>
-  </p>
-<% end %>
+<p>
+  <strong>
+    Posted <%= time_ago_in_words(comment.created_at) %> ago
+  </strong>
+  <br/>
+  <%= comment.body %>
+</p>
 ```
 
 (Don't forget to save these files.)
