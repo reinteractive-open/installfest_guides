@@ -8,7 +8,7 @@ First, you must have a working version of Rails. Depending on your operating sys
 
 * **Mac** users please use [this guide on installing Rails](/guides/installfest/rails_on_mac)
 * **Windows** users please use [this guide on installing Rails](/guides/installfest/rails_on_windows)
-* **Linux** users, you may refer to [gorails guide](https://gorails.com/setup/ubuntu/17.04)
+* **Linux** users, you may refer to [gorails guide](https://gorails.com/setup/ubuntu/17.10)
 
 ### 2. Download a Text Editor (if required)
 
