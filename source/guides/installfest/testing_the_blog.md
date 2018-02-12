@@ -161,11 +161,14 @@ RSpec.describe Comment, type: :model do
     subject(:comment) { Comment.new }
     before { comment.valid? }
 
-    [:post, :body].each do |attribute|
-      it "should validate presence of #{attribute}" do
-        expect(comment.errors[attribute].size).to be >= 1
-        expect(comment.errors.messages[attribute]).to include "can't be blank"
-      end
+    it 'should validate presence of post' do
+      expect(comment.errors[:post].size).to be >= 1
+      expect(comment.errors.messages[:post]).to include "must exist"
+    end
+
+    it 'should validate presence of body' do
+      expect(comment.errors[:body].size).to be >= 1
+      expect(comment.errors.messages[:body]).to include "can't be blank"
     end
   end
 end
@@ -176,15 +179,17 @@ When you run `rspec spec/models/comment_spec.rb` you'll receive:
 ```sh
 Failures:
 
-  1) Comment validations should validate presence of post
-     Failure/Error: expect(comment.errors[attribute].size).to be >= 1
-       expected at least 1 error on :post, got 0
-     # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
+Failures:
 
-  2) Comment validations should validate presence of body
-     Failure/Error: expect(comment.errors[attribute].size).to be >= 1
-       expected at least 1 error on :body, got 0
-     # ./spec/models/comment_spec.rb:10:in `block (4 levels) in <top (required)>'
+  1) Comment validations should validate presence of body
+     Failure/Error: expect(comment.errors[:body].size).to be >= 1
+     
+       expected: >= 1
+            got:    0
+     # ./spec/models/comment_spec.rb:10:in `block (3 levels) in <top (required)>'
+
+Finished in 0.04008 seconds (files took 1.4 seconds to load)
+2 examples, 1 failure
 ```
 
 If you open `app/models/comment.rb` you'll notice that there aren't any validations on our comment model. If you add `validates :body, :title, presence: true` into the class so that it looks like:
@@ -194,7 +199,7 @@ If you open `app/models/comment.rb` you'll notice that there aren't any validati
 class Comment < ApplicationRecord
   belongs_to :post
 
-  validates :body, :title, presence: true
+  validates :body, presence: true
 end
 ```
 
