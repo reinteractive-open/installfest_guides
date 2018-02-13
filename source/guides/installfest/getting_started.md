@@ -516,7 +516,7 @@ to:
 
 This tells Rails that, instead of using SQLite in *all* environments, we want to use SQLite in development and test only.
 
-Then add `gem 'pg', group: :production` on the following line to let Rails know that we will be using Postgres in production. (Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
+Then add `gem 'pg', '~> 0.18', group: :production` on the following line to let Rails know that we will be using Postgres in production. (Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
 
 It should look like:
 
@@ -533,7 +533,7 @@ end
 gem 'rails', '~> 5.1.0'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
-gem 'pg', group: :production
+gem 'pg', '~> 0.18', group: :production
 # Use Puma as the app server
 gem 'puma', '~> 3.7'
 # Use SCSS for stylesheets
