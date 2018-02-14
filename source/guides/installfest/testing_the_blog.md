@@ -192,7 +192,7 @@ Finished in 0.04008 seconds (files took 1.4 seconds to load)
 2 examples, 1 failure
 ```
 
-If you open `app/models/comment.rb` you'll notice that there aren't any validations on our comment model. If you add `validates :body, :title, presence: true` into the class so that it looks like:
+If you open `app/models/comment.rb` you'll notice that there aren't any validations on our comment model. If you add `validates :body, presence: true` into the class so that it looks like:
 
 ```ruby
 # app/models/comment.rb
