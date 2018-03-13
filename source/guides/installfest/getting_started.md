@@ -471,7 +471,6 @@ Then add `gem 'pg', '~> 0.18', group: :production` on the following line to let 
 It should look like:
 
 ```ruby
-# Gemfile
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -479,8 +478,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.1.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', '~> 0.18', group: :production
@@ -500,7 +500,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+# gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -574,4 +574,4 @@ Note that you can also use the `heroku open` command to get to the root URL.
 
 Welcome to Ruby on Rails! If you're this far along you might want to pause and catch your breath. Check out [WTF Just Happened? A Quick Tour of your first Rails App](https://reinteractive.com/posts/316) to recap.
 
-After that, it's time to [head on over to Part 2](/guides/installfest/testing_the_blog) which shows you how to test your 15 minute blog.
+After that, it's time to [head on over to Part 2](/guides/installfest/adding_authentication) which shows you how to add authentication to secure your 15 minute blog.

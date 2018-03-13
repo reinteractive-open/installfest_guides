@@ -2,7 +2,7 @@
 github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/adding_authentication.md
 ---
 
-# Testing the Blog with RSpec
+# Adding Authentication
 In the [previous guide](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. If you feel confident with Rails but want to learn more about authentication you can find some instructions on getting the code set up properly below.
 
 ## Introduction to Authentication
@@ -16,9 +16,7 @@ In this guide, we will be using a gem called [Devise](https://github.com/platafo
 Add the gem `devise` to your `Gemfile` so it looks like this:
 (Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
 
-
 ```ruby
-# Gemfile
 source 'https://rubygems.org'
 
 git_source(:github) do |repo_name|
@@ -26,8 +24,9 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.4'
+gem 'rails', '~> 5.1.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3'
 # Use Puma as the app server
@@ -39,6 +38,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Use devise for authentication
+gem 'devise'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -46,15 +48,14 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+# gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
+gem 'record_tag_helper', '~> 1.0'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
-
-gem 'record_tag_helper', '~> 1.0'
-gem `devise`
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
