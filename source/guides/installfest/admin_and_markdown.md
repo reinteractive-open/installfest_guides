@@ -7,7 +7,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ## Adding ActiveAdmin and Markdown support to Rails
 
 Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
-If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 3](/guides/installfest/testing_the_blog). If you feel confident with Rails but want to learn more about ActiveAdmin and/or Markdown you can find some instructions on getting the code set up properly below.
+If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest/finishing_a_basic_blog). If you feel confident with Rails but want to learn more about ActiveAdmin and/or Markdown you can find some instructions on getting the code set up properly below.
 
 ## Installing an Administration System
 
@@ -318,7 +318,7 @@ Save that and rerun our spec which should pass or "go green".
 
 Some of you might already be protesting that we still have the backend code for adding a post and all we've done is remove the link in the HTML, and you're completely correct. We need to remove the code from our controller and configure our routes so that the only way to create or edit a post is in the admin panel.
 
-Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. You can also delete the authenticate method and the before_action line. Your PostsController should look like the following when you've finished:
+Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. Your PostsController should look like the following when you've finished:
 
 ```ruby
 # app/controllers/posts_controller.rb

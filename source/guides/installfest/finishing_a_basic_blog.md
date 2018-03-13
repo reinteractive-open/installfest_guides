@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Finishing a Basic Blog
-In the [first guide](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Bootstrap](http://getbootstrap.com/). Let's dive in.
+In the [previous guide](/guides/installfest/testing_the_blog) you added automated testing to your blog application. If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Bootstrap](http://getbootstrap.com/). Let's dive in.
 
 ## Preparation for our coding session
 
@@ -641,10 +641,6 @@ A) *There are a couple of ways of doing this. You can alter the link so it point
 **Q) There's a bug that lets a user submit blank comments!**
 
 A) *You can fix this by creating a validation on your comment model. Look at see how you created a validates_presence_of validation in the Post model and replicate that in the Comment model*
-
-**Q) I want to have proper user logins for both creating a post and submitting comments.**
-
-A) *You can use a gem like [Devise](https://github.com/plataformatec/devise) to do this, it can be a bit complicated though. Ryan Bates has done some excellent screencasts on [Devise](http://railscasts.com/episodes/209-devise-revised) and [Authentication from Scratch](http://railscasts.com/episodes/250-authentication-from-scratch-revised). If you're keen to learn more about Rails you should subscribe!*
 
 ## Next Steps
 

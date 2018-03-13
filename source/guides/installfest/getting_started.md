@@ -243,56 +243,6 @@ In Sublime, open the `index.html.erb` file up and make it look like:
 
 (Don't forget to save your file.)
 
-## Access control
-
-One huge problem with our blog is that absolutely anyone can create, edit and delete blog posts. This is not good so let's fix that!
-
-We'll use HTTP Basic authenticate to put a password on actions we don't want just anyone accessing.
-
-Open `app/controllers/posts_controller.rb` and add `before_action :authenticate, except: [ :index, :show ]` on line two, just below the class declaration.
-
-At the bottom of your file, just before the final `end`, put the following code:
-
-```ruby
-  def authenticate
-    authenticate_or_request_with_http_basic do |name, password|
-      name == "admin" && password == "secret"
-    end
-  end
-```
-
-(Don't forget to save your file.)
-
-Overall your `posts_controller.rb` should have the following code at the top and the bottom of the file. Note that all the methods are excluded here for brevity.
-
-```ruby
-# app/controllers/posts_controller.rb
-class PostsController < ApplicationController
-  before_action :authenticate, except: [ :index, :show ]
-  before_action :set_post, only: [:show, :edit, :update, :destroy]
-
-  ...
-  # all your actions go in here
-  ...
-
-  private
-
-  ...
-  # there should be post_params and set_post methods in here.
-  ...
-
-  def authenticate
-    authenticate_or_request_with_http_basic do |name, password|
-      name == "admin" && password == "secret"
-    end
-  end
-end
-```
-
-With that code in place you can try to [add a new post](http://localhost:3000/posts/new) and you'll be prompted to enter a username and password.
-
-![image](/images/guides/authentication_required.png)
-
 ## Adding comments
 #### Creating a database model and routing
 
@@ -490,7 +440,7 @@ end
 ```
 (Don't forget to save your file.)
 
-The way we're using the root [method](https://github.com/rails/rails/blob/a72dab0b6a16ef9e83e66c665b0f2b4364d90fb6/actionpack/lib/action_dispatch/routing/mapper.rb#L253) here indicates that we want the root path of our application to be sent to the `PostsController` index action which you created in the previous article. If you open [http://localhost:3000](http://localhost:3000) you'll see your posts index rather than the boring default Rails page.
+The way we're using the root [method](https://github.com/rails/rails/blob/a72dab0b6a16ef9e83e66c665b0f2b4364d90fb6/actionpack/lib/action_dispatch/routing/mapper.rb#L253) here indicates that we want the root path of our application to be sent to the `PostsController` index action which you created in the previous section. If you open [http://localhost:3000](http://localhost:3000) you'll see your posts index rather than the boring default Rails page.
 
 ## Publishing your Blog on the internet
 
