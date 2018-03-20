@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Finishing a Basic Blog
-In the [first guide](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Bootstrap](http://getbootstrap.com/). Let's dive in.
+In the [previous guide](/guides/installfest/testing_the_blog) you added automated testing to your blog application. If you haven't run through that post then you should do so now before starting this one. In this installment, together, we'll add some features to your blogging engine, show you more about Rails and make it look nicer using [Bootstrap](http://getbootstrap.com/). Let's dive in.
 
 ## Preparation for our coding session
 
@@ -81,7 +81,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.1.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
@@ -94,6 +94,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Use devise for authentication
+gem 'devise'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -101,7 +104,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+# gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -641,10 +644,6 @@ A) *There are a couple of ways of doing this. You can alter the link so it point
 **Q) There's a bug that lets a user submit blank comments!**
 
 A) *You can fix this by creating a validation on your comment model. Look at see how you created a validates_presence_of validation in the Post model and replicate that in the Comment model*
-
-**Q) I want to have proper user logins for both creating a post and submitting comments.**
-
-A) *You can use a gem like [Devise](https://github.com/plataformatec/devise) to do this, it can be a bit complicated though. Ryan Bates has done some excellent screencasts on [Devise](http://railscasts.com/episodes/209-devise-revised) and [Authentication from Scratch](http://railscasts.com/episodes/250-authentication-from-scratch-revised). If you're keen to learn more about Rails you should subscribe!*
 
 ## Next Steps
 

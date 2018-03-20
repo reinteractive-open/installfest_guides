@@ -3,7 +3,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 ---
 
 # Testing the Blog with RSpec
-In the [previous article](/guides/installfest/getting_started) you built a simple blogging engine using Rails and published it up on [Heroku](https://www.heroku.com). If you haven't run through that post then you should do so now before starting this one. If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
+In the [previous guide](/guides/installfest/adding_authentication) you added authentication to your blog application. If you haven't run through that post then you should do so now before starting this one. If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
 
 ## Introduction to Automated Testing
 One of the biggest advantages of Rails is the community focus on testing. The Ruby and Rails communities have put a great deal of effort into building first-class tools and methods for making sure our apps are as correct as possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in developing easy to use and innovative tools to support widely embraced methods like Test Driven Development (TDD), Behaviour Driven Development (BDD) and Continuous Integration (CI).
@@ -25,7 +25,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.0'
+gem 'rails', '~> 5.1.5'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
@@ -38,6 +38,9 @@ gem 'uglifier', '>= 1.3.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
+# Use devise for authentication
+gem 'devise'
+
 # Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.2'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -45,7 +48,7 @@ gem 'turbolinks', '~> 5'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.5'
 # Use Redis adapter to run Action Cable in production
-# gem 'redis', '~> 3.0'
+# gem 'redis', '~> 4.0'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -465,7 +468,7 @@ git commit -m "Adding capybara and tests for existing functionality"
 
 ## Next Steps
 
-Up next we're going to go more in depth with Rails and begin to add more features to the blogging engine. Head on over to [Part 3: Finishing a Basic Blog](/guides/installfest/finishing_a_basic_blog) to get started.
+Up next we're going to go more in depth with Rails and begin to add more features to the blogging engine. Head on over to [Part 4: Finishing a Basic Blog](/guides/installfest/finishing_a_basic_blog) to get started.
 
 If you're interested in more training from reinteractive or just want to give us some feedback on this you can leave a comment below or:
 
