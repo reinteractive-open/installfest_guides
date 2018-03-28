@@ -140,7 +140,7 @@ What we're doing here is splitting up the test into a "validations" section and 
 
 RSpec is a tool that provides a nice Domain Specific Language (DSL) to write specs. The important documentation to read is for [expectations and matchers](http://rubydoc.info/gems/rspec-expectations/frames), but for the purposes of this project we'll be providing and explaining most of the test code for you.
 
-Since we're writing a fully functional spec for code that is already written, we'll need to make sure our test actually works by intentionally "breaking" some of our code. Open `app/models/post.rb` and comment out Line 6 so your Post model looks like:
+Since we're writing a fully functional spec for code that is already written, we'll need to make sure our test actually works by intentionally "breaking" some of our code. Open `app/models/post.rb` and comment out Line 5 so your Post model looks like:
 
 ```ruby
 # app/models/post.rb
@@ -151,7 +151,7 @@ class Post < ApplicationRecord
 end
 ```
 
-Once you've saved the file, you can rerun the spec with `rspec spec/models/post_spec.rb`. You should receive `2 examples, 2 failures` and the error messages will be printed in your terminal. Be careful to read the error messages closely. When you're done uncomment Line 6 in `app/models/post.rb` save the file and rerun the spec to ensure that everything is passing correctly.
+Once you've saved the file, you can rerun the spec with `rspec spec/models/post_spec.rb`. You should receive `2 examples, 2 failures` and the error messages will be printed in your terminal. Be careful to read the error messages closely. When you're done uncomment Line 5 in `app/models/post.rb` save the file and rerun the spec to ensure that everything is passing correctly.
 
 We'll also need to write a unit test for our comment model. Open `spec/models/comment_spec.rb` and update it to ensure that a comment will always belong to a post, and the comment will always have a body. The code to do this looks like:
 
@@ -238,6 +238,19 @@ require 'capybara/rails'
 require 'capybara/rspec'
 ```
 
+This tells `spec/rails_helper.rb` to include some special helper files that Capybara provides specifically for testing Rails applications.
+
+Capybara also provides helper files for testing Rails Controllers, so we need to add the following lines to `spec/rails_helper.rb`:
+
+```ruby
+RSpec.configure do |config|
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Warden::Test::Helpers
+end
+```
+
 (Don't forget to save your file.)
 
 Your spec file should now look like this:
@@ -254,6 +267,13 @@ require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 require 'capybara/rails'
 require 'capybara/rspec'
+
+RSpec.configure do |config|
+  config.include Devise::Test::ControllerHelpers, type: :controller
+  config.include Devise::Test::ControllerHelpers, type: :view
+  config.include Devise::Test::IntegrationHelpers, type: :feature
+  config.include Warden::Test::Helpers
+end
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
@@ -281,7 +301,8 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  # config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -317,8 +338,11 @@ require 'rails_helper'
 
 feature 'Reading the Blog' do
   background do
+    Post.delete_all
     @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
     Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet')
+    @user = User.create
+    sign_in @user
   end
 
   scenario 'Reading the blog index' do
@@ -408,7 +432,7 @@ feature 'Managing blog posts' do
     visit root_path
     click_link 'New Post'
 
-    expect(page).to have_content 'Access denied'
+    expect(page).to have_content 'Sign up | Login'
   end
 
   scenario 'Posting a new blog' do
