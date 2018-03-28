@@ -180,9 +180,26 @@ Open `app/views/layouts/application.html.erb` and make it look like the followin
 </html>
 ```
 
-Only registered users should be allowed to create, edit or delete blogs. So, if a user is not logged in, we need to redirect them to the login page. Open `app/controllers/posts_controller.rb` and add:
+If a user is not logged in, we need to redirect them to the login page. Open `app/controllers/application_controller.rb` and add:
 
-`before_action :authenticate_user!, only: [:edit, :update, :destroy]`
+`before_action :authenticate_user!`
+
+just before the `end` keyword so that it looks like:
+
+```ruby
+# app/controllers/application_controller.rb
+class ApplicationController < ActionController::Base
+  protect_from_forgery with: :exception
+
+  before_action :authenticate_user!
+end
+```
+
+`application_controller` is a project-wide file, so those settings will apply to the entire app. However, we can override it on a case-by-case basis.
+
+In the case of blog posts; anybody can read our blogs, we simply don't want to allow them to create or edit (or delete). To do this, open `app/controllers/posts_controller.rb` and add:
+
+`before_action :authenticate_user!, except: [:show, :index]`
 
 just after the first `before_action` so that it looks like:
 
@@ -190,7 +207,7 @@ just after the first `before_action` so that it looks like:
 # app/controllers/posts_controller.rb
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update, :destroy]
-  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!, except: [:show, :index]
 
   # GET /posts
   # GET /posts.json

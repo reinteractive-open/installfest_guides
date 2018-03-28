@@ -402,13 +402,19 @@ Create a file: `spec/features/post_comments_spec.rb` with the contents:
 # spec/features/post_comments_spec.rb
 require 'rails_helper'
 
-feature 'Posting Comments' do
+RSpec.feature "Posting Comments", :type => :feature do
   background do
     @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
   end
 
-  # Note this scenario doesn't test the AJAX comment posting.
-  scenario 'Posting a comment' do
+  scenario "Visit root_path" do
+    @user = User.create(email:'test@example.com', password: 'secret')
+
+    visit new_user_session_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Log in'
+
     visit post_path(@post)
 
     comment = 'This post is just filler text. Ripped off!'
@@ -427,7 +433,8 @@ Save that, then create a file: `spec/features/managing_posts_spec.rb` with the c
 # spec/features/managing_posts_spec.rb
 require 'rails_helper'
 
-feature 'Managing blog posts' do
+RSpec.feature 'Managing Posts', :type => :feature do
+
   scenario 'Guests cannot create posts' do
     visit root_path
     click_link 'New Post'
@@ -436,9 +443,15 @@ feature 'Managing blog posts' do
   end
 
   scenario 'Posting a new blog' do
+    @user = User.create(email:'test@example.com', password: 'secret')
+
+    visit new_user_session_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Log in'
+
     visit root_path
 
-    page.driver.browser.authorize 'admin', 'secret'
     click_link 'New Post'
 
     expect(page).to have_content 'New Post'
@@ -456,6 +469,13 @@ feature 'Managing blog posts' do
     end
 
     scenario 'Editing an existing blog' do
+      @user = User.create(email:'test@example.com', password: 'secret')
+
+      visit new_user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log in'
+
       visit post_path(@post)
 
       page.driver.browser.authorize 'admin', 'secret'
