@@ -76,7 +76,6 @@ gem 'responders'
 
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
 gem 'activeadmin', github: 'activeadmin'
-gem 'devise'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
@@ -104,109 +103,23 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 ```
 
-Then in your terminal run `bundle install --without=production` to install ActiveAdmin. Once bundle has finished installing you will need to configure ActiveAdmin by running:
+Then in your terminal run `bundle install --without=production` to install ActiveAdmin. Once bundle has finished installing you will need to configure ActiveAdmin by running the following commands one by one:
 
 ```sh
 rails generate active_admin:install
+```
+
+```sh
 rails db:migrate
+```
+
+```sh
 rails db:seed
 ```
 
-Finally we need to restart our rails server as we have made some changes to the database and rails environment. Change to the terminal window where you are running rails server, stop it with `Ctrl-c` and then restart it with `rails server`.
+### Add Posts to Active Admin
 
-Now you can open your browser to [http://localhost:3000/admin](http://localhost:3000/admin) and log into your new admin interface using the default credentials: `admin@example.com` and `password`.
-
-### Implement a failing test
-
-We're about to start implementing some functionality which means we should first write a test. This test will fail until we finish implementing our new feature.
-
-Open `spec/features/managing_posts_spec.rb` and change the contents of this file to match:
-
-```ruby
-# spec/features/managing_posts_spec.rb
-require 'rails_helper'
-
-feature 'Managing blog posts' do
-
-  context 'as an admin user' do
-    background do
-      email = 'admin@example.com'
-      password = 'password'
-      @admin = AdminUser.create(email: email, password: password)
-
-      log_in_admin_user
-    end
-
-    def log_in_admin_user(email = 'admin@example.com', password = 'password')
-      reset_session!
-      visit admin_root_path
-      fill_in 'Email', with: email
-      fill_in 'Password', with: password
-      click_button 'Login'
-    end
-
-    scenario 'Posting a new blog' do
-      click_link 'Posts'
-      click_link 'New Post'
-
-      fill_in 'post_title', with: 'New Blog Post'
-      fill_in 'post_body', with: 'This post was made from the Admin Interface'
-      click_button 'Create Post'
-
-      expect(page).to have_content 'This post was made from the Admin Interface'
-    end
-
-    context 'with an existing blog post' do
-      background do
-        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
-      end
-
-      scenario 'Editing an existing blog' do
-        visit admin_post_path(@post)
-
-        click_link 'Edit'
-
-        fill_in 'Title', with: 'Not really Awesome Blog Post'
-        click_button 'Update Post'
-
-        expect(page).to have_content 'Not really Awesome Blog Post'
-      end
-    end
-
-  end
-
-end
-```
-
-(Don't forget to save your file.)
-
-As an admin user we'd expect to be able to log into the admin panel, click a 'Posts' link and create a post or edit an existing one.
-
-Run this spec with the following command:
-
-```sh
-rspec spec/features/managing_posts_spec.rb
-```
-
-You should expect to see the following errors (note that excess lines have been removed for brevity):
-
-```sh
-Failures:
-
-  1) Managing blog posts as an admin user Posting a new blog
-     Failure/Error: click_link 'Posts'
-     Capybara::ElementNotFound:
-       Unable to find link "Posts"
-     # ./spec/features/managing_posts_spec.rb:24:in `block (3 levels) in <top (required)>'
-
-  2) Managing blog posts as an admin user with an existing blog post Editing an existing blog
-     Failure/Error: visit admin_post_path(@post)
-     NoMethodError:
-       undefined method `admin_post_path' for #<RSpec::Core::ExampleGroup::Nested_1::Nested_1::Nested_1:0x007fcc703ee6c8>
-     # ./spec/features/managing_posts_spec.rb:40:in `block (4 levels) in <top (required)>'
-```
-
-These scenarios fail because we haven't created the posts section of our admin panel yet. Let's do that now.
+We need to create the posts section of our admin panel. Let's do that now.
 
 Run: `rails generate active_admin:resource Post`,
 
@@ -223,138 +136,44 @@ end
 
 (Don't forget to save your file.)
 
-You can open up your browser and manually check that our changes work did what you want, but we will re-run the spec (`rspec spec/features/managing_posts_spec.rb`) to be sure.
+Finally we need to restart our rails server as we have made some changes to the database and rails environment. Change to the terminal window where you are running rails server, stop it with `Ctrl-c` and then restart it with `rails server`.
 
-Finally, we'll be editing and adding an additional feature spec aimed at the user interface of our application. Add the following to the top of `managing_posts_spec.rb`:
+Now you can open your browser to [http://localhost:3000/admin](http://localhost:3000/admin) and log into your new admin interface using the default credentials: `admin@example.com` and `password`.
 
-```ruby
-  scenario 'Guests cannot create posts' do
-    visit root_path
-    expect(page).to_not have_button 'New Post'
-  end
-```
+### Edit an existing blog post
 
-so that it looks like:
+Across the top, you should see a menu that looks like the image below:
 
-```ruby
-# spec/features/managing_posts_spec.rb
-require 'rails_helper'
+![Active Admin Menu](/images/guides/active_admin_menu.png)
 
-feature 'Managing blog posts' do
+Click on 'Posts'
 
-  scenario 'Guests cannot create posts' do
-    visit root_path
-    expect(page).to_not have_button 'New Post'
-  end
+From there, you will see a list of the existing blog posts we have created so far, each with a link to View, Edit, and Delete.
 
-  context 'as an admin user' do
-    background do
-      email = 'admin@example.com'
-      password = 'password'
-      @admin = AdminUser.create(email: email, password: password)
+Choose a blog post and click on Edit.
 
-      log_in_admin_user
-    end
+From there, make some changes and click on the 'Update Post' button at the bottom of the page.
 
-    def log_in_admin_user(email = 'admin@example.com', password = 'password')
-      reset_session!
-      visit admin_root_path
-      fill_in 'Email', with: email
-      fill_in 'Password', with: password
-      click_button 'Login'
-    end
+To view your changes, return to [http://localhost:3000](http://localhost:3000)
 
-    scenario 'Posting a new blog' do
-      click_link 'Posts'
-      click_link 'New Post'
+### Create a new blog post
 
-      fill_in 'post_title', with: 'New Blog Post'
-      fill_in 'post_body', with: 'This post was made from the Admin Interface'
-      click_button 'Create Post'
+As above, return to [http://localhost:3000/admin](http://localhost:3000/admin) and click on 'Posts'.
 
-      expect(page).to have_content 'This post was made from the Admin Interface'
-    end
+This time, click on the 'New Post' button in the top right hand of the page.
 
-    context 'with an existing blog post' do
-      background do
-        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
-      end
+Fill out the title and the body and click 'Create Post'.
 
-      scenario 'Editing an existing blog' do
-        visit admin_post_path(@post)
+Again, to view your changes, return to [http://localhost:3000](http://localhost:3000)
 
-        click_link 'Edit'
 
-        fill_in 'Title', with: 'Not really Awesome Blog Post'
-        click_button 'Update Post'
+### Cleaning up and Committing
 
-        expect(page).to have_content 'Not really Awesome Blog Post'
-      end
-    end
+We're at a good spot! Thanks to the power of ActiveAdmin we were able to implement an admin panel extremely quickly, but don't be misled into thinking that all Rails apps are this simple though.
 
-  end
+In any case we should run all our tests to ensure that everything is working, then commit our code.
 
-end
-```
-
-Saving and then running this spec with `rspec spec/features/managing_posts_spec.rb` should result in this error:
-
-```sh
-Failures:
-
-  1) Managing blog posts Guests cannot create posts
-     Failure/Error: expect(page).to_not have_button 'New Post'
-     Capybara::ExpectationNotMet:
-       expected not to find button "New Post", found 1 match: "New Post"
-     # ./spec/features/managing_posts_spec.rb:7:in `block (2 levels) in <top (required)>'
-```
-
-If you look at this scenario, what we're checking is that a guest cannot create a post. Specifically we want to ensure that there isn't a button called "New Post" on the post index page. Currently this button exists so we experience our test failure.
-
-We can fix this scenario by opening: `app/views/posts/index.html.erb` and deleting:
-
-```erb
-<%= button_to 'New Post', new_post_path, method: :get, class: "btn-primary" %>
-```
-
-Save that and rerun our spec which should pass or "go green".
-
-Some of you might already be protesting that we still have the backend code for adding a post and all we've done is remove the link in the HTML, and you're completely correct. We need to remove the code from our controller and configure our routes so that the only way to create or edit a post is in the admin panel.
-
-Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. Your PostsController should look like the following when you've finished:
-
-```ruby
-# app/controllers/posts_controller.rb
-class PostsController < ApplicationController
-  # GET /posts
-  # GET /posts.json
-  # GET /posts.atom
-  def index
-    @posts = Post.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.json { render json: @posts }
-      format.atom
-    end
-  end
-
-  # GET /posts/1
-  # GET /posts/1.json
-  def show
-    @post = Post.find(params[:id])
-
-    respond_to do |format|
-      format.html # show.html.erb
-      format.json { render json: @post }
-    end
-  end
-end
-```
-
-Save these changes.
-
-Since we've made a large change to one of our main controllers now would be a good time to run our entire test suite.
+Run: `rspec`
 
 You'll see that everything passes but there's a curious new spec that we didn't create. This was generated automatically for you when you installed ActiveAdmin. Since there's no functionality in there that we wrote we're going to simply delete the spec.
 
@@ -362,15 +181,7 @@ On OSX or Linux run `rm spec/models/admin_user_spec.rb` and
 
 on Windows run `del spec\models\admin_user_spec.rb`.
 
-### Cleaning up and Committing
-
-We're at a good spot! We've created an admin panel and wrote a test before we even started implementing it. Thanks to the power of ActiveAdmin we were able to implement it extremely quickly, but don't be misled into thinking that all Rails apps are this simple though.
-
-In any case we should run all our tests to ensure that everything is working, then commit our code.
-
-Run: `rspec`
-
-Ensure everything passes then run:
+Now it is time to commit our changes. Run the following in your command line:
 
 ```sh
 git add .
