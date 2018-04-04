@@ -533,7 +533,7 @@ After this, run the command `bundle install --without=production` on your comman
 
 ### Regarding version control
 
-Heroku also requires that every application is placed under version control before it is deployed.
+Heroku also requires that every application is placed under [version control](https://git-scm.com/book/en/v2/Getting-Started-About-Version-Control) before it is deployed.
 
 Simply run the following commands on the command prompt to make sure your application is properly controlled:
 

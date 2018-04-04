@@ -260,11 +260,27 @@ Your `application.html.erb` file should look like:
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
   </head>
 
   <body>
+    <p class="navbar-text pull-right">
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+    <% end %>
+    </p>
+
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
     <%= yield %>
   </body>
 </html>
@@ -375,11 +391,27 @@ We're going to start off with two very quick things with Bootstrap. We'll give o
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
   </head>
 
   <body>
+    <p class="navbar-text pull-right">
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+    <% end %>
+    </p>
+
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8">
@@ -462,18 +494,25 @@ Our spec should now look like:
 # spec/features/managing_posts_spec.rb
 require 'rails_helper'
 
-feature 'Managing blog posts' do
+RSpec.feature 'Managing Posts', :type => :feature do
+
   scenario 'Guests cannot create posts' do
     visit root_path
     click_button 'New Post'
 
-    expect(page).to have_content 'Access denied'
+    expect(page).to have_content 'Sign up | Login'
   end
 
   scenario 'Posting a new blog' do
+    @user = User.create(email:'test@example.com', password: 'secret')
+
+    visit new_user_session_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Log in'
+
     visit root_path
 
-    page.driver.browser.authorize 'admin', 'secret'
     click_button 'New Post'
 
     expect(page).to have_content 'New Post'
@@ -491,6 +530,13 @@ feature 'Managing blog posts' do
     end
 
     scenario 'Editing an existing blog' do
+      @user = User.create(email:'test@example.com', password: 'secret')
+
+      visit new_user_session_path
+      fill_in 'Email', with: @user.email
+      fill_in 'Password', with: @user.password
+      click_button 'Log in'
+
       visit post_path(@post)
 
       page.driver.browser.authorize 'admin', 'secret'
@@ -591,12 +637,28 @@ These Header and Footer files contain some example HTML that will give you a sta
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
     <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
   </head>
 
   <body>
     <%= render partial: 'layouts/header' %>
+    <p class="navbar-text pull-right">
+    <% if user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+    <% end %>
+    </p>
+
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
     <div class="container">
       <div class="row">
         <div class="col-xs-12 col-sm-10 col-md-8">
