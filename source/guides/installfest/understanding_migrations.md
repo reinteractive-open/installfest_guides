@@ -10,33 +10,11 @@ In this installment we'll be learning more about how to manage your database str
 
 The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
 
-### Write a feature spec
-
-We'll start by writing a spec for this new feature. It's often good to start with a feature spec since it will let you scope the new functionality without having to know all the in-depth implementation details ahead of time.
-
-Open `spec/features/managing_posts_spec.rb` and add the following scenario to the `as an admin user` context.
-
-```ruby
-  scenario 'Publishing an existing blog' do
-    @post = Post.create(title: 'New Post', body: "Hello world!")
-    @post.save!
-
-    visit admin_post_path(@post)
-    click_link 'Edit Post'
-
-    check 'Published'
-    click_button 'Update Post'
-
-    expect(page).to have_content 'Post was successfully updated'
-    expect(Post.last.published?).to be true
-  end
-```
-
-When you've saved the file you can run it with `rspec spec/features/managing_posts_spec.rb`. Naturally it will fail since we haven't implemented any of the functionality to support it yet. Let's get started with that now.
-
 ### A post can be published
 
-`rails g migration AddPublishedToPost published:boolean`
+Run the following in your terminal:
+
+`rails generate migration AddPublishedToPost published:boolean`
 
 Open the migration generated. It will look like, __but won't be the same as__, `db/migrate/20130510023357_add_published_to_post.rb` and add `default: false` to the change.
 
@@ -49,27 +27,17 @@ class AddPublishedToPost < ActiveRecord::Migration[5.1]
 end
 ```
 
-After saving this we need to add these changes to our development database by running a migration. Enter the following into your terminal:
+After saving this, we need to add these changes to our development database by running a migration. Enter the following into your terminal:
 
 ```sh
 rails db:migrate
 ```
 
-Now when we run `rspec spec/features/managing_posts_spec.rb` we get a new error:
+`default: false` means that any records without the published flag set (including those that were created before we added this flag) will have the published flag as false.
 
-```sh
-Failures:
+To allow ActiveAdmin to use mass-assignment to update our Post database record (read more about mass-assignment in the [Rails Security Guide](http://guides.rubyonrails.org/v3.2.8/security.html#mass-assignment)), we need to configure Rails to allow this.
 
-  1) Managing blog posts as an admin user with an existing blog post Publishing an existing blog
-     Failure/Error: expect(Post.last.published?).to be true
-       expected: true
-            got: false
-     # ./spec/features/managing_posts_spec.rb:50:in `block (3 levels) in <top (required)>'
-```
-
-What this error means is that ActiveAdmin tried to use mass-assignment to update our Post database record and we haven't configured it to allow this. This error is helping us to protect our application from a common form of security vulnerability which you can read about in the [Rails Security Guide](http://guides.rubyonrails.org/v3.2.8/security.html#mass-assignment).
-
-To fix the error we need to open: `app/admin/post.rb` and add `:published` to the permitted params as shown:
+Open `app/admin/post.rb` and add `:published` to the permitted params as shown:
 
 ```ruby
 # app/admin/post.rb
@@ -82,89 +50,11 @@ end
 
 The `permit_params` line lists all the attributes in the model which are accessible for mass-assignment. You can read more about this here: [Strong Parameters](https://github.com/rails/strong_parameters).
 
-After saving `app/admin/post.rb` we re-run our spec:
-
-```sh
-rspec spec/features/managing_posts_spec.rb
-```
-
- and everything passes!
-
 But… there's a problem. Unpublished blogs are still visible to the public. We'll need to go ahead and write another feature scenario to ensure that this rule is enforced for the public section of our application too.
 
 ### Unpublished posts aren't visible!
 
-Open `spec/features/reading_blog_spec.rb` and change the contents to be:
-
-```ruby
-# spec/features/reading_blog_spec.rb
-require 'rails_helper'
-
-feature 'Reading the Blog' do
-  context 'for an unpublished post' do
-    background do
-      @post = Post.create(title: 'Unpublished Post', body: 'Lorem ipsum dolor sit amet')
-    end
-
-    scenario 'it does not appear in the index' do
-      visit root_path
-
-      expect(page).to_not have_content 'Unpublished Post'
-    end
-
-    scenario 'it cannot be visited directly' do
-      expect(lambda {
-        visit post_path(@post)
-      }).to raise_error(ActiveRecord::RecordNotFound)
-    end
-  end
-
-  context 'for a published post' do
-    background do
-      @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true)
-      Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet', published: true)
-    end
-
-    scenario 'Reading the blog index' do
-      visit root_path
-
-      expect(page).to have_content 'Awesome Blog Post'
-      expect(page).to have_content 'Another Awesome Post'
-    end
-
-    scenario 'Reading an individual blog' do
-      visit root_path
-      click_link 'Awesome Blog Post'
-
-      expect(current_path).to eq post_path(@post)
-    end
-  end
-end
-```
-
-(Don't forget to save your file.)
-
-What we've done here is split our test into two separate contexts. One for posts that are published, and one for posts that aren't. We expect to see different behaviour from both contexts.
-
-When we run this spec (`rspec spec/features/reading_blog_spec.rb --order default`) we get two failures:
-
-```sh
-  1) Reading the Blog for an unpublished post it does not appear in the index
-     Failure/Error: expect(page).to_not have_content 'Unpublished Post'
-       expected not to find text "Toggle navigation My Awesome Blog About Topics Books Movies Games Contact Listing posts Unpublished Post Lorem ipsum dolor sit amet My Awesome Blog! Developed at: InstallFest 2017"
-     # ./spec/features/reading_blog_spec.rb:13:in `block (3 levels) in <top (required)>'
-
-  2) Reading the Blog for an unpublished post it cannot be visited directly
-     Failure/Error: expect(lambda {
-         visit post_path(@post)
-       }).to raise_error(ActiveRecord::RecordNotFound)
-       expected ActiveRecord::RecordNotFound but nothing was raised
-     # ./spec/features/reading_blog_spec.rb:17:in `block (3 levels) in <top (required)>'
-```
-
-The first error here indicates that unpublished blogs appear in our blog post index, and the second indicates that the blog is directly accessible even though it hasn't been published. Lets go and fix these problems.
-
-Open: `app/controllers/posts_controller.rb` and modify the index action to look like:
+Open `app/controllers/posts_controller.rb` and modify the index action to look like:
 
 ```ruby
 def index
@@ -182,12 +72,10 @@ end
 
 If you're confused as to what an "action" is, it's just a method in a controller that processes a particular request. Each request is "wired" from a URL to a controller by the routes file in your config folder.
 
-If you then run our spec again (`rspec spec/features/reading_blog_spec.rb`) you'll notice that the first error has gone and we're left with only the second. We can fix this by editing the show action.
-
-Change the show action to look like:
+Now edit the show action to look like:
 
 ```ruby
-# spec/features/reading_blog_spec.rb
+# app/controllers/posts_controller.rb
 
 ...
 
@@ -205,7 +93,7 @@ end
 
 ### Red, Green, Refactor!
 
-Success! Our spec now passes, but we've still got a little work to do. There's some code duplication there that we can fix. Instead of both the `index` and `show` actions both using the code `where(published: true)` we'd like to move that into a method. Since it's a database query we can use an [ActiveRecord scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to limit what is being returned to only the published posts.
+Success! Our code works, but we've still got a little work to do. There's some code duplication there that we can fix. Instead of both the `index` and `show` actions both using the code `where(published: true)` we'd like to move that into a method. Since it's a database query we can use an [ActiveRecord scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to limit what is being returned to only the published posts.
 
 Open `app/models/post.rb` and update it to look like:
 
