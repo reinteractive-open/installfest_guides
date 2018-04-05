@@ -233,44 +233,9 @@ class MarkdownService
 end
 ```
 
-After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to write another test. Open `spec/services/markdown_service_spec.rb` and we'll write the test for a render method.
+After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to add the functionality.
 
-The contents of this spec file will look like:
-
-```ruby
-# spec/services/markdown_service_spec.rb
-require 'rails_helper'
-
-describe MarkdownService do
-  it { should be_a MarkdownService }
-
-  describe '#render' do
-    let(:content) { "anything" } # we don't care what content gets rendered
-
-    # the markdown engine is just a test double we can monitor in our test
-    let(:markdown_engine) { double('Markdown') }
-
-    before do
-      # Stub out the redcarpet markdown engine
-      # In our test we can assume it works properly
-      # since it's a well tested library.
-      allow(Redcarpet::Markdown).to receive(:new).and_return(markdown_engine)
-    end
-
-    it 'should delegate to the markdown engine' do
-      # Set up the expectation of what our code should accomplish
-      expect(markdown_engine).to receive(:render).with(content)
-      MarkdownService.new.render(content)
-    end
-  end
-end
-```
-
-(Don't forget to save your file.)
-
-This is a pretty big jump. But effectively this test is saying that the `markdown_engine` will receive the render command with the content argument. Then we call `MarkdownService#render`. There's definitely some advanced Ruby magic going on here and it's totally fine if you don't understand it fully. Also don't expect to be able to always TDD new code. Often you need to prototype the implementation before you write the test.
-
-Save the spec file and run your spec again. This time you'll receive another failure so it's time to open the class we're testing again (`app/services/markdown_service.rb`) and update the contents to:
+Open `app/services/markdown_service.rb` and update the contents to:
 
 ```ruby
 # app/services/markdown_service.rb
@@ -293,100 +258,11 @@ end
 
 (Don't forget to save your file.)
 
-Re-running our spec everything should now pass.
-
 ### As a user I want to write Posts in Markdown
 
-We've implemented a utility class for converting a markdown string into HTML, but we still need to properly integrate that into our Rails application. We should write a feature spec to make sure that this feature works properly. Create a file: `spec/features/writing_posts_spec.rb` with the following content.
+We've implemented a utility class for converting a markdown string into HTML, but we still need to properly integrate that into our Rails application.
 
-```ruby
-# spec/features/writing_posts_spec.rb
-require 'rails_helper'
-
-feature 'Writing blog posts' do
-  background do
-    email = 'admin@example.com'
-    password = 'password'
-    @admin = AdminUser.create(email: email, password: password)
-
-    log_in_admin_user
-  end
-
-  def log_in_admin_user(email = 'admin@example.com', password = 'password')
-    reset_session!
-    visit admin_root_path
-    fill_in 'Email', with: email
-    fill_in 'Password', with: password
-    click_button 'Login'
-  end
-
-  scenario 'Writing a blog post in markdown' do
-    click_link 'Posts'
-    click_link 'New Post'
-
-    fill_in 'post_title', with: 'New Blog Post'
-    fill_in 'post_body', with: "[Example.com link](http://example.com/)"
-    click_button 'Create Post'
-
-    visit post_path(Post.last)
-
-    expect(page).to have_link 'Example.com link'
-  end
-end
-```
-
-(Don't forget to save your file.)
-
-What we're automating here is logging into the Admin panel, creating a post with a markdown link, navigating to the post we've just created and then checking that the post is rendered correctly in HTML. When we run this new spec (using `rspec spec/features/writing_posts_spec.rb`) we are told:
-
-```sh
-expected to find link "Example.com link" but there were no matches
-```
-
-The problem is that right now our blog application just spits out the text roughly as entered into the database. The quickest way of doing this is to give our model the ability to convert it's contents to HTML. Let's write a test for that.
-
-Open: `spec/models/post_spec.rb` and update it to read:
-
-```ruby
-# spec/models/post_spec.rb
-require 'rails_helper'
-
-describe Post do
-  describe 'validations' do
-    subject(:post) { Post.new } # sets the subject of this describe block
-    before { post.valid? }      # runs a precondition for the test/s
-
-    [:title, :body].each do |attribute|
-      it "should validate presence of #{attribute}" do
-        expect(post.errors[attribute].size).to be >= 1
-        expect(post.errors.messages[attribute]).to include "can't be blank"
-      end
-    end
-  end
-
-  describe '#content' do
-    # Create a double of the MarkdownService
-    let(:markdown_service) { double('MarkdownService') }
-
-    before do
-      # We don't want to use the actual MarkdownService
-      # since it's tested elsewhere!
-      allow(MarkdownService).to receive(:new).and_return(markdown_service)
-    end
-
-    it 'should convert its body to markdown' do
-      expect(markdown_service).to receive(:render).with('post body')
-      Post.new(body: 'post body').content
-    end
-  end
-end
-```
-
-(Don't forget to save your file.)
-
-What we've done here is added a test for a content method which will convert the body of the Post object into HTML using the MarkdownService we wrote earlier. Since we've already tested the MarkdownService we'll stub it out just like we stubbed out the markdown engine itself in our MarkdownService test.
-
-Run that spec (using `rspec spec/models/post_spec.rb`) and notice that it's failing. We still need to provide the implementation to make this test pass.
+The problem is that, right now, our blog application just spits out the text roughly as entered into the database. To fix this, we need to give our model the ability to convert database contents into HTML using the MarkdownService we wrote in the section above.
 
 Open: `app/models/post.rb` and provide the implementation for the render method:
 
@@ -403,9 +279,11 @@ class Post < ApplicationRecord
 end
 ```
 
-Save this and re-run our post model spec and observe that everything now passes!
+(Don't forget to save your file.)
 
-At this stage if we run all our specs (simply type `rspec`) we'll see we still only have one failure. There's only one line of code needed to make this feature spec pass so let's open: `app/views/posts/_post.html.erb` and update it to use the `Post#content` method we wrote earlier.
+So now we have a `Post#content` method to convert our database contents into HTML but we also need to update our view template to acutally use this method.
+
+Open: `app/views/posts/_post.html.erb` and change it to the following:
 
 ```erb
 <h2><%= link_to_unless_current post.title, post %></h2>
@@ -416,7 +294,17 @@ At this stage if we run all our specs (simply type `rspec`) we'll see we still o
 
 One thing to note is that since we want to render the HTML generated by our markdown engine as HTML and not have it be automatically escaped by the Rails view we need to convert it to a SafeBuffer using the html_safe method call.
 
-Save that and rerun all our specs again (using `rspec`). Success! All our specs pass and we've implemented that entire feature without even opening the browser once. Implementing a feature in this way feels very liberating and can be very fast. It means that as a developer you can focus on the implementation and leave the front-end UI code for later (or for a specialist).
+### Create a blog post using markdown
+
+Navigate to [http://localhost:3000](http://localhost:3000) and click on the 'New Post' button.
+
+Create a new post and include a markdown-style link. An example is provided below:
+
+```
+This blog post should include a markdown-style link. Here is a link to [google](https://www.google.com.au/).
+```
+
+Save that and view the blog post. Instead of the text `[google](https://www.google.com.au/)`, you should see instead the word 'google' as a link and clicking on it should take you to the google website. Success!
 
 ### Cleaning up
 
