@@ -258,7 +258,7 @@ end
 
 (Don't forget to save your file.)
 
-### As a user I want to write Posts in Markdown
+### Modify app to use this MarkdownService
 
 We've implemented a utility class for converting a markdown string into HTML, but we still need to properly integrate that into our Rails application.
 
