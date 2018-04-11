@@ -38,7 +38,7 @@ If you see something like `rails 5.0.0` (or any version 5.x.x of Rails), then yo
 If you get an error saying `The system cannot find the path specified`, try running the following command to install Rails manually:
 
 ```sh
-gem install rails --no-ri --no-rdoc
+gem install rails -v 5.1.6 --no-ri --no-rdoc
 ```
 
 This might take a while to run, so sit back and relax!

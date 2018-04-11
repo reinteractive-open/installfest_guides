@@ -114,7 +114,7 @@ If your Ruby is installed properly you can move onto the next section.
 Installing Rails is easy. To get the latest version just run:
 
 ```sh
-gem install rails
+gem install rails -v 5.1.6 --no-ri --no-rdoc
 ```
 
 When this completes (and it can take a little while), type the following in your terminal to confirm that rails is correctly installed and ready for use:
