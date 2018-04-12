@@ -117,16 +117,94 @@ rails db:migrate
 rails db:seed
 ```
 
-### Add Posts to Active Admin
 
-We need to create the posts section of our admin panel. Let's do that now.
+### Implement a failing test
 
-Run: `rails generate active_admin:resource Post`,
+We're about to start implementing some functionality which means we should first write a test. This test will fail until we finish implementing our new feature.
 
-then open `app/admin/post.rb` and add `permit_params :title, :body` at the top so it looks like:
+Open `spec/features/managing_posts_spec.rb` and change the contents of this file to match:
 
 ```ruby
-# app/admin/post.rb
+# spec/features/managing_posts_spec.rb
+require 'rails_helper'
+
+feature 'Managing blog posts' do
+
+  context 'as an admin user' do
+    background do
+      email = 'admin@example.com'
+      password = 'password'
+      @admin = AdminUser.create(email: email, password: password)
+
+      log_in_admin_user
+    end
+
+    def log_in_admin_user(email = 'admin@example.com', password = 'password')
+      reset_session!
+      visit admin_root_path
+      fill_in 'Email', with: email
+      fill_in 'Password', with: password
+      click_button 'Login'
+    end
+
+    scenario 'Posting a new blog' do
+      click_link 'Posts'
+      click_link 'New Post'
+
+      fill_in 'post_title', with: 'New Blog Post'
+      fill_in 'post_body', with: 'This post was made from the Admin Interface'
+      click_button 'Create Post'
+
+      expect(page).to have_content 'This post was made from the Admin Interface'
+    end
+
+    context 'with an existing blog post' do
+      background do
+        @post = Post.create(:title => 'Awesome Blog Post', :body => 'Lorem ipsum dolor sit amet')
+      end
+
+      scenario 'Editing an existing blog' do
+        visit admin_post_path(@post)
+
+        click_link 'Edit'
+
+        fill_in 'Title', with: 'Not really Awesome Blog Post'
+        click_button 'Update Post'
+
+        expect(page).to have_content 'Not really Awesome Blog Post'
+      end
+    end
+
+  end
+
+end
+```
+
+(Don't forget to save your file.)
+
+As an admin user we'd expect to be able to log into the admin panel, click a 'Posts' link and create a post or edit an existing one.
+
+```sh
+Failures:
+
+  1) Managing blog posts as an admin user Posting a new blog
+     Failure/Error: click_link 'Posts'
+     Capybara::ElementNotFound:
+       Unable to find link "Posts"
+     # ./spec/features/managing_posts_spec.rb:23:in `block (3 levels) in <top (required)>'
+
+  2) Managing blog posts as an admin user with an existing blog post Editing an existing blog
+     Failure/Error: visit admin_post_path(@post)
+     NoMethodError:
+       undefined method `admin_post_path' for #<RSpec::Core::ExampleGroup::Nested_1::Nested_1::Nested_1:0x007fcc703ee6c8>
+     # ./spec/features/managing_posts_spec.rb:39:in `block (4 levels) in <top (required)>'
+```
+
+These scenarios fail because we haven't created the posts section of our admin panel yet. Let's do that now.
+
+Run: `rails generate active_admin:resource Post`, then open `app/admin/post.rb` and add `permit_params :title, :body` at the top so it looks like:
+
+```ruby
 ActiveAdmin.register Post do
 
   permit_params :title, :body
@@ -136,44 +214,84 @@ end
 
 (Don't forget to save your file.)
 
-Finally we need to restart our rails server as we have made some changes to the database and rails environment. Change to the terminal window where you are running rails server, stop it with `Ctrl-c` and then restart it with `rails server`.
+You can open up your browser and manually check that our changes work did what you want, but we will re-run the spec (`rspec spec/features/managing_posts_spec.rb`) to be sure.
 
-Now you can open your browser to [http://localhost:3000/admin](http://localhost:3000/admin) and log into your new admin interface using the default credentials: `admin@example.com` and `password`.
+Finally, we'll be editing and adding an additional feature spec aimed at the user interface of our application:
 
-### Edit an existing blog post
+```ruby
+require 'rails_helper'
 
-Across the top, you should see a menu that looks like the image below:
+feature 'Managing blog posts' do
 
-![Active Admin Menu](/images/guides/active_admin_menu.png)
+  scenario 'Guests cannot create posts' do
+    visit root_path
+    expect(page).to_not have_link 'New Post'
+  end
 
-Click on 'Posts'
+  context 'as an admin user' do
+    ...
+  end
 
-From there, you will see a list of the existing blog posts we have created so far, each with a link to View, Edit, and Delete.
+end
+```
 
-Choose a blog post and click on Edit.
+Saving and then running this spec with `rspec spec/features/managing_posts_spec.rb` should result in this error:
 
-From there, make some changes and click on the 'Update Post' button at the bottom of the page.
+```sh
+Failures:
 
-To view your changes, return to [http://localhost:3000](http://localhost:3000)
+  1) Managing blog posts Guests cannot create posts
+     Failure/Error: expect(page).to_not have_link 'New Post'
+     Capybara::ExpectationNotMet:
+       expected not to find link "New Post", found 1 match: "New Post"
+     # ./spec/features/managing_posts_spec.rb:7:in `block (2 levels) in <top (required)>'
+```
 
-### Create a new blog post
+If you look at this scenario, what we're checking is that a guest cannot create a post. Specifically we want to ensure that there isn't a link called "New Post" on the post index page. Currently this link exists so we experience our test failure.
 
-As above, return to [http://localhost:3000/admin](http://localhost:3000/admin) and click on 'Posts'.
+We can fix this scenario by opening: `app/views/posts/index.html.erb` and deleting:
 
-This time, click on the 'New Post' button in the top right hand of the page.
+```erb
+<%= link_to 'New Post', new_post_path %>
+```
 
-Fill out the title and the body and click 'Create Post'.
+Save that and rerun our spec which should pass or "go green".
 
-Again, to view your changes, return to [http://localhost:3000](http://localhost:3000)
+Some of you might already be protesting that we still have the backend code for adding a post and all we've done is remove the link in the HTML, and you're completely correct. We need to remove the code from our controller and configure our routes so that the only way to create or edit a post is in the admin panel.
 
+Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. You can also delete the authenticate method and the before_filter line. Your PostsController should look like the following when you've finished:
 
-### Cleaning up and Committing
+```ruby
+class PostsController < ApplicationController
+  # GET /posts
+  # GET /posts.json
+  # GET /posts.atom
+  def index
+    @posts = Post.all
 
-We're at a good spot! Thanks to the power of ActiveAdmin we were able to implement an admin panel extremely quickly, but don't be misled into thinking that all Rails apps are this simple though.
+    respond_to do |format|
+      format.html # index.html.erb
+      format.json { render json: @posts }
+      format.atom
+    end
+  end
 
-In any case we should run all our tests to ensure that everything is working, then commit our code.
+  # GET /posts/1
+  # GET /posts/1.json
+  def show
+    @post = Post.find(params[:id])
 
-Run: `rspec`
+    respond_to do |format|
+      format.html # show.html.erb
+      format.json { render json: @post }
+    end
+  end
+end
+```
+
+Save these changes.
+
+Since we've made a large change to one of our main controllers now would be a good time to run our entire test suite.
 
 You'll see that everything passes but there's a curious new spec that we didn't create. This was generated automatically for you when you installed ActiveAdmin. Since there's no functionality in there that we wrote we're going to simply delete the spec.
 
@@ -181,7 +299,15 @@ On OSX or Linux run `rm spec/models/admin_user_spec.rb` and
 
 on Windows run `del spec\models\admin_user_spec.rb`.
 
-Now it is time to commit our changes. Run the following in your command line:
+### Cleaning up and Committing
+
+We're at a good spot! We've created an admin panel and wrote a test before we even started implementing it. Thanks to the power of ActiveAdmin we were able to implement it extremely quickly, but don't be misled into thinking that all Rails apps are this simple though.
+
+In any case we should run all our tests to ensure that everything is working, then commit our code.
+
+Run: `rspec`
+
+Ensure everything passes then run:
 
 ```sh
 git add .
@@ -235,10 +361,45 @@ end
 
 After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to add the functionality.
 
-Open `app/services/markdown_service.rb` and update the contents to:
+After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to write another test. Open `spec/services/markdown_service_spec.rb` and we'll write the test for a render method.
+
+The contents of this spec file will look like:
 
 ```ruby
-# app/services/markdown_service.rb
+require 'rails_helper'
+
+describe MarkdownService do
+  it { should be_a MarkdownService }
+
+  describe '#render' do
+    let(:content) { "anything" } # we don't care what content gets rendered
+
+    # the markdown engine is just a test double we can monitor in our test
+    let(:markdown_engine) { double('Markdown') }
+
+    before do
+      # Stub out the redcarpet markdown engine
+      # In our test we can assume it works properly
+      # since it's a well tested library.
+      allow(Redcarpet::Markdown).to receive(:new).and_return(markdown_engine)
+    end
+
+    it 'should delegate to the markdown engine' do
+      # Set up the expectation of what our code should accomplish
+      expect(markdown_engine).to receive(:render).with(content)
+      MarkdownService.new.render(content)
+    end
+  end
+end
+```
+
+(Don't forget to save your file.)
+
+This is a pretty big jump. But effectively this test is saying that the `markdown_engine` will receive the render command with the content argument. Then we call `MarkdownService#render`. There's definitely some advanced Ruby magic going on here and it's totally fine if you don't understand it fully. Also don't expect to be able to always TDD new code. Often you need to prototype the implementation before you write the test.
+
+Save the spec file and run your spec again. This time you'll receive another failure so it's time to open the class we're testing again (`app/services/markdown_service.rb`) and update the contents to:
+
+```ruby
 require 'rouge/plugins/redcarpet'
 
 class MarkdownService
@@ -258,20 +419,106 @@ end
 
 (Don't forget to save your file.)
 
-### Modify app to use this MarkdownService
+Re-running our spec everything should now pass.
 
-We've implemented a utility class for converting a markdown string into HTML, but we still need to properly integrate that into our Rails application.
+### As a user I want to write Posts in Markdown
 
-The problem is that, right now, our blog application just spits out the text roughly as entered into the database. To fix this, we need to give our model the ability to convert database contents into HTML using the MarkdownService we wrote in the section above.
+We've implemented a utility class for converting a markdown string into HTML, but we still need to properly integrate that into our Rails application. We should write a feature spec to make sure that this feature works properly. Create a file: `spec/features/writing_posts_spec.rb` with the following content.
+
+```ruby
+require 'rails_helper'
+
+feature 'Writing blog posts' do
+  background do
+    email = 'admin@example.com'
+    password = 'password'
+    @admin = AdminUser.create(email: email, password: password)
+
+    log_in_admin_user
+  end
+
+  def log_in_admin_user(email = 'admin@example.com', password = 'password')
+    reset_session!
+    visit admin_root_path
+    fill_in 'Email', with: email
+    fill_in 'Password', with: password
+    click_button 'Login'
+  end
+
+  scenario 'Writing a blog post in markdown' do
+    click_link 'Posts'
+    click_link 'New Post'
+
+    fill_in 'post_title', with: 'New Blog Post'
+    fill_in 'post_body', with: "[Example.com link](http://example.com/)"
+    click_button 'Create Post'
+
+    visit post_path(Post.last)
+
+    expect(page).to have_link 'Example.com link'
+  end
+end
+```
+
+(Don't forget to save your file.)
+
+What we're automating here is logging into the Admin panel, creating a post with a markdown link, navigating to the post we've just created and then checking that the post is rendered correctly in HTML. When we run this new spec (using `rspec spec/features/writing_posts_spec.rb`) we are told:
+
+```sh
+expected to find link "Example.com link" but there were no matches
+```
+
+The problem is that right now our blog application just spits out the text roughly as entered into the database. The quickest way of doing this is to give our model the ability to convert it's contents to HTML. Let's write a test for that.
+
+Open: `spec/models/post_spec.rb` and update it to read:
+
+```ruby
+require 'rails_helper'
+
+describe Post do
+  describe 'validations' do
+    subject(:post) { Post.new } # sets the subject of this describe block
+    before { post.valid? }      # runs a precondition for the test/s
+
+    [:title, :body].each do |attribute|
+      it "should validate presence of #{attribute}" do
+        expect(post.errors[attribute].size).to be >= 1
+        expect(post.errors.messages[attribute]).to include "can't be blank"
+      end
+    end
+  end
+
+  describe '#content' do
+    # Create a double of the MarkdownService
+    let(:markdown_service) { double('MarkdownService') }
+
+    before do
+      # We don't want to use the actual MarkdownService
+      # since it's tested elsewhere!
+      allow(MarkdownService).to receive(:new).and_return(markdown_service)
+    end
+
+    it 'should convert its body to markdown' do
+      expect(markdown_service).to receive(:render).with('post body')
+      Post.new(body: 'post body').content
+    end
+  end
+end
+```
+
+(Don't forget to save your file.)
+
+What we've done here is added a test for a content method which will convert the body of the Post object into HTML using the MarkdownService we wrote earlier. Since we've already tested the MarkdownService we'll stub it out just like we stubbed out the markdown engine itself in our MarkdownService test.
+
+Run that spec (using `rspec spec/models/post_spec.rb`) and notice that it's failing. We still need to provide the implementation to make this test pass.
 
 Open: `app/models/post.rb` and provide the implementation for the render method:
 
 ```ruby
-# app/models/post.rb
 class Post < ApplicationRecord
-  has_many :comments, dependent: :destroy
+  has_many :comments
 
-  validates :body, :title, presence: true
+  validates_presence_of :body, :title
 
   def content
     MarkdownService.new.render(body)
@@ -279,11 +526,9 @@ class Post < ApplicationRecord
 end
 ```
 
-(Don't forget to save your file.)
+Save this and re-run our post model spec and observe that everything now passes!
 
-So now we have a `Post#content` method to convert our database contents into HTML but we also need to update our view template to acutally use this method.
-
-Open: `app/views/posts/_post.html.erb` and change it to the following:
+At this stage if we run all our specs (simply type `rspec`) we'll see we still only have one failure. There's only one line of code needed to make this feature spec pass so let's open: `app/views/posts/_post.html.erb` and update it to use the `Post#content` method we wrote earlier.
 
 ```erb
 <h2><%= link_to_unless_current post.title, post %></h2>
@@ -294,17 +539,7 @@ Open: `app/views/posts/_post.html.erb` and change it to the following:
 
 One thing to note is that since we want to render the HTML generated by our markdown engine as HTML and not have it be automatically escaped by the Rails view we need to convert it to a SafeBuffer using the html_safe method call.
 
-### Create a blog post using markdown
-
-Navigate to [http://localhost:3000](http://localhost:3000) and click on the 'New Post' button.
-
-Create a new post and include a markdown-style link. An example is provided below:
-
-```
-This blog post should include a markdown-style link. Here is a link to [google](https://www.google.com.au/).
-```
-
-Save that and view the blog post. Instead of the text `[google](https://www.google.com.au/)`, you should see instead the word 'google' as a link and clicking on it should take you to the google website. Success!
+Save that and rerun all our specs again (using `rspec`). Success! All our specs pass and we've implemented that entire feature without even opening the browser once. Implementing a feature in this way feels very liberating and can be very fast. It means that as a developer you can focus on the implementation and leave the front-end UI code for later (or for a specialist).
 
 ### Cleaning up
 

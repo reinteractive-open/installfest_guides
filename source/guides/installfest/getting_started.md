@@ -407,16 +407,6 @@ Back in `app/views/posts/show.html.erb` you need to add in the form for submitti
 <% end %>
 ```
 
-To access the `div_for` helper method used above, we need to add the `record_tag_helper` gem to our Gemfile.
-
-Open `Gemfile` and add the following line: `gem 'record_tag_helper', '~> 1.0'`. You can add this anywhere in the Gemfile that there is an empty line. (Many developers like to add extra gems at the end of the gem list, but before the grouped gems, e.g. before the line `group :development, :test do`).
-
-Whenever you make changes to your Gemfile, you need to run a `bundle install` so go back to your terminal and stop the server.
-
-Then, making sure you have saved your changes, run `bundle install`.
-
-Restart your server.
-
 Comments are now working, so go ahead and browse to [your post](http://localhost:3000/posts/1) and add a new comment.
 
 ## Setting the index/root page in Rails
