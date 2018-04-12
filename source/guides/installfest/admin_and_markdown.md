@@ -117,6 +117,33 @@ rails db:migrate
 rails db:seed
 ```
 
+### Conflicting security checks
+
+If you recall in the second guide, [Adding Authentication](/guides/installfest/adding_authentication), we use the devise gem to check that a user is signed in before allowing them to interact with our blog app.
+
+Active Admin is a way for a special user, an aministrator, to go behind the scenes to administer our blog posts. To override the devise settings in this case, we need to disable the devise check for Active Admin.
+
+Open the file `config/initializers/active_admin.rb` and add `config.skip_before_action :authenticate_user!` near the top, after the line `config.site_title = "Quick Blog"`.
+
+The first few lines of your file should look lke this:
+
+```ruby
+ActiveAdmin.setup do |config|
+  # == Site Title
+  #
+  # Set the title that is displayed on the main layout
+  # for each of the active admin pages.
+  #
+  config.site_title = "Quick Blog"
+
+  config.skip_before_action :authenticate_user!
+
+  # Set the link url for the title. For example, to take
+  # users to your main site. Defaults to no link.
+  #
+  # config.site_title_link = "/"
+  ...
+```
 
 ### Implement a failing test
 
@@ -262,7 +289,10 @@ Some of you might already be protesting that we still have the backend code for 
 Open: `app/controllers/posts_controller.rb` and delete all the methods except for index and show. You can also delete the authenticate method and the before_filter line. Your PostsController should look like the following when you've finished:
 
 ```ruby
+# app/controllers/posts_controller.rb
 class PostsController < ApplicationController
+  before_action :authenticate_user!, except: [:show, :index]
+
   # GET /posts
   # GET /posts.json
   # GET /posts.atom
@@ -298,6 +328,40 @@ You'll see that everything passes but there's a curious new spec that we didn't 
 On OSX or Linux run `rm spec/models/admin_user_spec.rb` and 
 
 on Windows run `del spec\models\admin_user_spec.rb`.
+
+### Exploring Active Admin in the browser
+
+We've made many changes and confirmed that everything works as expected by writing RSpec tests. To check out the real power of Active Admin, we need to visit the browser!
+
+First we need to restart our rails server as we have made some changes to the database and rails environment. Change to the terminal window where you are running rails server, stop it with `Ctrl-c` and then restart it with `rails server`.
+
+Now you can open your browser to [http://localhost:3000/admin](http://localhost:3000/admin) and log into your new admin interface using the default credentials: `admin@example.com` and `password`.
+
+### Edit an existing blog post
+
+Across the top, you should see a menu that looks like the image below:
+
+![Active Admin Menu](/images/guides/active_admin_menu.png)
+
+Click on 'Posts'
+
+From there, you will see a list of the existing blog posts we have created so far, each with a link to View, Edit, and Delete.
+
+Choose a blog post and click on Edit.
+
+From there, make some changes and click on the 'Update Post' button at the bottom of the page.
+
+To view your changes, return to [http://localhost:3000](http://localhost:3000)
+
+### Create a new blog post
+
+As above, return to [http://localhost:3000/admin](http://localhost:3000/admin) and click on 'Posts'.
+
+This time, click on the 'New Post' button in the top right hand of the page.
+
+Fill out the title and the body and click 'Create Post'.
+
+Again, to view your changes, return to [http://localhost:3000](http://localhost:3000)
 
 ### Cleaning up and Committing
 
@@ -359,13 +423,16 @@ class MarkdownService
 end
 ```
 
-After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to add the functionality.
+After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass.
 
-After saving this file, rerun our spec with `rspec spec/services`. This time the spec will pass. Obviously this class doesn't do anything yet so we'll need to write another test. Open `spec/services/markdown_service_spec.rb` and we'll write the test for a render method.
+Obviously this class doesn't do anything yet. One of the key principals of [Test-Driven Development](https://en.wikipedia.org/wiki/Test-driven_development) is that we only need write the minimum code to make the test pass. This is the 'green' part of 'Red, Green, Refactor'. Once the test is passing, we can add more tests and flesh out the functionality.
+
+Open `spec/services/markdown_service_spec.rb` and we'll write the test for a render method.
 
 The contents of this spec file will look like:
 
 ```ruby
+# spec/services/markdown_service_spec.rb
 require 'rails_helper'
 
 describe MarkdownService do
@@ -400,6 +467,7 @@ This is a pretty big jump. But effectively this test is saying that the `markdow
 Save the spec file and run your spec again. This time you'll receive another failure so it's time to open the class we're testing again (`app/services/markdown_service.rb`) and update the contents to:
 
 ```ruby
+# app/services/markdown_service.rb
 require 'rouge/plugins/redcarpet'
 
 class MarkdownService
@@ -473,6 +541,7 @@ The problem is that right now our blog application just spits out the text rough
 Open: `spec/models/post_spec.rb` and update it to read:
 
 ```ruby
+# spec/models/post_spec.rb
 require 'rails_helper'
 
 describe Post do
