@@ -71,7 +71,6 @@ gem 'jbuilder', '~> 2.5'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-gem 'record_tag_helper', '~> 1.0'
 gem 'responders'
 
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
