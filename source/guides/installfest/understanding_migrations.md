@@ -91,6 +91,114 @@ end
 
 (Don't forget to save your file.)
 
+### Fix failing specs
+
+If you re-run your specs (`rails spec`), you will see we have a number of failures. This is because, when we create our test blog posts, we have not set the published flag. Let's do that now.
+
+Open `spec/features/post_comments_spec.rb` and make it look like the following:
+
+```ruby
+# spec/features/post_comments_spec.rb
+require 'rails_helper'
+
+RSpec.feature "Posting Comments", :type => :feature do
+  background do
+    @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true)
+  end
+
+  scenario "Visit root_path" do
+    @user = User.create(email:'test@example.com', password: 'secret')
+
+    visit new_user_session_path
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
+    click_button 'Log in'
+
+    visit post_path(@post)
+
+    comment = 'This post is just filler text. Ripped off!'
+
+    fill_in 'comment_body', with: comment
+    click_button 'Add comment'
+
+    expect(page).to have_content comment
+  end
+end
+```
+
+Open `spec/features/writing_posts_spec.rb` and make it look like the following:
+
+```ruby
+# spec/features/writing_posts_spec.rb
+require 'rails_helper'
+
+feature 'Writing blog posts' do
+  background do
+    email = 'admin@example.com'
+    password = 'password'
+    @admin = AdminUser.create(email: email, password: password)
+
+    log_in_admin_user
+  end
+
+  def log_in_admin_user(email = 'admin@example.com', password = 'password')
+    reset_session!
+    visit admin_root_path
+    fill_in 'Email', with: email
+    fill_in 'Password', with: password
+    click_button 'Login'
+  end
+
+  scenario 'Writing a blog post in markdown' do
+    click_link 'Posts'
+    click_link 'New Post'
+
+    fill_in 'post_title', with: 'New Blog Post'
+    fill_in 'post_body', with: "[Example.com link](http://example.com/)"
+    page.check 'Published'
+    click_button 'Create Post'
+
+    visit post_path(Post.last)
+    save_and_open_page
+
+    expect(page).to have_link 'Example.com link'
+  end
+end
+```
+
+Finally, open `spec/features/reading_blog_spec.rb` and make it look like the following:
+
+```ruby
+# spec/features/reading_blog_spec.rb
+require 'rails_helper'
+
+feature 'Reading the Blog' do
+  background do
+    Post.destroy_all
+    @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true)
+    Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet', published: true)
+    @user = User.create
+    sign_in @user
+  end
+
+  scenario 'Reading the blog index' do
+    visit root_path
+
+    expect(page).to have_content 'Awesome Blog Post'
+    expect(page).to have_content 'Another Awesome Post'
+  end
+
+  scenario 'Reading an individual blog' do
+    visit root_path
+    click_link 'Awesome Blog Post'
+
+    expect(current_path).to eq post_path(@post)
+  end
+end
+```
+
+In each of these three specs, we have either added `published: true` to the `Post.create()` line or checked the 'Published' checkbox (`page.check 'Published'`).
+
 ### Red, Green, Refactor!
 
 Success! Our code works, but we've still got a little work to do. There's some code duplication there that we can fix. Instead of both the `index` and `show` actions both using the code `where(published: true)` we'd like to move that into a method. Since it's a database query we can use an [ActiveRecord scope](http://guides.rubyonrails.org/active_record_querying.html#scopes) to limit what is being returned to only the published posts.
@@ -228,7 +336,7 @@ end
 
 (Don't forget to save your file.)
 
-When we run this spec we get two failures which we're going to ignore since they're telling us we have work to do!
+When we run this spec we get some failures which we're going to ignore since they're telling us we have work to do!
 
 ### Running the migration and wiring up Rails
 
