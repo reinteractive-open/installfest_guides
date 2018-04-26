@@ -133,7 +133,7 @@ Some of you might get an error like the one below:
 
 ![Windows-coffeescript-error](/images/guides/windows-coffeescript-error.png)
 
-You can fix this by opening up your `Gemfile` and adding `gem 'coffee-script-source', '1.8.0'`. Then go back to your command-line and run `bundle install` to install the gem.
+You can fix this by opening up your `Gemfile` and adding `gem 'coffee-script-source', '1.12.2'`. Then go back to your command-line and run `bundle install` to install the gem.
 
 __Important Note__: This extra line in your Gemfile is unique to your project. Further in the guide, where we make changes to our Gemfile, you must be sure that this line remains. Otherwise the error message above will return.
 
@@ -533,7 +533,7 @@ git commit -m "initial blog commit"
 
 ### Deploying your application
 
-First, open a new command prompt.
+First, open a new command prompt. Make sure you are in your `quick_blog` project directory.
 
 Then, login to Heroku by typing:
 

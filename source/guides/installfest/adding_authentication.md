@@ -75,11 +75,24 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 Save the file and run `bundle install`
 
-This will add devise to our Rails application. Devise is the most popular authentication solution testing tool which provides a special testing language (powered by Ruby) for testing existing code and for informing developers about the structure and functionality of yet to be written code!
+This will add devise to our Rails application. (If you are on Windows, and have an error message about bcrypt_ext, see below).
+
+Devise is the most popular authentication solution testing tool which provides a special testing language (powered by Ruby) for testing existing code and for informing developers about the structure and functionality of yet to be written code!
 
 To complete the installation run:
 
 `rails generate devise:install`
+
+### Windows bcrypt_ext error
+
+Follow the steps below to fix this issue:
+
+1. Run `gem uninstall bcrypt` (select yes to go through with it)
+2. Run `gem install bcrypt --platform=ruby`
+3. Open `Gemfile` and add the line `gem ‘bcrypt’, platforms: :ruby`
+4. Run `bundle install`
+5. Restart your server
+6. Run `rails generate devise:install` as per the step above
 
 ### Configuring Devise
 

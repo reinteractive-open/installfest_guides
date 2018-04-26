@@ -338,7 +338,7 @@ require 'rails_helper'
 
 feature 'Reading the Blog' do
   background do
-    Post.delete_all
+    Post.destroy_all
     @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet')
     Post.create(title: 'Another Awesome Post', body: 'Lorem ipsum dolor sit amet')
     @user = User.create
