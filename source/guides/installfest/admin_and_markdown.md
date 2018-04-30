@@ -328,6 +328,61 @@ On OSX or Linux run `rm spec/models/admin_user_spec.rb` and
 
 on Windows run `del spec\models\admin_user_spec.rb`.
 
+### Display the correct signed-in user on each page
+
+Up until now, we have had only one type of user: the user created by the devise gem. Now that we have introduced an admin user, we need to change the link on each page that displays our signed-in status to ensure that it is checking for both devise and Active Admin users.
+
+Fortunately, with Rails this is easy to do. `app/views/layouts/application.html.erb` contains text that is included on _every_ page in our application.
+
+Change the contents of `app/views/layouts/application.html.erb` to make it look like the following:
+
+```erb
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>QuickBlog</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= auto_discovery_link_tag(:atom, posts_path(:atom)) %>
+  </head>
+
+  <body>
+    <%= render partial: 'layouts/header' %>
+    <p class="navbar-text pull-right">
+    <% if admin_user_signed_in? %>
+      Logged in as <strong><%= current_admin_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_admin_admin_user_path, :class => 'navbar-link' %> |
+      <%= link_to "Logout", destroy_admin_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <% elsif user_signed_in? %>
+      Logged in as <strong><%= current_user.email %></strong>.
+      <%= link_to 'Edit profile', edit_user_registration_path, :class => 'navbar-link' %> |
+      <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
+    <% else %>
+      <%= link_to "Sign up", new_user_registration_path, :class => 'navbar-link'  %> |
+      <%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %>
+    <% end %>
+    </p>
+
+    <% if notice %>
+      <p class="alert alert-success"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert alert-danger"><%= alert %></p>
+    <% end %>
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-10 col-md-8">
+          <%= yield %>
+        </div>
+      </div>
+    </div>
+    <%= render partial: 'layouts/footer' %>
+  </body>
+</html>
+```
+
 ### Exploring Active Admin in the browser
 
 We've made many changes and confirmed that everything works as expected by writing RSpec tests. To check out the real power of Active Admin, we need to visit the browser!

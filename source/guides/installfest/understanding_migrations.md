@@ -506,8 +506,21 @@ First we update the 'writing blog posts' scenario in our tests in `spec/features
 require 'rails_helper'
 
 feature 'Writing blog posts' do
+  background do
+    email = 'admin@example.com'
+    password = 'password'
+    @admin = AdminUser.create(email: email, password: password)
 
-  ....
+    log_in_admin_user
+  end
+
+  def log_in_admin_user(email = 'admin@example.com', password = 'password')
+    reset_session!
+    visit admin_root_path
+    fill_in 'Email', with: email
+    fill_in 'Password', with: password
+    click_button 'Login'
+  end
 
   scenario 'Writing a blog post in markdown' do
     click_link 'Posts'
@@ -524,6 +537,7 @@ feature 'Writing blog posts' do
     expect(page).to have_link 'Example.com link'
     expect(page).to have_content 'Posted by: admin@example.com'
   end
+  
 end
 ```
 
@@ -562,11 +576,20 @@ require 'rails_helper'
 
 feature 'Posting Comments' do
   background do
-    email = 'admin@example.com'
-    password = 'password'
-    @admin = AdminUser.create(email: email, password: password)
+    @user = User.create(email: 'user@example.com', password: 'password')
+    @admin = AdminUser.create(email: 'admin@example.com', password: 'password')
 
-    @post = Post.create(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true, author: @admin)
+    @post = Post.create!(title: 'Awesome Blog Post', body: 'Lorem ipsum dolor sit amet', published: true, author: @admin)
+
+    log_in_user
+  end
+
+  def log_in_user(email = 'user@example.com', password = 'password')
+    reset_session!
+    visit new_user_session_path
+    fill_in 'Email', with: email
+    fill_in 'Password', with: password
+    click_button 'Log in'
   end
 
   # Note this scenario doesn't test the AJAX comment posting.
