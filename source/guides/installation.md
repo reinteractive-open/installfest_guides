@@ -8,7 +8,8 @@ First, you must have a working version of Rails. Depending on your operating sys
 
 * **Mac** users please use [this guide on installing Rails](/guides/installfest/rails_on_mac)
 * **Windows** users please use [this guide on installing Rails](/guides/installfest/rails_on_windows)
-* **Linux** users, you may refer to [gorails guide](https://gorails.com/setup/ubuntu/17.10)
+* **Linux** users, you may refer to [gorails guide](https://gorails.com/setup/ubuntu/17.10). Please note: The Linux instructions are written and kept up to date by a third party (Go Rails). During the installation, you are offered choices (for Ruby version management and a database). For the purpose of this Installfest, when installing Ruby, please follow the RVM instructions (they recommend rbenv). You can also ignore the instructions to install MySQL and PostgreSQL as we'll be using the SQLite database.
+
 
 ### 2. Download a Text Editor (if required)
 
