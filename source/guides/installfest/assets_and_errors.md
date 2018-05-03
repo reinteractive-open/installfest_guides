@@ -133,16 +133,15 @@ The result should look like this:
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
-
   devise_for :admin_users, ActiveAdmin::Devise.config
-
+  ActiveAdmin.routes(self)
+  devise_for :users
   root 'posts#index'
 
   resources :posts do
     resources :comments, only: [:create]
   end
-
+  
   get '/about' => 'pages#about'
 end
 ```
@@ -285,16 +284,15 @@ Open `config/routes.rb` and make it look like:
 ```ruby
 # config/routes.rb
 Rails.application.routes.draw do
-  ActiveAdmin.routes(self)
-
   devise_for :admin_users, ActiveAdmin::Devise.config
-
+  ActiveAdmin.routes(self)
+  devise_for :users
   root 'posts#index'
 
   resources :posts do
     resources :comments, only: [:create]
   end
-
+  
   get '/about' => 'pages#about'
   get '/404' => 'errors#not_found'
 end
