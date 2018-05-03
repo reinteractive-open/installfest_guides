@@ -6,3 +6,5 @@ build/
 .envrc
 .idea/
 .vscode/
+
+vendor/
