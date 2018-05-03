@@ -133,7 +133,7 @@ Some of you might get an error like the one below:
 
 ![Windows-coffeescript-error](/images/guides/windows-coffeescript-error.png)
 
-You can fix this by opening up your `Gemfile` and adding `gem 'coffee-script-source', '1.12.2'`. Then go back to your command-line and run `bundle install` to install the gem.
+You can fix this by opening up your `Gemfile` and adding `gem 'coffee-script-source', '1.8.0'`. Then go back to your command-line and run `bundle install` to install the gem.
 
 __Important Note__: This extra line in your Gemfile is unique to your project. Further in the guide, where we make changes to our Gemfile, you must be sure that this line remains. Otherwise the error message above will return.
 
@@ -551,7 +551,7 @@ Next we push our application to Heroku:
 
 Finally, we set up our database:
 
-`heroku run:detached rails db:migrate`
+`heroku rails db:migrate`
 
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
