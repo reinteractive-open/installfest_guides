@@ -5,3 +5,4 @@ build/
 .powenv
 .envrc
 .idea/
+.vscode/
