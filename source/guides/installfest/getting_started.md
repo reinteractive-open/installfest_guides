@@ -1,5 +1,5 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/getting_started.md
+github_url: https://github.com/reinteractive-open/installfest_guides/blob/develop/source/guides/installfest/getting_started.md
 ---
 
 # Getting Started
