@@ -551,7 +551,7 @@ Next we push our application to Heroku:
 
 Finally, we set up our database:
 
-`heroku rails db:migrate`
+`heroku run rails db:migrate`
 
 The `detached` option runs the command in the background. It is there only to ensure the process will go through, even on faulty Internet connection. You can use `heroku logs` to view the output of the command.
 
