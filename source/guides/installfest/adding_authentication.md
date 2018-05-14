@@ -1,5 +1,5 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/adding_authentication.md
+github_url: https://github.com/reinteractive-open/installfest_guides/blob/develop/source/guides/installfest/adding_authentication.md
 ---
 
 # Adding Authentication
@@ -145,7 +145,7 @@ This will create a User table in our database and a User model in our applicatio
 
 A user table isn't much use without a user, so let's create one now.
 
-First, make sure your server is running.
+First, make sure your server is running. If your server is already running, restart it so that the new configuration is loaded.
 
 Then, navigate to [http://localhost:3000/users/sign_up](http://localhost:3000/users/sign_up) and create a user account.
 
