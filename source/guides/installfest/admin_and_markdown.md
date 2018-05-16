@@ -1,5 +1,5 @@
 ---
-github_url: https://github.com/reinteractive-open/installfest_guides/tree/master/source/guides/installfest/admin_and_markdown.md
+github_url: https://github.com/reinteractive-open/installfest_guides/blob/develop/source/guides/installfest/admin_and_markdown.md
 ---
 
 # Admin and Markdown
@@ -251,7 +251,7 @@ feature 'Managing blog posts' do
 
   scenario 'Guests cannot create posts' do
     visit root_path
-    expect(page).to_not have_link 'New Post'
+    expect(page).to_not have_button 'New Post'
   end
 
   context 'as an admin user' do
@@ -273,12 +273,12 @@ Failures:
      # ./spec/features/managing_posts_spec.rb:7:in `block (2 levels) in <top (required)>'
 ```
 
-If you look at this scenario, what we're checking is that a guest cannot create a post. Specifically we want to ensure that there isn't a link called "New Post" on the post index page. Currently this link exists so we experience our test failure.
+If you look at this scenario, what we're checking is that a guest cannot create a post. Specifically we want to ensure that there isn't a button called "New Post" on the post index page. Currently this button exists so we experience our test failure.
 
 We can fix this scenario by opening: `app/views/posts/index.html.erb` and deleting:
 
 ```erb
-<%= link_to 'New Post', new_post_path %>
+<%= button_to 'New Post', new_post_path, method: :get, class: "btn-primary" %>
 ```
 
 Save that and rerun our spec which should pass or "go green".
@@ -353,7 +353,7 @@ Change the contents of `app/views/layouts/application.html.erb` to make it look 
     <p class="navbar-text pull-right">
     <% if admin_user_signed_in? %>
       Logged in as <strong><%= current_admin_user.email %></strong>.
-      <%= link_to 'Edit profile', edit_admin_admin_user_path, :class => 'navbar-link' %> |
+      <%= link_to 'Edit profile', edit_admin_admin_user_path(current_admin_user.id), :class => 'navbar-link' %> |
       <%= link_to "Logout", destroy_admin_user_session_path, method: :delete, :class => 'navbar-link'  %>
     <% elsif user_signed_in? %>
       Logged in as <strong><%= current_user.email %></strong>.
