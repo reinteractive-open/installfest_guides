@@ -673,10 +673,28 @@ git add .
 git commit -m "Added markdown support for blog posts"
 ```
 
-This might be a good time to push to Heroku too. Do that by typing
+This might be a good time to push to Heroku too. Do that by typing:
 
 ```sh
 git push heroku master
+```
+
+Then apply database migrations:
+
+```sh
+heroku run rails db:migrate
+```
+
+The seed file created by ActiveAdmin only creates the default admin user in the development environment, so the `db:seed` command used earlier won't have any effect. Instead, to create an admin user in production, start a Heroku Rails console:
+
+```sh
+heroku run rails console
+```
+
+Then manually execute the command to create the model record (substitute a more complex password here as the Heroku site is publicly accessible!):
+
+```ruby
+AdminUser.create!(email: 'admin@example.com', password: 'pick-a-secure-password', password_confirmation: 'pick-a-secure-password')
 ```
 
 ## Next Steps
