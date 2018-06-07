@@ -14,7 +14,6 @@ Accept the default location and click `Install`
 
 When it has finished, click on `Finish`
 
-
 ## Step Two: Check the Installation
 
 To check that Ruby was installed correctly, run the following command:
@@ -33,7 +32,7 @@ rails -v
 
 This will tell you what version of Rails was installed.
 
-If you see something like `rails 5.0.0` (or any version 5.x.x of Rails), then you can move onto the next step.
+If you see something like `rails 5.1.6` (or any version 5.x.x of Rails), then you can move onto the next step.
 
 If you get an error saying `The system cannot find the path specified`, try running the following command to install Rails manually:
 
@@ -42,7 +41,6 @@ gem install rails -v 5.1.6 --no-ri --no-rdoc
 ```
 
 This might take a while to run, so sit back and relax!
-
 
 ## Step Three: Install Sublime Text Editor (Optional)
 
@@ -57,7 +55,6 @@ Click on `Run`
 If a popup appears asking permission to make changes, click on `Yes`
 
 Follow the installation wizard, accepting all the defaults.
-
 
 ## Step Four: Finish!
 

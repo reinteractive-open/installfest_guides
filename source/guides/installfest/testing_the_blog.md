@@ -14,7 +14,6 @@ Let's dive into testing now.
 Add the gem `rspec-rails` to the development and test group in your `Gemfile` so it looks like this:
 (Windows users, if you added it previously, don't forget to keep the coffee-script-source gem in the list)
 
-
 ```ruby
 # Gemfile
 source 'https://rubygems.org'
@@ -25,7 +24,7 @@ git_source(:github) do |repo_name|
 end
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '~> 5.1.5'
+gem 'rails', '~> 5.1.6'
 # Use sqlite3 as the database for Active Record
 gem 'sqlite3', group: [:development, :test]
 gem 'pg', group: :production
