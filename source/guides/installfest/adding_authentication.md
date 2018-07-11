@@ -156,7 +156,6 @@ You have probably noticed many websites with a link in the top right corner advi
 
 Open `app/views/layouts/application.html.erb` and make it look like the following:
 
-
 ```ruby
 <!DOCTYPE html>
 <html>
@@ -190,6 +189,10 @@ Open `app/views/layouts/application.html.erb` and make it look like the followin
   </body>
 </html>
 ```
+
+You will not that this code checks for any alerts and displays them if found. We have similar code in `show.html.erb`, so it is best to remove it to avoid the same message being repeated twice on your page.
+
+Open `show.html.erb` and remove the line `<p id="notice"><%= notice %></p>`.
 
 If a user is not logged in, we need to redirect them to the login page. Open `app/controllers/application_controller.rb` and add:
 
