@@ -25,7 +25,7 @@ Open your `Gemfile` and add the following lines to the file:
 ...
 
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', github: 'activeadmin/activeadmin'
 gem 'devise'
 ```
 
@@ -74,7 +74,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'responders'
 
 gem 'inherited_resources', github: 'activeadmin/inherited_resources'
-gem 'activeadmin', github: 'activeadmin'
+gem 'activeadmin', github: 'activeadmin/activeadmin'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
