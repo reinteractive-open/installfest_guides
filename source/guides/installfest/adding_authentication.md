@@ -92,7 +92,6 @@ Follow the steps below to fix this issue:
 3. Open `Gemfile` and add the line `gem ‘bcrypt’, platforms: :ruby`
 4. Run `bundle install`
 5. Restart your server
-6. Run `rails generate devise:install` as per the step above
 
 ### Configuring Devise
 

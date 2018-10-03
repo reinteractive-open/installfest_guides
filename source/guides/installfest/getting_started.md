@@ -563,3 +563,7 @@ Note that you can also use the `heroku open` command to get to the root URL.
 Welcome to Ruby on Rails! If you're this far along you might want to pause and catch your breath. Check out [WTF Just Happened? A Quick Tour of your first Rails App](https://reinteractive.com/posts/316) to recap.
 
 After that, it's time to [head on over to Part 2](/guides/installfest/adding_authentication) which shows you how to add authentication to secure your 15 minute blog.
+
+#### Problem viewing your application on Heroku?
+
+If `heroku logs --tail` has errors relating to sqlite on production, ask a mentor to help you manually add the postgres add-on to your Heroku account.
