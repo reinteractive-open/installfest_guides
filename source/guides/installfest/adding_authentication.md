@@ -153,6 +153,8 @@ Then, navigate to [http://localhost:3000/users/sign_up](http://localhost:3000/us
 
 You have probably noticed many websites with a link in the top right corner advising you that you are logged in, or providing you with a link to sign up. Let's add that to our app!
 
+We want those links to appear on _every_ page in our entire application. Fear not, we do not have to go and add it one by one to every page. Rails provides a default layout for your entire application, called `application.html.erb`. This is where you put HTML that you want to include on every page of your website.
+
 Open `app/views/layouts/application.html.erb` and make it look like the following:
 
 ```ruby
