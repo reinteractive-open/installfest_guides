@@ -6,11 +6,23 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
 If you haven't started following through the series and you're new to Rails then you might want to begin with [Getting Started](/guides/installfest/getting_started). Today we'll be following directly on from [Part 5](/guides/installfest/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
-In this installment we'll be learning more about how to manage your database structure through migrations.
+In this installment we'll be learning more about how to manage your database structure through migrations. Firstly, though, we need to learn about Active Record, which is a key concept in understanding databases within the context of a Rails environment.
 
-The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
+## Active Record
+
+Active Record is the M in [MVC](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) - the model - which is the layer of the system responsible for communicating directly with your database and for representing business data and logic.
+
+Rails Active Record is the [Object/Relational Mapping (ORM)](https://en.wikipedia.org/wiki/Object-relational_mapping) layer supplied with Rails. It closely follows the standard ORM model:
+
+- tables map to classes,
+- rows map to objects
+- columns map to object attributes.
+
+Rails Active Records provide an interface between the tables in a relational database and the Ruby program code that manipulates database records.
 
 ### A post can be published
+
+The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
 
 Run the following in your terminal:
 

@@ -185,7 +185,9 @@ And then you can deploy to Heroku with `git push heroku master`. You'll be able 
 
 ## Creating an RSS Atom feed
 
-The next feature on our list is to implement an RSS Atom feed. Once again Rails makes this job pretty simple. We'll be outputting our list of posts in an Atom format rather than a HTML format. If you open `app/controllers/posts_controller.rb` you might notice that already the index method will respond to the JSON format. We can see this in action by going to: [http://localhost:3000/posts.json](http://localhost:3000/posts.json). You'll see all your posts rendered in JSON format.
+The next feature on our list is to implement an [RSS Atom feed](https://en.wikipedia.org/wiki/Atom_(Web_standard)). An RSS Atom feed allows software programs to check for updates published on a website. To provide a feed, the site owner may use specialised software (such as a content management system) that publishes a list (or "feed") of recent articles or content in a standardised, machine-readable format. The feed can then be downloaded by programs that use it, like websites that syndicate content from the feed, or by feed reader programs that allow Internet users to subscribe to feeds and view their content.
+
+Once again, implementing this feed in Rails is fairly simple. We'll be outputting our list of posts in an Atom format rather than a HTML format. If you open `app/controllers/posts_controller.rb` you might notice that already the index method will respond to the JSON format. We can see this in action by going to: [http://localhost:3000/posts.json](http://localhost:3000/posts.json). You'll see all your posts rendered in JSON format.
 
 #### Making the server Atom aware
 
