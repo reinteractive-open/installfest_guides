@@ -6,7 +6,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 Welcome back to reinteractive's Ruby on Rails 15 minute blog tutorial series.
 If you haven't started following through the series and you're new to Rails then you might want to start with the [first post](/guides/installfest42/getting_started). Today we'll be following directly on from [Part 4](/guides/installfest42/admin_and_markdown). If you feel confident with Rails and want to learn more about building a feature that requires migrations then instructions for doing so are provided below.
 
-In this installment we'll be learning more about how to manage your database
+In this instalment we'll be learning more about how to manage your database
 structure through migrations.
 
 The first feature we're going to work on is the ability for Posts to have a published state. This means we can author our blog posts in the admin panel, then publish them at a later date giving us a little more control over our blogging system. Lets get started.
