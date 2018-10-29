@@ -11,7 +11,7 @@ If you haven't started following through the series and you're new to Rails then
 
 ## Installing an Administration System
 
-One of the big problems with our blog is that we're using HTTP Basic Authentication to prevent anyone from creating and editing blog posts and that the links to perform these actions are right there in the blog. Instead we'd prefer to have an admin panel where we could manage our blog posts. We could build one from scratch but there's a fantastic gem called [ActiveAdmin](https://github.com/activeadmin/activeadmin) that we can use to easily give us what we want.
+One of the big problems with our blog is that we're using Authentication to prevent anyone from creating and editing blog posts and that the links to perform these actions are right there in the blog. Instead we'd prefer to have an admin panel where we could manage our blog posts. We could build one from scratch but there's a fantastic gem called [ActiveAdmin](https://github.com/activeadmin/activeadmin) that we can use to easily give us what we want.
 
 Let's dive into installing ActiveAdmin.
 
