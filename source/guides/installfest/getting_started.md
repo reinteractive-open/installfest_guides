@@ -113,7 +113,8 @@ We need to instruct Rails to apply this to our database. Returning to the comman
 `rails db:migrate`
 
 Once this command has run you can start up your Rails server again with `rails server` and then navigate to
-[http://localhost:3000/posts](http://localhost:3000/posts) in your web browser to see the changes you've made to your application.*(Windows users see below)
+[http://localhost:3000/posts](http://localhost:3000/posts) in your web browser to see the changes you've made to your application.
+***(Windows users, if you have an ExecJS error, see below)***
 
 ![Empty posts list](/images/guides/empty_posts_list.png)
 
