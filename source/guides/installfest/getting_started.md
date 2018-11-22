@@ -114,6 +114,7 @@ We need to instruct Rails to apply this to our database. Returning to the comman
 
 Once this command has run you can start up your Rails server again with `rails server` and then navigate to
 [http://localhost:3000/posts](http://localhost:3000/posts) in your web browser to see the changes you've made to your application.
+
 ***(Windows users, if you have an ExecJS error, see below)***
 
 ![Empty posts list](/images/guides/empty_posts_list.png)
@@ -134,7 +135,9 @@ Some of you might get an error like the one below:
 
 ![Windows-coffeescript-error](/images/guides/windows-coffeescript-error.png)
 
-You can fix this by opening up your `Gemfile` and adding `gem 'coffee-script-source', '1.8.0'`. Then go back to your command-line and run `bundle install` to install the gem.
+This is because one of the code libraries (AKA "gems") that comes with Rails does not work on Windows. However, there is an earlier version of the offending gem that does work.
+
+To fix this, open your `Gemfile` and add `gem 'coffee-script-source', '1.8.0'`. Then go back to your command-line and run `bundle update coffee-script-source` to install the gem.
 
 __Important Note__: This extra line in your Gemfile is unique to your project. Further in the guide, where we make changes to our Gemfile, you must be sure that this line remains. Otherwise the error message above will return.
 
