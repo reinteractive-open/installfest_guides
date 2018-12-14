@@ -97,20 +97,59 @@ We can now run the specs we've generated. Run `rails spec`. Alternatively use th
 
 Or all the model specs with: `rspec spec/models`. With this last example you're providing a directory for `rspec` to run, it simply runs every spec it can find in that folder and all sub-folders.
 
+## Testing models
+
+When testing framework provided validations and associations in models, there can be two main approaches, 
+
+1 - We can test the functionality 
+
+2 - We can test if the validation / association is there in the model. 
+
+With rails, all of the core functionality is throughly tested with their own test cases. So, it would 
+be a unnecessary to re-reset it. Because of that it will be easier to check only if the 
+constrains are in place, than trying to test the framework functionality. Because of that, we are going
+with approach #2
+
+For us to do this easily, there is a gem called `shoulda-matchers`. Let's see how we can use this 
+gem on a model. 
+
+First, like any other gem , we need to install it
+
+Add `shoulda-matchers` to the `test` group of your `Gemfile`. (if you don't see a `test` group you may create one)
+
+```
+group :test do
+  gem 'shoulda-matchers', '4.0.0.rc1'
+  gem 'rails-controller-testing' # If you are using Rails 5.x
+end
+```
+
+_please note that you need to add gem 'rails-controller-testing' only if you are using rails 5 and planing to use this gem for
+controller testing too_
+
+Then we need to tell rspec about the `shoulda-matchers`, to do this, open up `rails_helper.rb` add the following
+
+```
+Shoulda::Matchers.configure do |config|
+  config.integrate do |with|
+    with.test_framework :rspec
+    with.library :rails
+  end
+end
+```
+
+now we are all set to use shoulda-matchers with rspec.
+
 ### Testing the Post
 
-Our Post model seems fairly empty but there is already some business logic in there that we can test. Rails validations are considered business logic and are easy to test. Open `spec/models/post_spec.rb` and update it so that it looks like:
+Our Post model seems fairly empty but there is already some business logic in there that we can test. Rails validations are considered business logic and are easy to test. Open `spec/models/post_spec.rb` and update it so that it looks like: 
 
 ```ruby
 # spec/models/post_spec.rb
 require 'rails_helper'
 
 RSpec.describe Post, type: :model do
-  it 'should validate presence of title' do
-    post = Post.new
-    post.valid?
-    expect(post.errors.messages[:title]).to include "can't be blank"
-  end
+  it { should validate_presence_of(:title)  }
 end
 ```
 
@@ -122,20 +161,33 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   describe 'validations' do
-    subject(:post) { Post.new } # sets the subject of this describe block
-    before { post.valid? }      # runs a precondition for the test/s
-
-    [:title, :body].each do |attribute|
-      it "should validate presence of #{attribute}" do
-        expect(post.errors[attribute].size).to be >= 1
-        expect(post.errors.messages[attribute]).to include "can't be blank"
-      end
-    end
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:body) }
   end
 end
 ```
 
-What we're doing here is splitting up the test into a "validations" section and then declaring the subject of the test. The before block will invoke some common code to be run for each test and then each test just checks that there is an error on the model, and that the error is the expected error.
+What we're doing here is splitting up the test into a "validations" section and then checking if those validations are present. 
+
+In the same way we did with the validations, we can check the associations. Let's open up another `describe` block for that add add the following
+
+```ruby
+# spec/models/post_spec.rb
+require 'rails_helper'
+
+RSpec.describe Post, type: :model do
+  describe 'validations' do
+    it { should validate_presence_of(:title) }
+    it { should validate_presence_of(:body) }
+  end
+
+  describe 'associations' do
+    it { should have_many(:comments) }
+  end
+end
+```
+
+
 
 RSpec is a tool that provides a nice Domain Specific Language (DSL) to write specs. The important documentation to read is for [expectations and matchers](http://rubydoc.info/gems/rspec-expectations/frames), but for the purposes of this project we'll be providing and explaining most of the test code for you.
 
@@ -159,19 +211,12 @@ We'll also need to write a unit test for our comment model. Open `spec/models/co
 require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
+  describe 'associations' do
+    it { should belongs_to(:post)  }
+  end
+
   describe 'validations' do
-    subject(:comment) { Comment.new }
-    before { comment.valid? }
-
-    it 'should validate presence of post' do
-      expect(comment.errors[:post].size).to be >= 1
-      expect(comment.errors.messages[:post]).to include "must exist"
-    end
-
-    it 'should validate presence of body' do
-      expect(comment.errors[:body].size).to be >= 1
-      expect(comment.errors.messages[:body]).to include "can't be blank"
-    end
+    it { should validate_presence_of(:body)  }
   end
 end
 ```
