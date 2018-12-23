@@ -11,7 +11,7 @@ If you haven't started following through the series and you're new to Rails then
 
 ## Installing an Administration System
 
-One of the big problems with our blog is that we're using Authentication to prevent anyone from creating and editing blog posts and that the links to perform these actions are right there in the blog. Instead we'd prefer to have an admin panel where we could manage our blog posts. We could build one from scratch but there's a fantastic gem called [ActiveAdmin](https://github.com/activeadmin/activeadmin) that we can use to easily give us what we want.
+One of the big problems with our blog is that we're using authentication to prevent anyone from creating and editing blog posts and that the links to perform these actions are right there in the blog. Instead we'd prefer to have an admin panel where we could manage our blog posts. We could build one from scratch but there's a fantastic gem called [ActiveAdmin](https://github.com/activeadmin/activeadmin) that we can use to easily give us what we want.
 
 Let's dive into installing ActiveAdmin.
 
@@ -83,6 +83,8 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
+  gem 'shoulda-matchers', '4.0.0.rc1'
+  gem 'rails-controller-testing' # If you are using Rails 5.x
 end
 
 group :development do
@@ -120,7 +122,7 @@ rails db:seed
 
 If you recall in the second guide, [Adding Authentication](/guides/installfest/adding_authentication), we use the devise gem to check that a user is signed in before allowing them to interact with our blog app.
 
-Active Admin is a way for a special user, an aministrator, to go behind the scenes to administer our blog posts. To override the devise settings in this case, we need to disable the devise check for Active Admin.
+Active Admin is a way for a special user - an aministrator - to go behind the scenes to administer our blog posts. To override the devise settings in this case, we need to disable the devise check for Active Admin.
 
 Open the file `config/initializers/active_admin.rb` and add `config.skip_before_action :authenticate_user!` near the top, after the line `config.site_title = "Quick Blog"`.
 

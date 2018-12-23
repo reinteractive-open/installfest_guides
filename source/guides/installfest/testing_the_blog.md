@@ -6,7 +6,7 @@ github_url: https://github.com/reinteractive-open/installfest_guides/tree/master
 In the [previous guide](/guides/installfest/adding_authentication) you added authentication to your blog application. If you haven't run through that post then you should do so now before starting this one. If you feel confident with Rails but want to learn more about testing you can find some instructions on getting the code set up properly below.
 
 ## Introduction to Automated Testing
-One of the biggest advantages of Rails is the community focus on testing. The Ruby and Rails communities have put a great deal of effort into building first-class tools and methods for making sure our apps are as correct as possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in developing easy to use and innovative tools to support widely embraced methods like Test Driven Development (TDD), Behaviour Driven Development (BDD) and Continuous Integration (CI).
+One of the biggest advantages of Rails is the community focus on testing. The Ruby and Rails communities have put a great deal of effort into building first-class tools and methods for making sure our apps are as correct as possible. With tools like RSpec and Capybara, Ruby and Rails lead the way in developing easy to use and innovative tools to support widely embraced methods like [Test Driven Development (TDD)](https://en.wikipedia.org/wiki/Test-driven_development), [Behaviour Driven Development (BDD)](https://en.wikipedia.org/wiki/Behavior-driven_development) and [Continuous Integration (CI)](https://en.wikipedia.org/wiki/Continuous_integration).
 
 Let's dive into testing now.
 
@@ -111,10 +111,13 @@ For us to do this easily, there is a gem called `shoulda-matchers`. Let's see ho
 
 First, like any other gem , we need to install it:
 
-Add `shoulda-matchers` to the `test` group of your `Gemfile`. (if you don't see a `test` group you may need to create one):
+Add `shoulda-matchers` to the `development, test` group of your `Gemfile` as we did above with the `rspec-rails` gem:
 
 ```
-group :test do
+group :development, :test do
+  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'rspec-rails'
   gem 'shoulda-matchers', '4.0.0.rc1'
   gem 'rails-controller-testing' # If you are using Rails 5.x
 end
@@ -145,10 +148,11 @@ require 'rails_helper'
 
 RSpec.describe Post, type: :model do
   it { should validate_presence_of(:title)  }
+  it { should validate_presence_of(:body) }
 end
 ```
 
-Once you've saved it, run `rspec spec/models/post_spec.rb`. The test should pass with `1 example, 0 failures`. But we're not done yet. Over the lifetime of our application we'll probably be adding lots of extra functionality and our spec is very flat. We should organise it a litte better and structure it in such a way which also allows us to reuse code:
+Once you've saved it, run `rspec spec/models/post_spec.rb`. The test should pass with `2 examples, 0 failures`. But we're not done yet. Over the lifetime of our application we'll probably be adding lots of extra functionality and our spec is very flat. We should organise it a litte better and structure it in such a way which also allows us to reuse code:
 
 ```ruby
 # spec/models/post_spec.rb
@@ -209,7 +213,7 @@ RSpec.describe Comment, type: :model do
   end
 
   describe 'validations' do
-    it { should validate_presence_of(:body)  }
+    it { should validate_presence_of(:body) }
   end
 end
 ```
