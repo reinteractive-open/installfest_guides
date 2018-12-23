@@ -77,7 +77,7 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 Save the file and run `bundle install --without=production`
 
-This will add Rspec and RSpec Rails to our Rails application. RSpec is a commonly used TDD (and BDD) testing tool which provides a special testing language (powered by Ruby) for testing existing code and for informing developers about the structure and functionality of yet to be written code!
+This will add Rspec and RSpec Rails to our Rails application. RSpec is a commonly used [TDD](https://en.wikipedia.org/wiki/Test-driven_development) (and [BDD](https://en.wikipedia.org/wiki/Behavior-driven_development)) testing tool which provides a special testing language (powered by Ruby) for testing existing code and for informing developers about the structure and functionality of yet to be written code!
 
 To complete the installation run:
 
@@ -87,9 +87,9 @@ To complete the installation run:
 
 `rails g rspec:model comment`
 
-`rails g` is the short version of this command, and can be used anytime you would use `rails generate`
+`rails g` is the short version of this command, and can be used any time you would use `rails generate`.
 
-Normally if you generate a Rails entity like a controller or model then this will automatically create a spec for you, but since we've already got a bunch of code that isn't tested we have to manually generate a spec to test our comment model.
+Normally, if you generate a Rails entity like a controller or model, this will automatically create a spec for you, but since we've already got a bunch of code that isn't tested we have to manually generate a spec to test our comment model.
 
 We can now run the specs we've generated. Run `rails spec`. Alternatively use the `rspec` command. You can run individual specs as follows:
 
@@ -99,23 +99,19 @@ Or all the model specs with: `rspec spec/models`. With this last example you're 
 
 ## Testing models
 
-When testing framework provided validations and associations in models, there can be two main approaches, 
+When testing the inbuilt validations and associations that are provided to our models by the Rails framework, there can be two main approaches: 
 
 1 - We can test the functionality 
 
-2 - We can test if the validation / association is there in the model. 
+2 - We can test whether the validation / association is there in the model. 
 
-With rails, all of the core functionality is throughly tested with their own test cases. So, it would 
-be a unnecessary to re-reset it. Because of that it will be easier to check only if the 
-constrains are in place, than trying to test the framework functionality. Because of that, we are going
-with approach #2
+With Rails, the core functionality is already throughly tested so it does not make sense for us to write tests for it. Therefore we will only write tests for approach #2 above and check that the constraints we have set are in place.
 
-For us to do this easily, there is a gem called `shoulda-matchers`. Let's see how we can use this 
-gem on a model. 
+For us to do this easily, there is a gem called `shoulda-matchers`. Let's see how we can use this gem on a model. 
 
-First, like any other gem , we need to install it
+First, like any other gem , we need to install it:
 
-Add `shoulda-matchers` to the `test` group of your `Gemfile`. (if you don't see a `test` group you may create one)
+Add `shoulda-matchers` to the `test` group of your `Gemfile`. (if you don't see a `test` group you may need to create one):
 
 ```
 group :test do
@@ -124,10 +120,9 @@ group :test do
 end
 ```
 
-_please note that you need to add gem 'rails-controller-testing' only if you are using rails 5 and planing to use this gem for
-controller testing too_
+_Please note that you only need to add gem 'rails-controller-testing' if you are using Rails 5 and plan to use this gem for controller testing. We will be so go ahead and add it here._
 
-Then we need to tell rspec about the `shoulda-matchers`, to do this, open up `rails_helper.rb` add the following
+Then we need to tell RSpec that we have added `shoulda-matchers` so it can utilise its features. To do this, open `rails_helper.rb` add the following:
 
 ```
 Shoulda::Matchers.configure do |config|
@@ -138,7 +133,7 @@ Shoulda::Matchers.configure do |config|
 end
 ```
 
-now we are all set to use shoulda-matchers with rspec.
+Now we are all set to use shoulda-matchers with RSpec!
 
 ### Testing the Post
 
@@ -187,9 +182,7 @@ RSpec.describe Post, type: :model do
 end
 ```
 
-
-
-RSpec is a tool that provides a nice Domain Specific Language (DSL) to write specs. The important documentation to read is for [expectations and matchers](http://rubydoc.info/gems/rspec-expectations/frames), but for the purposes of this project we'll be providing and explaining most of the test code for you.
+RSpec is a tool that provides a nice [Domain Specific Language (DSL)](https://en.wikipedia.org/wiki/Domain-specific_language) to write specs. The important documentation to read is for [expectations and matchers](http://rubydoc.info/gems/rspec-expectations/frames), but for the purposes of this project we'll be providing and explaining most of the test code for you.
 
 Since we're writing a fully functional spec for code that is already written, we'll need to make sure our test actually works by intentionally "breaking" some of our code. Open `app/models/post.rb` and comment out Line 5 so your Post model looks like:
 
@@ -261,7 +254,7 @@ We're not done with our tests though.
 
 ### Acceptance tests
 
-Rails fully supports the concept of an acceptance test, which is a full-stack automated test that behaves exactly like someone opening a browser and clicking around your site. We'll be using [Capybara](https://github.com/jnicklas/capybara) primarily with [RackTest](https://github.com/jnicklas/capybara#racktest).
+Rails fully supports the concept of an [acceptance test](https://en.wikipedia.org/wiki/Acceptance_testing), which is a full-stack automated test that behaves exactly like someone opening a browser and clicking around your site. We'll be using [Capybara](https://github.com/jnicklas/capybara) primarily with [RackTest](https://github.com/jnicklas/capybara#racktest).
 
 #### Setting up Capybara
 
