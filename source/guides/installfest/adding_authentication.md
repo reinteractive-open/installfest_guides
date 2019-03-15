@@ -191,7 +191,7 @@ Open `app/views/layouts/application.html.erb` and make it look like the followin
 </html>
 ```
 
-You will note that this code checks for any alerts and displays them if found. We have similar code in `show.html.erb`, so it is best to remove it to avoid the same message being repeated twice on your page.
+You will note that this code checks for any alerts and displays them if found. We have similar code in `show.html.erb` and  `index.html.erb`, so it is best to remove it to avoid the same message being repeated twice on your page.
 
 Open `show.html.erb` and remove the line `<p id="notice"><%= notice %></p>`.
 
