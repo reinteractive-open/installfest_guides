@@ -154,7 +154,7 @@ Open `app/controllers/comments_controller.rb` and change the create method to re
     @comment = @post.comments.create!(comment_params)
     respond_to do |format|
       format.html { redirect_to @post }
-      format.js { redirect_to @post }
+      format.js
     end
   end
 ```
