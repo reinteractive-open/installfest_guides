@@ -209,7 +209,7 @@ require 'rails_helper'
 
 RSpec.describe Comment, type: :model do
   describe 'associations' do
-    it { should belongs_to(:post)  }
+    it { should belong_to(:post)  }
   end
 
   describe 'validations' do
