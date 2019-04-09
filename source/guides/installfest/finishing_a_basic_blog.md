@@ -310,17 +310,13 @@ And then you can deploy to Heroku with `git push heroku master`. You'll be able 
 
 Up until this point we've really neglected the look and feel of our blog. It definitely feels a bit boring! We'll be making it look much nicer by using a UI library called [Bootstrap](http://getbootstrap.com/). Bootstrap is a front-end framework that allows you to make your websites look good quickly and easily.
 
-The first step is to [download Bootstrap](http://getbootstrap.com/getting-started/). Put it in a folder that makes sense to you.
+The first step is to [download Bootstrap](https://getbootstrap.com/docs/4.3/getting-started/download/). Put it in a folder that makes sense to you.
 
 Next, we need to copy the files we require into our rails project. From your bootstrap folder, copy the following:
 
-`css/bootstrap.css` and `css/bootstrap.min.css` to: `app/assets/stylesheets`,
+`css/bootstrap.css` and `css/bootstrap.min.css` to: `app/assets/stylesheets` and
 
-`js/bootstrap.js` and `js/bootstrap.min.js` to: `app/assets/javascripts`,
-
-and
-
-`fonts/` (the folder and it's contents) to `public/assets`. You may need to create an `assets` folder under `public` and then move the `fonts` folder under that.
+`js/bootstrap.js` and `js/bootstrap.min.js` to: `app/assets/javascripts`.
 
 Open `app/assets/stylesheets/application.css` and add the line `*= require bootstrap.min` so that it looks like:
 
@@ -362,19 +358,6 @@ Open `app/assets/javascripts/application.js` and add the line `//= require boots
 //= require turbolinks
 //= require_tree .
 //= require bootstrap.min
-```
-
-Open `app/assets/stylesheets/application.css` and add the following lines:
-
-```
-@font-face {
-   font-family: 'Glyphicons Halflings';
-   src: url('/assets/fonts/glyphicons-halflings-regular.eot');
-   src: url('/assets/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'),
-      url('/assets/fonts/glyphicons-halflings-regular.woff') format('woff'),
-      url('/assets/fonts/glyphicons-halflings-regular.ttf') format('truetype'),
-      url('/assets/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
-}
 ```
 
 (Don't forget to save your files.)
@@ -610,17 +593,14 @@ And then create `app/views/layouts/_footer.html.erb` and put the following code 
   <footer class="footer">
     <div class="row">
       <div class="col-md-4">
-        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span>
         <h3>My Awesome Blog!</h3>
         <p>Developed at: <%= link_to 'InstallFest 2017', 'http://reinteractive.com/community/installfest' %></p>
       </div>
       <div class="col-md-4">
-        <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
         <h3>I did it myself</h3>
         <p>It was easy, just follow the guide.</p>
       </div>
       <div class="col-md-4">
-        <span class="glyphicon glyphicon-education" aria-hidden="true"></span>
         <h3>No Cheating</h3>
         <p>Just Ruby code within a Rails framework.</p>
       </div>
